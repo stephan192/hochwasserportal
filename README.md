@@ -16,6 +16,7 @@ Sources
     flow: True
 ```
 The variables `level`, `stage` and `flow` are optional and default to `True` if not set. If you don't want one of the three sensors to show up you have to set the corresponding variable to `False`.  
-**A full list of valid pegels can be found here [here](./pegel.md).**
-1. After **restarting** your Home Assistant installation the following three sensors should show up.
+**A full list of valid pegels can be found [here](./pegel.md).**
+
+After **restarting** your Home Assistant installation the following three sensors should show up.  
 ![Example 1](./example.png)
