@@ -1,4 +1,5 @@
 {
   "name": "Länderübergreifendes Hochwasser Portal",
-  "country": "DE"
+  "country": "DE",
+  "render_readme": true
 }
