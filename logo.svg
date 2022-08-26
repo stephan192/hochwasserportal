@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024"
+   height="512"
+   viewBox="0 0 270.93332 135.46667"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="C:\Users\Stephan\Documents\Coding\hochwasserportal\logo@2x.png"
+   inkscape:export-xdpi="96.000008"
+   inkscape:export-ydpi="96.000008">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="841.4556"
+     inkscape:cy="513.88408"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     units="px">
+    <inkscape:grid
+       type="xygrid"
+       id="grid849"
+       spacingx="0.026458333"
+       spacingy="0.026458333" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1466"
+       transform="matrix(4.6126072,0,0,4.6126072,-2.4408378,-2.4408362)"
+       style="stroke-width:0.216797">
+      <rect
+         style="fill:#ffd900;fill-opacity:1;stroke:none;stroke-width:0.057451;stroke-opacity:1"
+         id="rect942"
+         width="14.816669"
+         height="29.368753"
+         x="0.52916664"
+         y="0.52916664" />
+      <path
+         style="fill:#005c8c;fill-opacity:1;stroke:none;stroke-width:0.0573608px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 7.9375026,0.52916715 V 3.7041672 h 3.4395844 l -10e-7,3.7041674 H 7.9375026 V 10.318751 H 15.345837 V 0.52916715 Z"
+         id="path851"
+         sodipodi:nodetypes="ccccccccc" />
+      <path
+         style="fill:#005c8c;fill-opacity:1;stroke:none;stroke-width:0.0573608px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 7.9375026,10.318751 v 3.175 H 4.4979182 l 1e-6,3.704167 h 3.4395834 v 2.910416 H 0.52916815 v -9.789583 z"
+         id="path851-0"
+         sodipodi:nodetypes="ccccccccc" />
+      <path
+         style="fill:#005c8c;fill-opacity:1;stroke:none;stroke-width:0.0573608px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 7.9375026,20.108335 v 3.175 h 3.4395844 l -10e-7,3.704167 H 7.9375026 v 2.910416 h 7.4083344 v -9.789583 z"
+         id="path851-2"
+         sodipodi:nodetypes="ccccccccc" />
+      <path
+         style="fill:#005c8c;fill-opacity:1;stroke:none;stroke-width:0.0573608px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 21.166669,0.52916715 h 1.5875 V 18.520835 h 6.35 v 1.322916 h -7.9375 z"
+         id="path944" />
+      <path
+         style="fill:#005c8c;fill-opacity:1;stroke:none;stroke-width:0.0573608px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 31.750002,0.52916715 h 3.704167 V 8.2020846 h 5.291667 V 0.52916715 h 3.704166 V 19.843751 h -3.704166 v -8.73125 h -5.291667 v 8.73125 H 31.750002 V 0.52916715"
+         id="path946" />
+      <g
+         aria-label="L"
+         transform="matrix(0.95050078,0,0,1.052077,-36.77708,-38.099998)"
+         id="text952"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:26.4166px;line-height:1.25;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI, Light';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0573606">
+        <path
+           d="M 60.682923,55.327065 V 36.717052 h 2.226897 v 17.101093 h 6.680688 v 1.50892 z"
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:26.4166px;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI, Light';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#005c8c;fill-opacity:1;stroke-width:0.0573606"
+           id="path862"
+           sodipodi:nodetypes="ccccccc" />
+      </g>
+      <g
+         aria-label="H"
+         transform="matrix(0.85605377,0,0,1.1681509,-36.77708,-38.099998)"
+         id="text958"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:23.267px;line-height:1.25;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI, Heavy';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0573608">
+        <path
+           d="m 90.249392,49.829463 v -7.700917 h -5.563319 v 7.700917 H 79.740901 V 33.068644 h 4.945172 v 6.341932 h 5.563319 v -6.341932 h 4.945172 v 16.760819 z"
+           style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:23.267px;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI, Heavy';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#005c8c;fill-opacity:1;stroke-width:0.0573608"
+           id="path859"
+           sodipodi:nodetypes="ccccccccccccc" />
+      </g>
+      <g
+         aria-label="P"
+         transform="matrix(3.800141,0,0,3.7689694,-309.18632,-175.98249)"
+         id="text962"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.74317px;line-height:1.25;font-family:'MS Gothic';-inkscape-font-specification:'MS Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;inline-size:14.4732;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0151567">
+        <path
+           d="m 94.799352,47.250339 v 1.938641 c 0,0 0.820307,-9.27e-4 0.978351,-0.0011 0.158045,-1.73e-4 0.41243,-0.08187 0.535775,-0.231745 0.188972,-0.229622 0.200276,-0.57392 0.187644,-0.87037 -0.0091,-0.212411 -0.04502,-0.451158 -0.187019,-0.610087 -0.130149,-0.145663 -0.392205,-0.236504 -0.538219,-0.235055 -0.146014,0.0014 -0.976532,0.0097 -0.976532,0.0097 z m 0.798496,-0.417469 c 0.421448,-7.09e-4 0.72773,0.04868 0.970482,0.281032 0.248038,0.237412 0.312402,0.632344 0.326414,0.974412 0.01669,0.407506 -0.01969,0.884006 -0.292626,1.188424 -0.214031,0.23872 -0.483365,0.335763 -0.904806,0.333176 l -0.89796,-0.0055 2e-6,2.423301 h -0.417747 v -5.192787 z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.74317px;font-family:'MS Gothic';-inkscape-font-specification:'MS Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#005c8c;fill-opacity:1;stroke-width:0.0151567"
+           id="path865"
+           sodipodi:nodetypes="sczaaazcssaaaccccss" />
+      </g>
+    </g>
+  </g>
+</svg>
