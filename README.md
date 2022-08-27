@@ -19,14 +19,14 @@ Sources
 ## Configuration (Example for the Isar in Munich)
 Add the following lines to your `configuration.yaml`
 ```
-sensors:
+sensor:
   - platform: hochwasserportal
     pegel: BY_16005701
     level: True
     stage: True
     flow: True
 ```
-For multiple locations, just repeat with each pegel-ID.
+For multiple locations, just repeat with each pegel-ID.  
 The variables `level`, `stage` and `flow` are optional and default to `True` if not set. If you don't want one of the three sensors to show up you have to set the corresponding variable to `False`.  
 **A full list of valid pegels can be found [here](https://github.com/stephan192/hochwasserportal/blob/main/pegel.md).**
 
