@@ -1,26 +1,24 @@
-| Pegel | Description |
-|-------|-------------|
 | BB_5012601 | Torgau / Elbe |
 | BB_5030500 | Wittenberge / Elbe |
 | BB_5530302 | Biehlen 1 / Schwarze Elster |
 | BB_5530500 | Bad Liebenwerda / Schwarze Elster |
 | BB_5530501 | Herzberg / Schwarze Elster |
 | BB_5544202 | Ortrand / Pulsnitz |
-| BB_5804300 | Ketzin / UHW (Havel) |
-| BB_5806400 | Rathenow, Hauptschleuse OP / UHW (Untere Havel) |
-| BB_5806500 | Rathenow, Hauptschleuse UP / UHW (Untere Havel) |
-| BB_5807900 | Havelberg Stadt / UHW (Untere Havel) |
+| BB_5804300 | Ketzin / Havel |
+| BB_5806400 | Rathenow, Hauptschleuse OP / Havel |
+| BB_5806500 | Rathenow, Hauptschleuse UP / Havel |
+| BB_5807900 | Havelberg Stadt / Havel |
 | BB_5820900 | Spremberg / Spree |
 | BB_5821000 | Cottbus, Sandower Brücke / Spree |
-| BB_5823800 | Lübben, Zusammenfluss / Spree/Hauptspree |
+| BB_5823800 | Lübben, Zusammenfluss / Spree |
 | BB_5824700 | Leibsch, Spreewehr UP / Spree |
 | BB_5825500 | Beeskow, Spreeschleuse UP / Spree |
-| BB_5826700 | Große Tränke, Wehr UP / Spree/Müggelspree |
+| BB_5826700 | Große Tränke, Wehr UP / Spree |
 | BB_5844300 | Treppendorf / Berste |
-| BB_5857000 | Goyatz 1 / Schwielochsee |
-| BB_5859500 | Kersdorf, Schleuse UP / Oder-Spree-Kanal/Spree-Oder-Wasserstraße |
+| BB_5857000 | Goyatz 1 / Spree |
+| BB_5859500 | Kersdorf, Schleuse UP / Oder-Spree-Kanal |
 | BB_5862201 | Prierow 2 / Dahme |
-| BB_5862800 | Neue Mühle, Schleuse UP / Dahme/Dahme-Wasserstraße |
+| BB_5862800 | Neue Mühle, Schleuse UP / Dahme |
 | BB_5935000 | Perleberg, Schule / Stepenitz |
 | BB_5935200 | Meyenburg / Stepenitz |
 | BB_5935201 | Wolfshagen / Stepenitz |
@@ -32,7 +30,7 @@
 | BB_6030800 | Hohensaaten-Finow / Oder |
 | BB_6031000 | Stützkow / Oder |
 | BB_6031400 | Ratzdorf / Oder |
-| BB_6035100 | Gartz / Westoder (Odra Zachodnia) |
+| BB_6035100 | Gartz / Westoder |
 | BB_6602200 | Klein Bademeusel / Lausitzer Neiße |
 | BB_6602800 | Guben 2 / Lausitzer Neiße |
 | BE_5803500 | Pfaueninsel / Havel |
@@ -371,7 +369,7 @@
 | BY_24064003 | Kleinheubach / Main |
 | BY_24070006 | Obernau / Main |
 | BY_24110508 | Bad Berneck / Weißer Main |
-| BY_24111001 | Ködnitz / Weißer Main |
+| BY_24110955 | Ködnitz / Weißer Main |
 | BY_24115002 | Wirsberg / Schorgast |
 | BY_24118703 | Untersteinach / Untere Steinach |
 | BY_24121005 | Creußen / Roter Main |
@@ -522,6 +520,7 @@
 | CH_2468 | St.Gallen, Bruggen/Au / Sitter |
 | CH_2469 | Hondrich / Kander |
 | CH_2471 | Murgenthal / Murg |
+| CH_2473 | Diepoldsau, Rietbrücke / Rhein |
 | CH_2477 | Zug, Letzi / Lorze |
 | CH_2478 | Soyhières, Bois du Treuil / Birse |
 | CH_2480 | Boudry / Areuse |
@@ -536,6 +535,7 @@
 | CZ_10045030 | Kostelec nad Labem / Labe |
 | CZ_10045032 | Nesmerice / Zelivka |
 | CZ_10059505 | Kaplice / Malse |
+| CZ_1736808 | Praha - Hlubocepy / Dalejsky potok |
 | CZ_20023346 | Zlic / Upa |
 | CZ_20067780 | Horni Stare Mesto / Upa |
 | CZ_20084971 | Rumburk / Mandava |
@@ -555,7 +555,6 @@
 | CZ_2505282 | Stribro / Mze |
 | CZ_2505285 | Domazlice / Zubrina |
 | CZ_2505286 | Lhota / Radbuza |
-| CZ_2506441 | VD Brezova / Tepla |
 | CZ_2506444 | Prosec nad Nisou / Luzicka Nisa |
 | CZ_2537533 | Hoheneich / Skremelice (Klasterecky potok) |
 | CZ_2586337 | Blanicky mlyn / Blanice |
@@ -569,6 +568,7 @@
 | CZ_2805413 | Havlovice / Zubrina |
 | CZ_2805414 | Uhrovic mlyn / Javornice |
 | CZ_2839574 | Bavorov / Blanice |
+| CZ_2905396 | Hamry-V lipach / Uhlava |
 | CZ_306998 | Lestinka / Zejbro |
 | CZ_307006 | Rudnik / Cista |
 | CZ_307010 | Uhretice / Novohradka |
@@ -664,16 +664,11 @@
 | CZ_385438 | Brumov / Brumovka |
 | CZ_41063442 | VD Jesenice / Odrava |
 | CZ_570911 | Slavikovice / Polenka |
-| FMM_2230310 | Kogenheim / Ill Alsace |
-| FMM_2618002 | Epinal / Mosel |
-| FMM_2618003 | Damelevieres / Meurthe |
-| FMM_2618006 | Custines / Mosel |
-| FMM_2618008 | Uckange / Mosel |
-| FMM_2618012 | Toul / Mosel |
-| FMM_2618013 | Saint-Die / Meurthe |
-| FRS_1464130 | Wittringen / Saar |
+| FMM_4250640 | Epinal / Mosel |
+| FMM_5730610 | Toul / Mosel |
+| FMM_7010610 | Custines / Mosel |
+| FMM_850061001 | Uckange / Mosel |
 | FRS_2280350 | Chasseur Froid / Ill Alsace |
-| FRS_2648001 | Sarrebourg / Saar |
 | FRS_3501010 | Drusenheim / Moder |
 | FRS_9091050 | Keskastel / Saar |
 | FRS_9091060 | Diedendorf / Saar |
@@ -686,6 +681,7 @@
 | HE_23940359 | Fahrenbach / Weschnitz |
 | HE_23942300 | Lorsch / Weschnitz |
 | HE_23950104 | Bensheim / Lauter |
+| HE_23950250 | Auerbach / Winkelbach |
 | HE_23960709 | Eberstadt / Modau |
 | HE_23980353 | Nauheim / Schwarzbach |
 | HE_24700335 | Krotzenburg / Main |
@@ -805,12 +801,33 @@
 | HH_99341 | Wandsbeker Allee / Wandse |
 | HH_99346 | Möörkenweg / Bille |
 | HH_99353 | Bäckerbrücke / Alster |
+| LU_1 | Livange / Alzette |
+| LU_10 | Bissen / Attert |
 | LU_11 | Diekirch / Sauer |
+| LU_12 | Vianden / Our |
 | LU_13 | Dasbourg / Our |
+| LU_14 | Kautenbach / Wiltz |
 | LU_16 | Rosport / Sauer |
-| LU_2610012 | Stadtbredimus / Mosel |
-| LU_7 | Mersch / Sauer |
-| LU_8 | Ettelbruck-Alzette / Sauer |
+| LU_17 | Bigonville / Sauer |
+| LU_19 | Heiderscheidergrund / Sauer |
+| LU_2 | Hesperange / Alzette |
+| LU_27 | Niederfeulen / Wark |
+| LU_28 | Welscheid / Wark |
+| LU_29 | Welscheid-Village / Wark |
+| LU_3 | Pfaffenthal / Alzette |
+| LU_32 | Mertert / Syre |
+| LU_33 | Pétange / Chiers |
+| LU_34 | Michelau / Sauer |
+| LU_35 | Clervaux / Clerve |
+| LU_37 | Troisvierges / Woltz |
+| LU_38 | Wiltz / Wiltz |
+| LU_4 | Steinsel / Alzette |
+| LU_42 | Ettelbrück / Alzette |
+| LU_43 | Larochette / Ernz Blanche |
+| LU_5 | Schoenfels / Mamer |
+| LU_6 | Hunnebour / Eisch |
+| LU_7 | Mersch / Alzette |
+| LU_9 | Reichlange / Attert |
 | MV_04406.0 | Bützow UP / Warnow |
 | MV_5910025 | Dömitz / Elbe |
 | MV_5930033 | Boizenburg / Elbe |
@@ -922,7 +939,7 @@
 | NI_9286162 | Emlichheim / Vechte |
 | NI_9340020 | Borkum Fischerbalje / Nordsee |
 | NI_9352100 | Leyhörn (z. Zt. keine Darstellung im Internet mögl / Nordsee |
-| NI_9360010 | Norderney-Riffgat / Nordsee |
+| NI_9360010 | Norderney Riffgat / Nordsee |
 | NI_9374105 | Bensersiel / Nordsee |
 | NI_9429105 | Vareler Schleuse / Nordsee |
 | NL_AMRB | Amerongen boven / Nederrijn |
@@ -1062,6 +1079,7 @@
 | NW_2728893000100 | Hoffnungsthal / Sülz |
 | NW_2728930000200 | Lohmar / Agger |
 | NW_2729100000100 | Menden_1 / Sieg |
+| NW_2730010 | Köln / Rhein |
 | NW_2741500000100 | Arloff / Erft |
 | NW_2741870000100 | Burg_Veynau / Veybach |
 | NW_2742510000100 | Morenhoven / Swistbach |
@@ -1072,6 +1090,7 @@
 | NW_2746790000100 | Langenich / Neffelbach |
 | NW_2747390000100 | Glesch / Erft |
 | NW_2747900000200 | Neubrueck / Erft |
+| NW_2750010 | Düsseldorf / Rhein |
 | NW_27500106 | Düsseldorf / Rhein |
 | NW_2761150000100 | Olsberg / Ruhr |
 | NW_2761510000100 | Meschede / Ruhr |
@@ -1098,7 +1117,9 @@
 | NW_2788730000100 | Olfen-Fuecht.Muehle / Stever |
 | NW_2789100000100 | Haltern / Lippe |
 | NW_2789770000100 | Schermbeck_1 / Lippe |
+| NW_2790010 | Rees / Rhein |
 | NW_27900104 | Rees / Rhein |
+| NW_2790020 | Emmerich / Rhein |
 | NW_27900206 | Emmerich / Rhein |
 | NW_2821530000200 | Monschau / Rur |
 | NW_2822700000200 | Kall-Sportplatz / Urft |
@@ -1139,73 +1160,122 @@
 | NW_9286291000300 | Wettringen_B70 / Steinfurter Aa |
 | NW_9286453000200 | Heek / Dinkel |
 | NW_9286455000200 | Gronau / Dinkel |
+| RP_23720305 | Bobenthal / Wieslauter |
+| RP_23720600 | Salmbacher Passage / Wieslauter |
+| RP_23750102 | Minfeld / Dierbach |
+| RP_23750204 | Rheinzabern / Erlenbach |
+| RP_23750306 | Herxheim / Klingbach |
 | RP_23770507 | Siebeldingen / Queich |
 | RP_23780500 | Neustadt Weinstraße / Speyerbach |
+| RP_23780806 | Speyer Nord / Nonnenbach |
 | RP_23900200 | Worms / Rhein |
 | RP_23910402 | Flomersheim / Isenach |
+| RP_23910854 | Wiesoppenheim 2 / Eisbach |
 | RP_23920304 | Albisheim / Pfrimm |
 | RP_25100100 | Mainz / Rhein |
 | RP_25100300 | Oestrich / Rhein |
+| RP_25200306 | Alzey / Selz |
 | RP_25200601 | Stadecken / Selz |
 | RP_25200805 | Oberingelheim / Selz |
 | RP_25300200 | Bingen / Rhein |
-| RP_25400054 | Heimbach / Nahe |
-| RP_25400258 | Oberstein / Nahe |
-| RP_25400407 | Martinstein / Nahe |
+| RP_25400054 | Heimbach Bhf. / Nahe |
+| RP_25400258 | Oberstein 2 / Nahe |
+| RP_25400407 | Martinstein 2 / Nahe |
 | RP_25400600 | Boos / Nahe |
 | RP_25400750 | Bad Kreuznach / Nahe |
 | RP_25400826 | Dietersheim / Nahe |
 | RP_25410105 | Abentheuer / Traunbach |
 | RP_25410309 | Kronweiler / Schwollbach |
+| RP_25410400 | Enzweiler / Siesbach |
 | RP_25410579 | Idar / Idarbach |
+| RP_25410750 | Gerach 2 / Fischbach |
 | RP_25420404 | Kallenfels / Hahnenbach |
 | RP_25440106 | Steinbach / Simmerbach |
-| RP_25440401 | Kellenbach / Simmerbach |
+| RP_25440401 | Kellenbach 2 / Simmerbach |
+| RP_25460158 | Nanzdietschweiler / Glan |
 | RP_25460307 | Eschenau / Glan |
 | RP_25460409 | Odenbach / Glan |
+| RP_25460522 | Stausee Ohmbach / Ohmbach |
+| RP_25460588 | Niedermohr / Mohrbach |
+| RP_25460613 | Rammelsbach 2 / Kuselbach |
 | RP_25460704 | Untersulzbach / Lauter |
+| RP_25460850 | Odenbach Steinbruch 2 / Odenbach |
 | RP_25460908 | Löllbach / Jeckenbach |
 | RP_25480202 | Imsweiler / Alsenz |
 | RP_25480304 | Altenbamberg / Alsenz |
+| RP_25480950 | Obermoschel / Moschel |
 | RP_25490148 | Schleifmühle / Ellerbach |
+| RP_25490206 | Argenschwang / Gräfenbach |
 | RP_25490400 | Heddesheim / Guldenbach |
 | RP_25490501 | Gaugrehweiler / Appelbach |
 | RP_25490614 | Planig / Appelbach |
+| RP_25490705 | Uffhofen / Wiesbach |
 | RP_25490807 | Gensingen / Wiesbach |
 | RP_25700100 | Kaub / Rhein |
-| RP_25800506 | Diez / Lahn |
-| RP_25800608 | Kalkofen / Lahn |
+| RP_25720500 | Rheindiebach / Gailsbach |
+| RP_25800500 | Diez / Lahn |
+| RP_25800600 | Kalkofen Neu / Lahn |
 | RP_25870502 | Westerburg / Schafbach |
 | RP_25880506 | Zollhaus / Aar |
 | RP_25890102 | Kloster Arnstein / Dörsbach |
 | RP_25890306 | Weinähr / Gelbach |
-| RP_25890500 | Niederelbert / Niederelberter Bach |
-| RP_25890758 | Miehlen / Mühlbach |
+| RP_25890500 | Niederelbert / Niederelberterbach |
+| RP_25890601 | Kautenmühle / Eisenbach |
+| RP_25890758 | Miehlen 2 / Mühlbach |
 | RP_25890805 | Schulmühle / Mühlbach |
 | RP_25900700 | Koblenz / Rhein |
-| RP_26200505 | Bollendorf / Sauer |
-| RP_26260303 | Gemünd / Our |
-| RP_26280050 | Prüm / Prüm |
+| RP_26200505 | Bollendorf 2 / Sauer |
+| RP_26260303 | Gemünd Our / Our |
+| RP_26260609 | Gemünd Irsen / Irsen |
+| RP_26280050 | Prüm 2 / Prüm |
 | RP_26280300 | Echtershausen / Prüm |
 | RP_26280402 | Wiersdorf / Prüm |
 | RP_26280504 | Prümzurlay / Prüm |
+| RP_26280650 | Sinspelt / Enz |
+| RP_26280708 | Giesdorf / Nims |
+| RP_26280800 | Seffern / Nims |
 | RP_26280854 | Alsdorf-Oberecken / Nims |
-| RP_26420206 | Thaleischweiler / Schwarzbach |
+| RP_26300500 | Wasserliesch / Albach |
+| RP_26420159 | Steinalben / Queidersbach |
+| RP_26420206 | Thaleischweiler 2 / Schwarzbach |
 | RP_26420308 | Contwig / Schwarzbach |
-| RP_26420603 | Althornbach / Hornbach |
+| RP_26420465 | Würschhauser Mühle 2 / Wallhalbe |
+| RP_26420487 | Oberauerbach / Auerbach |
+| RP_26420603 | Althornbach 2 / Hornbach |
+| RP_26420705 | Eichelsbacher Mühle / Felsalbe |
+| RP_26420807 | Walshausen / Felsalbe |
 | RP_26420909 | Hornbach / Schwalb |
-| RP_26490609 | Saarburg / Leuk |
+| RP_26490609 | Saarburg 2 / Leuk |
 | RP_26500100 | Trier / Mosel |
 | RP_26560103 | Hentern / Ruwer |
+| RP_26560307 | Kasel 3 / Ruwer |
+| RP_26560500 | Zerf / Großbach |
+| RP_26600208 | Steinebrück / Kyll |
+| RP_26600300 | Jünkerath / Kyll |
 | RP_26600503 | Gerolstein / Kyll |
-| RP_26600707 | Densborn / Kyll |
+| RP_26600707 | Densborn 2 / Kyll |
 | RP_26600900 | Kordel / Kyll |
+| RP_26620806 | Hallschlag / Taubkyll |
+| RP_26640202 | Duppach 2 / Oosbach |
+| RP_26640406 | Müllenborn / Oosbach |
 | RP_26700600 | Zeltingen / Mosel |
+| RP_26740309 | Eisenschmitt / Salm |
+| RP_26740604 | Dreis 2 / Salm |
 | RP_26760306 | Papiermühle / Dhron |
+| RP_26760601 | Dhron-Talsperre / Kleine Dhron |
 | RP_26780201 | Daun / Lieser |
 | RP_26780450 | Plein / Lieser |
+| RP_26780609 | Platten 2 / Lieser |
+| RP_26790205 | Traben-Trarbach / Kautenbach |
+| RP_26800207 | Saxler Mühle / Alf |
+| RP_26820500 | Hasborner Mühle / Sammetbach |
+| RP_26840507 | Peltzerhaus / Ueßbach |
 | RP_26900400 | Cochem / Mosel |
+| RP_26920402 | Cochem 2 / Endertbach |
+| RP_26940501 | Kloster Engelport / Flaumbach |
 | RP_26960906 | Elztal / Elzbach |
+| RP_26980404 | Thörlingen / Baybach |
+| RP_26980700 | Burgen 2 / Baybach |
 | RP_27100400 | Andernach / Rhein |
 | RP_27100700 | Oberwinter / Rhein |
 | RP_27120503 | Isenburg / Saynbach |
@@ -1215,19 +1285,24 @@
 | RP_27160406 | Friedrichsthal / Wied |
 | RP_27160600 | Seifen / Holzbach |
 | RP_27160803 | Kloster Ehrenstein / Mehrbach |
+| RP_27160905 | Oberbieber / Aubach |
+| RP_27170909 | Zerwasmühle / Brohlbach |
 | RP_27180403 | Altenahr / Ahr |
 | RP_27180505 | Kirmutscheid / Trierbach |
 | RP_27180607 | Bad Bodendorf / Ahr |
-| RP_27180709 | Denn / Kesselinger Bach |
+| RP_27180709 | Denn / Staffelerbach |
 | RP_27180902 | Kreuzberg / Sahrbach |
 | RP_27200500 | Betzdorf / Sieg |
 | RP_27220508 | Alsdorf / Heller |
+| RP_27230501 | Fahren / Wipperbach |
 | RP_27240301 | Heimborn / Nister |
+| RP_27240709 | Lützelauer Mühle / Kleine Nister |
 | RP_27250906 | Etzbach / Sieg |
 | SH_110005 | Wyk Foehr / Nordsee |
 | SH_110006 | Hooge-Anleger / Nordsee |
 | SH_110007 | Schlüttsiel AP / Nordsee |
 | SH_110010 | Strucklahnungshoern AP / Nordsee |
+| SH_110014 | Everschopsiel AP / Nordsee |
 | SH_110022 | Kasenort / Stör |
 | SH_110026 | Meldorf Sperrwerk AP / Nordsee |
 | SH_110039 | Westerland-Messpfahl / Nordsee |
@@ -1293,9 +1368,10 @@
 | SH_5930090 | Zollenspieker / Elbe |
 | SH_5950090 | Schulau / Elbe |
 | SH_5952050 | Hamburg St. Pauli / Elbe |
-| SH_5970023 | Krückau-Sperrwerk BP / Krückau |
+| SH_5970016 | Uetersen / Pinnau |
 | SH_5970025 | Kollmar / Elbe |
 | SH_5970035 | Glückstadt / Elbe |
+| SH_5970040 | Stör-Sperrwerk BP / Stör |
 | SH_5970050 | Brokdorf / Elbe |
 | SH_5970067 | NOK Königsförde / Nord-Ostsee-Kanal |
 | SH_5970074 | NOK Rendsburg / Nord-Ostsee-Kanal |
@@ -1339,7 +1415,7 @@
 | SN_501110 | Riesa / Elbe |
 | SN_501261 | Torgau / Elbe |
 | SN_550091 | Buschmühle 1 / Kirnitzsch |
-| SN_550302 | Sebnitz 2 / Sebnitz |
+| SN_550290 | Sebnitz 3 / Sebnitz |
 | SN_550390 | Neustadt 1 / Polenz |
 | SN_550490 | Bielatal 1 / Biela |
 | SN_550620 | Neundorf / Gottleuba |
@@ -1365,7 +1441,6 @@
 | SN_553001 | Kamenz 1 / Schwarze Elster |
 | SN_553013 | Trado 3 / Schwarze Elster |
 | SN_553020 | Neuwiese / Schwarze Elster |
-| SN_554100 | Panschwitz / Klosterwasser |
 | SN_554210 | Prischwitz / Hoyerswerdaer Schwarzwasser |
 | SN_554220 | Zescha / Hoyerswerdaer Schwarzwasser |
 | SN_554411 | Reichenau 1 / Pulsnitz |
@@ -1421,7 +1496,7 @@
 | SN_577901 | Streitwald 1 / Wyhra |
 | SN_578091 | Albrechtshain 1 / Parthe |
 | SN_578110 | Leipzig-Thekla / Parthe |
-| SN_582000 | Ebersbach / Spree |
+| SN_582005 | Neusalza-Spremberg / Spree |
 | SN_582010 | Schirgiswalde / Spree |
 | SN_582032 | Bautzen UP 1 / Spree |
 | SN_582035 | Bautzen 1 / Spree |
