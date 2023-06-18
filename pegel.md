@@ -669,11 +669,7 @@
 | FMM_4250640 | Epinal / Mosel |
 | FMM_5730610 | Toul / Mosel |
 | FMM_7010610 | Custines / Mosel |
-| FMM_850061001 | Uckange / Mosel |
-| FRS_2280350 | Chasseur Froid / Ill Alsace |
-| FRS_3501010 | Drusenheim / Moder |
 | FRS_9091050 | Keskastel / Saar |
-| FRS_9091060 | Diedendorf / Saar |
 | HB_4910040 | Weserwehr UW / Weser |
 | HB_4910050 | Grosse Weserbrücke / Weser |
 | HB_4910060 | Oslebshausen / Weser |
@@ -940,7 +936,7 @@
 | NI_9286136 | Lage I / Dinkel |
 | NI_9286162 | Emlichheim / Vechte |
 | NI_9340020 | Borkum Fischerbalje / Nordsee |
-| NI_9352100 | Leyhörn (z. Zt. keine Darstellung im Internet mögl / Nordsee |
+| NI_9352100 | Leyhörn / Nordsee |
 | NI_9360010 | Norderney Riffgat / Nordsee |
 | NI_9374105 | Bensersiel / Nordsee |
 | NI_9429105 | Vareler Schleuse / Nordsee |
@@ -1071,7 +1067,6 @@
 | NL_ZALT | Zaltbommel / Waal |
 | NL_ZUTP | Zutphen Noord / IJssel |
 | NL_ZWBU | Zwartsluis Buiten / Zwarte Water |
-| NW_25700104 | Köln / Rhein |
 | NW_2710080 | Bonn / Rhein |
 | NW_2721390000100 | Weidenau / Sieg |
 | NW_2721459000100 | Kreuztal / Ferndorf |
@@ -1093,7 +1088,6 @@
 | NW_2747390000100 | Glesch / Erft |
 | NW_2747900000200 | Neubrueck / Erft |
 | NW_2750010 | Düsseldorf / Rhein |
-| NW_27500106 | Düsseldorf / Rhein |
 | NW_2761150000100 | Olsberg / Ruhr |
 | NW_2761510000100 | Meschede / Ruhr |
 | NW_2761759000100 | Oeventrop / Ruhr |
@@ -1115,14 +1109,11 @@
 | NW_2787990000100 | Leven / Lippe |
 | NW_2788100000100 | Appelhuelsen / Stever |
 | NW_2788330000100 | Senden-Schoelling / Stever |
-| NW_2788520000100 | Patzlar / Stever |
 | NW_2788730000100 | Olfen-Fuecht.Muehle / Stever |
 | NW_2789100000100 | Haltern / Lippe |
 | NW_2789770000100 | Schermbeck_1 / Lippe |
 | NW_2790010 | Rees / Rhein |
-| NW_27900104 | Rees / Rhein |
 | NW_2790020 | Emmerich / Rhein |
-| NW_27900206 | Emmerich / Rhein |
 | NW_2821530000200 | Monschau / Rur |
 | NW_2822700000200 | Kall-Sportplatz / Urft |
 | NW_2822870000100 | Schleiden / Olef |
@@ -1246,7 +1237,6 @@
 | RP_26420603 | Althornbach 2 / Hornbach |
 | RP_26420705 | Eichelsbacher Mühle / Felsalbe |
 | RP_26420807 | Walshausen / Felsalbe |
-| RP_26420909 | Hornbach / Schwalb |
 | RP_26490609 | Saarburg 2 / Leuk |
 | RP_26500100 | Trier / Mosel |
 | RP_26560103 | Hentern / Ruwer |
@@ -1289,6 +1279,7 @@
 | RP_27160803 | Kloster Ehrenstein / Mehrbach |
 | RP_27160905 | Oberbieber / Aubach |
 | RP_27170909 | Zerwasmühle / Brohlbach |
+| RP_27180094 | Müsch 2 / Ahr |
 | RP_27180403 | Altenahr / Ahr |
 | RP_27180505 | Kirmutscheid / Trierbach |
 | RP_27180607 | Bad Bodendorf / Ahr |
@@ -1371,9 +1362,12 @@
 | SH_5950090 | Schulau / Elbe |
 | SH_5952050 | Hamburg St. Pauli / Elbe |
 | SH_5970016 | Uetersen / Pinnau |
+| SH_5970018 | Pinnau-Sperrwerk BP / Pinnau |
+| SH_5970023 | Krückau-Sperrwerk BP / Krückau |
 | SH_5970025 | Kollmar / Elbe |
 | SH_5970035 | Glückstadt / Elbe |
 | SH_5970040 | Stör-Sperrwerk BP / Stör |
+| SH_5970042 | Itzehoe Hafen / Stör |
 | SH_5970050 | Brokdorf / Elbe |
 | SH_5970067 | NOK Königsförde / Nord-Ostsee-Kanal |
 | SH_5970074 | NOK Rendsburg / Nord-Ostsee-Kanal |
