@@ -23,7 +23,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Execute Python Script
-        run: update_pegel_list.py
+        run: python update_pegel_list.py
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
