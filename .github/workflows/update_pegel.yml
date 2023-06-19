@@ -1,0 +1,35 @@
+name: Update pegel.md
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 1,15 * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: "actions/checkout@v3"
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Python Packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute Python Script
+        run: update_pegel_list.py
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: Update pegel.md
+          title: Update pegel.md
+          body: Update pegel.md to reflect changes by LHP
+          branch: update-pegelmd
+          delete-branch: true
