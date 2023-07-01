@@ -1207,7 +1207,7 @@
 | RP_25700100 | Kaub / Rhein |
 | RP_25720500 | Rheindiebach / Gailsbach |
 | RP_25800500 | Diez / Lahn |
-| RP_25800600 | Kalkofen Neu / Lahn |
+| RP_25800600 | Kalkofen_Neu / Lahn |
 | RP_25870502 | Westerburg / Schafbach |
 | RP_25880506 | Zollhaus / Aar |
 | RP_25890102 | Kloster Arnstein / Dörsbach |
