@@ -163,13 +163,19 @@ class HochwasserPortalAPI:
         try:
             # Get data
             json_data = requests.get(
-                "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/" + self.ident[3:] + "/S/week.json",
+                "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
+                + self.ident[3:]
+                + "/S/week.json",
                 timeout=API_TIMEOUT,
-            )            
+            )
             data = json_data.json()
             # Parse data
-            self.name = data[0]['station_name']
-            self.url = "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/" + self.ident[3:] + "/S/week.json"
+            self.name = data[0]["station_name"]
+            self.url = (
+                "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
+                + self.ident[3:]
+                + "/S/week.json"
+            )
         except:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
 
@@ -181,24 +187,26 @@ class HochwasserPortalAPI:
         try:
             # Get data
             json_data = requests.get(
-                "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/" + self.ident[3:] + "/S/week.json",
+                "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
+                + self.ident[3:]
+                + "/S/week.json",
                 timeout=API_TIMEOUT,
-            )            
+            )
             data = json_data.json()
             # Parse data
-            if data[0]['data'][-1][1] > 0:
-                self.level = data[0]['data'][-1][1]
+            if data[0]["data"][-1][1] > 0:
+                self.level = data[0]["data"][-1][1]
             else:
                 self.level = None
-            self.hint = data[0]['AdminStatus'] + " / " + data[0]['AdminBemerkung']
+            self.hint = data[0]["AdminStatus"] + " / " + data[0]["AdminBemerkung"]
             self.data_valid = True
             # Extract the last update timestamp from the JSON data
-            last_update_str = data[0]['data'][-1][0]
+            last_update_str = data[0]["data"][-1][0]
             # Convert the string timestamp to a datetime object
-            self.last_update = datetime.datetime.fromisoformat(last_update_str)            
+            self.last_update = datetime.datetime.fromisoformat(last_update_str)
         except:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
-        self.last_update = datetime.datetime.now(datetime.timezone.utc)
+            self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
     def parse_init_RP(self):
         """Parse data for Rheinland-Pfalz."""
@@ -210,11 +218,69 @@ class HochwasserPortalAPI:
 
     def parse_init_SH(self):
         """Parse data for Schleswig-Holstein."""
-        pass
+        try:
+            # Get data
+            resp = requests.get(
+                "https://hsi-sh.de",
+                timeout=API_TIMEOUT,
+            )
+            soup = bs4.BeautifulSoup(resp.content, "lxml")
+            search_string = "dialogheader-" + self.ident[3:]
+            headings = soup.find_all("h1", id=search_string)
+            # Parse data
+            heading = headings[0]
+            heading_text = heading.getText().split()
+            self.name = " ".join(heading_text[0 : len(heading_text) - 2])
+            d_list = heading.find_next()
+            for element in d_list:
+                if (
+                    element.name == "dd"
+                    and element.attrs["class"][0] == "tooltip-content__gewaesser"
+                ):
+                    self.name += " / " + element.getText()
+            self.url = "https://hsi-sh.de"
+        except:  # pylint: disable=bare-except # noqa: E722
+            self.data_valid = False
 
     def parse_SH(self):
         """Parse data for Schleswig-Holstein."""
-        pass
+        self.level = None
+        self.flow = None
+        self.stage = None
+        try:
+            # Get data
+            resp = requests.get(
+                "https://hsi-sh.de",
+                timeout=API_TIMEOUT,
+            )
+            soup = bs4.BeautifulSoup(resp.content, "lxml")
+            search_string = "dialogheader-" + self.ident[3:]
+            headings = soup.find_all("h1", id=search_string)
+            # Parse data
+            heading = headings[0]
+            self.stage = int(heading.attrs["class"][1].split("_")[-1]) - 5
+            if self.stage < 0:
+                self.stage = 0
+            d_list = heading.find_next()
+            for element in d_list:
+                if (
+                    element.name == "dd"
+                    and element.attrs["class"][0] == "tooltip-content__w"
+                ):
+                    element_text = element.getText().split()
+                    if element_text[1] == "cm":
+                        self.level = float(element_text[0].replace(",", "."))
+                if (
+                    element.name == "dd"
+                    and element.attrs["class"][0] == "tooltip-content__q"
+                ):
+                    element_text = element.getText().split()
+                    if element_text[1] == "m3/s":
+                        self.flow = float(element_text[0].replace(",", "."))
+            self.data_valid = True
+        except:  # pylint: disable=bare-except # noqa: E722
+            self.data_valid = False
+        self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
     def parse_init_SL(self):
         """Parse data for Saarland."""
