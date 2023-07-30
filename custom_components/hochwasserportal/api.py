@@ -170,7 +170,7 @@ class HochwasserPortalAPI:
             )
             data = json_data.json()
             # Parse data
-            self.name = data[0]["station_name"]
+            self.name = data[0]["station_name"] + " " + data[0]["WTO_OBJECT"]
             self.url = (
                 "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
                 + self.ident[3:]
