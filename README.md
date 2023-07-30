@@ -1,6 +1,6 @@
 # hochwasserportal
 
-# This integration is not working anymore because the underlying API has been locked from public usage! Maybe i find a solution in future but currently you can uninstall it!
+# This integration is currently only working for Bavarian pegel because the formerly used API has been locked from public usage! I'll try to repair the other pegel also.
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration)
 [![Validate with hassfest](https://github.com/stephan192/hochwasserportal/actions/workflows/hassfest.yml/badge.svg)](https://github.com/stephan192/hochwasserportal/actions/workflows/hassfest.yml)
@@ -23,24 +23,13 @@ Sources
 * Copy the sources from `ROOT_OF_THIS_REPO/custom_components/hochwasserportal` to `YOUR_HA_INSTALLATION/config/custom_components/hochwasserportal`
 * **Restart Home Assistant**
 
-## Configuration (Example for the Isar in Munich)
-Add the following lines to your `configuration.yaml`
-```
-sensor:
-  - platform: hochwasserportal
-    pegel: BY_16005701
-    level: True
-    stage: True
-    flow: True
-```
-
-**Notes:**  
-* **A full list of valid pegels can be found [here](https://github.com/stephan192/hochwasserportal/blob/main/pegel.md).**
+## Configuration
+* The integration can only be configured by using config flow.
+* Add the integration by pressing the "+ADD INTEGRATION" on the Settings - Integrations page and select "Länderübergreifendes Hochwasser Portal" from the drop-down menu.
+* Enter a valid pegel-ID. **A full list of valid pegels can be found [here](https://github.com/stephan192/hochwasserportal/blob/main/pegel.md).**
 * For multiple locations, just repeat with each pegel-ID.
-* The parameters `level`, `stage` and `flow` are optional and default to `True` if not set. If you don't want one of the three sensors to show up you have to set the corresponding variable to `False`.
 
 ## Result
-After **restarting** your Home Assistant installation the following three sensors should show up.  
 ![Example 1](https://github.com/stephan192/hochwasserportal/blob/main/example.png)
 
 **Notes:**  
