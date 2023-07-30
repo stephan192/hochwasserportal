@@ -40,6 +40,32 @@ class HochwasserPortalAPI:
             return f"{self.name} ({self.ident})"
         return self.ident
 
+    def fetch_json(url):
+        try:
+            response = requests.get(url, timeout=API_TIMEOUT)
+            response.raise_for_status() 
+            json_data = response.json()
+            return json_data
+        except requests.exceptions.RequestException as e:
+            LOGGER.error("An error occurred while fetching the JSON: %s", e)
+            return None
+        except ValueError as e:
+            LOGGER.error("Error parsing JSON data: %s", e)
+            return None
+
+    def fetch_soup(url):
+        try:
+            response = requests.get(url, timeout=API_TIMEOUT)
+            response.raise_for_status()
+            soup = bs4.BeautifulSoup(resp.text, "lxml")            
+            return soup
+        except requests.exceptions.RequestException as e:
+            LOGGER.error("An error occurred while fetching the LXML: %s", e)
+            return None
+        except XMLSyntaxError as e:
+            LOGGER.error("Error parsing LXML data: %s", e)
+            return None
+
     def parse_init_BB(self):
         """Parse data for Brandenburg."""
         pass
@@ -68,11 +94,9 @@ class HochwasserPortalAPI:
         """Parse data for Bayern."""
         try:
             # Get data
-            resp = requests.get(
-                "https://www.hnd.bayern.de/pegel",
-                timeout=API_TIMEOUT,
+            soup = fetch_soup(
+                "https://www.hnd.bayern.de/pegel"
             )
-            soup = bs4.BeautifulSoup(resp.text, "lxml")
             img_id = "p" + self.ident[3:]
             imgs = soup.find_all("img", id=img_id)
             data = imgs[0]
@@ -91,11 +115,9 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            resp = requests.get(
-                "https://www.hnd.bayern.de/pegel",
-                timeout=API_TIMEOUT,
+            soup = fetch_soup(
+                "https://www.hnd.bayern.de/pegel"
             )
-            soup = bs4.BeautifulSoup(resp.text, "lxml")
             img_id = "p" + self.ident[3:]
             imgs = soup.find_all("img", id=img_id)
             data = imgs[0]
@@ -162,13 +184,11 @@ class HochwasserPortalAPI:
         """Parse data for Nordrhein-Westfalen."""
         try:
             # Get data
-            json_data = requests.get(
+            data = fetch_json(
                 "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
                 + self.ident[3:]
-                + "/S/week.json",
-                timeout=API_TIMEOUT,
+                + "/S/week.json"
             )
-            data = json_data.json()
             # Parse data
             self.name = data[0]["station_name"] + " " + data[0]["WTO_OBJECT"]
             self.url = (
@@ -186,13 +206,11 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            json_data = requests.get(
+            data = fetch_json(
                 "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
                 + self.ident[3:]
-                + "/S/week.json",
-                timeout=API_TIMEOUT,
+                + "/S/week.json"
             )
-            data = json_data.json()
             # Parse data
             if data[0]["data"][-1][1] > 0:
                 self.level = data[0]["data"][-1][1]
@@ -220,11 +238,9 @@ class HochwasserPortalAPI:
         """Parse data for Schleswig-Holstein."""
         try:
             # Get data
-            resp = requests.get(
-                "https://hsi-sh.de",
-                timeout=API_TIMEOUT,
+            soup = fetch_soup(
+                "https://hsi-sh.de"
             )
-            soup = bs4.BeautifulSoup(resp.content, "lxml")
             search_string = "dialogheader-" + self.ident[3:]
             headings = soup.find_all("h1", id=search_string)
             # Parse data
@@ -249,11 +265,9 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            resp = requests.get(
-                "https://hsi-sh.de",
-                timeout=API_TIMEOUT,
+            soup = fetch_soup(
+                "https://hsi-sh.de"
             )
-            soup = bs4.BeautifulSoup(resp.content, "lxml")
             search_string = "dialogheader-" + self.ident[3:]
             headings = soup.find_all("h1", id=search_string)
             # Parse data
