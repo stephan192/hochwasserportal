@@ -160,11 +160,45 @@ class HochwasserPortalAPI:
 
     def parse_init_NW(self):
         """Parse data for Nordrhein-Westfalen."""
-        pass
+        try:
+            # Get data
+            json_data = requests.get(
+                "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/" + self.ident[3:] + "/S/week.json",
+                timeout=API_TIMEOUT,
+            )            
+            data = json_data.json()
+            # Parse data
+            self.name = data[0]['station_name']
+            self.url = "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/" + self.ident[3:] + "/S/week.json"
+        except:  # pylint: disable=bare-except # noqa: E722
+            self.data_valid = False
 
     def parse_NW(self):
         """Parse data for Nordrhein-Westfalen."""
-        pass
+        self.level = None
+        self.flow = None
+        self.stage = None
+        try:
+            # Get data
+            json_data = requests.get(
+                "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/" + self.ident[3:] + "/S/week.json",
+                timeout=API_TIMEOUT,
+            )            
+            data = json_data.json()
+            # Parse data
+            if data[0]['data'][-1][1] > 0:
+                self.level = data[0]['data'][-1][1]
+            else:
+                self.level = None
+            self.hint = data[0]['AdminStatus'] + " / " + data[0]['AdminBemerkung']
+            self.data_valid = True
+            # Extract the last update timestamp from the JSON data
+            last_update_str = data[0]['data'][-1][0]
+            # Convert the string timestamp to a datetime object
+            self.last_update = datetime.datetime.fromisoformat(last_update_str)            
+        except:  # pylint: disable=bare-except # noqa: E722
+            self.data_valid = False
+        self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
     def parse_init_RP(self):
         """Parse data for Rheinland-Pfalz."""
