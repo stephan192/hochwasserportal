@@ -40,7 +40,7 @@ class HochwasserPortalAPI:
             return f"{self.name} ({self.ident})"
         return self.ident
 
-    def fetch_json(url):
+    def fetch_json(self, url):
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
             response.raise_for_status() 
@@ -53,7 +53,7 @@ class HochwasserPortalAPI:
             LOGGER.error("Error parsing JSON data: %s", e)
             return None
 
-    def fetch_soup(url):
+    def fetch_soup(self, url):
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
             response.raise_for_status()
@@ -94,7 +94,7 @@ class HochwasserPortalAPI:
         """Parse data for Bayern."""
         try:
             # Get data
-            soup = fetch_soup(
+            soup = self.fetch_soup(
                 "https://www.hnd.bayern.de/pegel"
             )
             img_id = "p" + self.ident[3:]
@@ -105,8 +105,9 @@ class HochwasserPortalAPI:
             if len(data.get("data-zeile2")) > 0:
                 self.name += " / " + data.get("data-zeile2")
             self.url = "https://www.hnd.bayern.de/pegel"
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s: %s", self.ident, e)
 
     def parse_BY(self):
         """Parse data for Bayern."""
@@ -115,7 +116,7 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            soup = fetch_soup(
+            soup = self.fetch_soup(
                 "https://www.hnd.bayern.de/pegel"
             )
             img_id = "p" + self.ident[3:]
@@ -136,8 +137,9 @@ class HochwasserPortalAPI:
                 self.stage = None
             self.hint = data.get("data-stoerung")
             self.data_valid = True
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s: %s", self.ident, e)
         self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
     def parse_init_HB(self):
@@ -184,7 +186,7 @@ class HochwasserPortalAPI:
         """Parse data for Nordrhein-Westfalen."""
         try:
             # Get data
-            data = fetch_json(
+            data = self.fetch_json(
                 "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
                 + self.ident[3:]
                 + "/S/week.json"
@@ -196,8 +198,9 @@ class HochwasserPortalAPI:
                 + self.ident[3:]
                 + "/S/week.json"
             )
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e: # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s: %s", self.ident, e)
 
     def parse_NW(self):
         """Parse data for Nordrhein-Westfalen."""
@@ -206,7 +209,7 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            data = fetch_json(
+            data = self.fetch_json(
                 "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
                 + self.ident[3:]
                 + "/S/week.json"
@@ -222,9 +225,10 @@ class HochwasserPortalAPI:
             last_update_str = data[0]["data"][-1][0]
             # Convert the string timestamp to a datetime object
             self.last_update = datetime.datetime.fromisoformat(last_update_str)
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
             self.last_update = datetime.datetime.now(datetime.timezone.utc)
+            LOGGER.error("An error occured while fetching data for %s: %s", self.ident, e)            
 
     def parse_init_RP(self):
         """Parse data for Rheinland-Pfalz."""
@@ -238,7 +242,7 @@ class HochwasserPortalAPI:
         """Parse data for Schleswig-Holstein."""
         try:
             # Get data
-            soup = fetch_soup(
+            soup = self.fetch_soup(
                 "https://hsi-sh.de"
             )
             search_string = "dialogheader-" + self.ident[3:]
@@ -255,8 +259,9 @@ class HochwasserPortalAPI:
                 ):
                     self.name += " / " + element.getText()
             self.url = "https://hsi-sh.de"
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s: %s", self.ident, e)
 
     def parse_SH(self):
         """Parse data for Schleswig-Holstein."""
@@ -265,7 +270,7 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            soup = fetch_soup(
+            soup = self.fetch_soup(
                 "https://hsi-sh.de"
             )
             search_string = "dialogheader-" + self.ident[3:]
@@ -292,8 +297,9 @@ class HochwasserPortalAPI:
                     if element_text[1] == "m3/s":
                         self.flow = float(element_text[0].replace(",", "."))
             self.data_valid = True
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s: %s", self.ident, e)
         self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
     def parse_init_SL(self):
