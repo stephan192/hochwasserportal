@@ -21,6 +21,7 @@ class HochwasserPortalAPI:
         self.url = None
         self.hint = None
         self.info = None
+        self.ni_sta_id = None
         self.last_update = None
         self.data_valid = False
         if len(ident) > 3:
@@ -107,7 +108,6 @@ class HochwasserPortalAPI:
                 self.name += " / " + data.get("data-zeile2")
             self.url = "https://www.hnd.bayern.de/pegel"
         except Exception as e:
-            self.data_valid = False
             LOGGER.error(
                 "An error occured while fetching data for %s: %s", self.ident, e
             )
@@ -179,11 +179,74 @@ class HochwasserPortalAPI:
 
     def parse_init_NI(self):
         """Parse data for Niedersachsen."""
-        pass
+        try:
+            # Get data
+            data = self.fetch_json(
+                "https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten/stationen/All?key=9dc05f4e3b4a43a9988d747825b39f43"
+            )
+            # Parse data
+            self.ni_sta_id = None
+            for entry in data["getStammdatenResult"]:
+                if entry["STA_Nummer"] == self.ident[3:]:
+                    self.name = entry["Name"] + " / " + entry["GewaesserName"]
+                    self.ni_sta_id = str(entry["STA_ID"])
+            self.url = "https://www.pegelonline.nlwkn.niedersachsen.de/Karte"
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching data for %s: %s", self.ident, e
+            )
 
     def parse_NI(self):
         """Parse data for Niedersachsen."""
-        pass
+        if self.ni_sta_id is None:
+            return
+
+        try:
+            # Get data
+            data = self.fetch_json(
+                "https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten/stationen/"
+                + self.ni_sta_id
+                + "?key=9dc05f4e3b4a43a9988d747825b39f43"
+            )
+            # Parse data
+            try:
+                self.stage = int(
+                    data["getStammdatenResult"][0]["Parameter"][0]["Datenspuren"][0][
+                        "AktuelleMeldeStufe"
+                    ]
+                )
+            except (IndexError, KeyError, TypeError):
+                self.stage = None
+            try:
+                value = float(
+                    data["getStammdatenResult"][0]["Parameter"][0]["Datenspuren"][0][
+                        "AktuellerMesswert"
+                    ]
+                )
+            except (IndexError, KeyError, TypeError):
+                value = None
+            try:
+                if data["getStammdatenResult"][0]["Parameter"][0]["Einheit"] == "cm":
+                    self.level = value
+                    self.flow = None
+                elif (
+                    data["getStammdatenResult"][0]["Parameter"][0]["Einheit"] == "m³/s"
+                ):
+                    self.level = None
+                    self.flow = value
+                else:
+                    self.level = None
+                    self.flow = None
+            except (IndexError, KeyError, TypeError):
+                self.level = None
+                self.flow = None
+            self.data_valid = True
+            self.last_update = datetime.datetime.now(datetime.timezone.utc)
+        except Exception as e:
+            self.data_valid = False
+            LOGGER.error(
+                "An error occured while fetching data for %s: %s", self.ident, e
+            )
 
     def parse_init_NW(self):
         """Parse data for Nordrhein-Westfalen."""
@@ -202,7 +265,6 @@ class HochwasserPortalAPI:
                 + "/S/week.json"
             )
         except Exception as e:
-            self.data_valid = False
             LOGGER.error(
                 "An error occured while fetching data for %s: %s", self.ident, e
             )
@@ -320,7 +382,6 @@ class HochwasserPortalAPI:
                     self.name += " / " + element.getText()
             self.url = "https://hsi-sh.de"
         except Exception as e:
-            self.data_valid = False
             LOGGER.error(
                 "An error occured while fetching data for %s: %s", self.ident, e
             )
