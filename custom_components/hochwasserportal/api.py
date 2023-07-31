@@ -43,7 +43,7 @@ class HochwasserPortalAPI:
     def fetch_json(self, url):
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
-            response.raise_for_status() 
+            response.raise_for_status()
             json_data = response.json()
             return json_data
         except requests.exceptions.RequestException as e:
@@ -56,8 +56,10 @@ class HochwasserPortalAPI:
     def fetch_soup(self, url):
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
+            # Override encoding by real educated guess (required for SH)
+            response.encoding = response.apparent_encoding
             response.raise_for_status()
-            soup = bs4.BeautifulSoup(resp.text, "lxml")            
+            soup = bs4.BeautifulSoup(response.text, "lxml")
             return soup
         except requests.exceptions.RequestException as e:
             LOGGER.error("An error occurred while fetching the LXML: %s", e)
