@@ -5,7 +5,7 @@ from .const import API_TIMEOUT, LOGGER
 import datetime
 import requests
 import bs4
-
+import traceback
 
 class HochwasserPortalAPI:
     """API to retrieve the data."""
@@ -40,6 +40,34 @@ class HochwasserPortalAPI:
             return f"{self.name} ({self.ident})"
         return self.ident
 
+    def fetch_json(self, url):
+        try:
+            response = requests.get(url, timeout=API_TIMEOUT)
+            response.raise_for_status()
+            json_data = response.json()
+            return json_data
+        except requests.exceptions.RequestException as e:
+            LOGGER.error("An error occurred while fetching the JSON: %s", e)
+            return None
+        except ValueError as e:
+            LOGGER.error("Error parsing JSON data: %s", e)
+            return None
+
+    def fetch_soup(self, url):
+        try:
+            response = requests.get(url, timeout=API_TIMEOUT)
+            # Override encoding by real educated guess (required for SH)
+            response.encoding = response.apparent_encoding
+            response.raise_for_status()
+            soup = bs4.BeautifulSoup(response.text, "lxml")
+            return soup
+        except requests.exceptions.RequestException as e:
+            LOGGER.error("An error occurred while fetching the LXML: %s", e)
+            return None
+        except XMLSyntaxError as e:
+            LOGGER.error("Error parsing LXML data: %s", e)
+            return None
+
     def parse_init_BB(self):
         """Parse data for Brandenburg."""
         pass
@@ -68,11 +96,9 @@ class HochwasserPortalAPI:
         """Parse data for Bayern."""
         try:
             # Get data
-            resp = requests.get(
-                "https://www.hnd.bayern.de/pegel",
-                timeout=API_TIMEOUT,
+            soup = self.fetch_soup(
+                "https://www.hnd.bayern.de/pegel"
             )
-            soup = bs4.BeautifulSoup(resp.text, "lxml")
             img_id = "p" + self.ident[3:]
             imgs = soup.find_all("img", id=img_id)
             data = imgs[0]
@@ -81,8 +107,9 @@ class HochwasserPortalAPI:
             if len(data.get("data-zeile2")) > 0:
                 self.name += " / " + data.get("data-zeile2")
             self.url = "https://www.hnd.bayern.de/pegel"
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s: %s", self.ident, e)
 
     def parse_BY(self):
         """Parse data for Bayern."""
@@ -91,11 +118,9 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            resp = requests.get(
-                "https://www.hnd.bayern.de/pegel",
-                timeout=API_TIMEOUT,
+            soup = self.fetch_soup(
+                "https://www.hnd.bayern.de/pegel"
             )
-            soup = bs4.BeautifulSoup(resp.text, "lxml")
             img_id = "p" + self.ident[3:]
             imgs = soup.find_all("img", id=img_id)
             data = imgs[0]
@@ -114,8 +139,9 @@ class HochwasserPortalAPI:
                 self.stage = None
             self.hint = data.get("data-stoerung")
             self.data_valid = True
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s: %s", self.ident, e)
         self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
     def parse_init_HB(self):
@@ -162,13 +188,11 @@ class HochwasserPortalAPI:
         """Parse data for Nordrhein-Westfalen."""
         try:
             # Get data
-            json_data = requests.get(
+            data = self.fetch_json(
                 "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
                 + self.ident[3:]
-                + "/S/week.json",
-                timeout=API_TIMEOUT,
+                + "/S/week.json"
             )
-            data = json_data.json()
             # Parse data
             self.name = data[0]["station_name"] + " " + data[0]["WTO_OBJECT"]
             self.url = (
@@ -176,8 +200,9 @@ class HochwasserPortalAPI:
                 + self.ident[3:]
                 + "/S/week.json"
             )
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e: # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s: %s", self.ident, e)
 
     def parse_NW(self):
         """Parse data for Nordrhein-Westfalen."""
@@ -186,27 +211,72 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            json_data = requests.get(
+            data = self.fetch_json(
                 "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
                 + self.ident[3:]
-                + "/S/week.json",
-                timeout=API_TIMEOUT,
+                + "/S/week.json"
             )
-            data = json_data.json()
             # Parse data
             if data[0]["data"][-1][1] > 0:
                 self.level = data[0]["data"][-1][1]
+                # Get data for stages
+                data_stages = self.fetch_json(
+                    "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
+                    + self.ident[3:]
+                    + "/S/alarmlevel.json"
+                )
+                # List to store water level measurements for specific ts_names
+                water_level_measurements = []
+
+                # Iterate through each station's data
+                for station_data in data_stages:
+                    LOGGER.debug(station_data)
+                    # Unfortunately the source data seems quite incomplete.
+                    # So we check if the required keys are present in the station_data dictionary:
+                    if ("ts_name" in station_data and
+                           "data" in station_data and
+                          isinstance(station_data["data"], list) and
+                                 len(station_data["data"]) > 0):
+                        # Check if ts_name is one of the desired values
+                        if station_data["ts_name"] in {"W.Informationswert_1",
+                                                       "W.Informationswert_2",
+                                                       "W.Informationswert_3"}:
+                            timestamp, value = station_data["data"][-1]
+
+                            # Append the relevant information to the list
+                            water_level_measurements.append({
+                                "station_name": station_data["station_name"],
+                                "ts_name": station_data["ts_name"],
+                                "timestamp": timestamp,
+                                "water_level": value
+                            })
+                # Check if original_level is not None and compare with the water level measurements
+                if self.level is not None:
+                    for measurement in water_level_measurements:
+                        LOGGER.debug(measurement)
+                        if self.level > measurement["water_level"]:
+                            # Set the stage based on the ts_name (1 to 3)
+                            if measurement["ts_name"] == "W.Informationswert_1":
+                                self.stage = 1
+                            elif measurement["ts_name"] == "W.Informationswert_2":
+                                self.stage = 2
+                            elif measurement["ts_name"] == "W.Informationswert_3":
+                                self.stage = 3
+                        else:
+                            self.stage = 0
             else:
                 self.level = None
+                self.stage = None
             self.hint = data[0]["AdminStatus"] + " / " + data[0]["AdminBemerkung"]
             self.data_valid = True
             # Extract the last update timestamp from the JSON data
             last_update_str = data[0]["data"][-1][0]
             # Convert the string timestamp to a datetime object
             self.last_update = datetime.datetime.fromisoformat(last_update_str)
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
             self.last_update = datetime.datetime.now(datetime.timezone.utc)
+            LOGGER.error("An error occured while fetching data for %s: %s %s", self.ident, e, traceback.format_exc())
 
     def parse_init_RP(self):
         """Parse data for Rheinland-Pfalz."""
@@ -220,11 +290,9 @@ class HochwasserPortalAPI:
         """Parse data for Schleswig-Holstein."""
         try:
             # Get data
-            resp = requests.get(
-                "https://hsi-sh.de",
-                timeout=API_TIMEOUT,
+            soup = self.fetch_soup(
+                "https://hsi-sh.de"
             )
-            soup = bs4.BeautifulSoup(resp.content, "lxml")
             search_string = "dialogheader-" + self.ident[3:]
             headings = soup.find_all("h1", id=search_string)
             # Parse data
@@ -239,8 +307,9 @@ class HochwasserPortalAPI:
                 ):
                     self.name += " / " + element.getText()
             self.url = "https://hsi-sh.de"
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s: %s", self.ident, e)
 
     def parse_SH(self):
         """Parse data for Schleswig-Holstein."""
@@ -249,11 +318,9 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            resp = requests.get(
-                "https://hsi-sh.de",
-                timeout=API_TIMEOUT,
+            soup = self.fetch_soup(
+                "https://hsi-sh.de"
             )
-            soup = bs4.BeautifulSoup(resp.content, "lxml")
             search_string = "dialogheader-" + self.ident[3:]
             headings = soup.find_all("h1", id=search_string)
             # Parse data
@@ -278,8 +345,9 @@ class HochwasserPortalAPI:
                     if element_text[1] == "m3/s":
                         self.flow = float(element_text[0].replace(",", "."))
             self.data_valid = True
-        except:  # pylint: disable=bare-except # noqa: E722
+        except Exception as e:  # pylint: disable=bare-except # noqa: E722
             self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s: %s", self.ident, e)
         self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
     def parse_init_SL(self):
