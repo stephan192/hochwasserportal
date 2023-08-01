@@ -35,7 +35,7 @@ class HochwasserPortalConfigFlow(ConfigFlow, domain=DOMAIN):
                     HochwasserPortalAPI, pegel_identifier
                 )
             )
-            if pegel_title is None:
+            if pegel_title == pegel_identifier:
                 errors["base"] = "invalid_identifier"
 
             if not errors:
