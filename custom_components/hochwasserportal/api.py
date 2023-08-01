@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .const import API_TIMEOUT, LOGGER
+from cachetools import cached, TTLCache
 import datetime
 import requests
 import bs4
@@ -55,6 +56,13 @@ class HochwasserPortalAPI:
             LOGGER.error("Error parsing JSON data: %s", e)
             return None
 
+    def get_json(self, url, ttl=None):
+        if ttl is None:
+            return self.fetch_json(url)
+        else:
+            cache = TTLCache(maxsize=1000, ttl=ttl)
+            return cached(cache)(self.fetch_json)(url)
+
     def fetch_soup(self, url):
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
@@ -69,6 +77,13 @@ class HochwasserPortalAPI:
         except XMLSyntaxError as e:
             LOGGER.error("Error parsing LXML data: %s", e)
             return None
+
+    def get_soup(self, url, ttl=None):
+        if ttl is None:
+            return self.fetch_soup(url)
+        else:
+            cache = TTLCache(maxsize=1000, ttl=ttl)
+            return cached(cache)(self.fetch_soup)(url)
 
     def parse_init_BB(self):
         """Parse data for Brandenburg."""
@@ -98,7 +113,7 @@ class HochwasserPortalAPI:
         """Parse data for Bayern."""
         try:
             # Get data
-            soup = self.fetch_soup("https://www.hnd.bayern.de/pegel")
+            soup = self.get_soup("https://www.hnd.bayern.de/pegel")
             img_id = "p" + self.ident[3:]
             imgs = soup.find_all("img", id=img_id)
             data = imgs[0]
@@ -119,7 +134,7 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            soup = self.fetch_soup("https://www.hnd.bayern.de/pegel")
+            soup = self.get_soup("https://www.hnd.bayern.de/pegel")
             img_id = "p" + self.ident[3:]
             imgs = soup.find_all("img", id=img_id)
             data = imgs[0]
@@ -181,7 +196,7 @@ class HochwasserPortalAPI:
         """Parse data for Niedersachsen."""
         try:
             # Get data
-            data = self.fetch_json(
+            data = self.get_json(
                 "https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten/stationen/All?key=9dc05f4e3b4a43a9988d747825b39f43"
             )
             # Parse data
@@ -203,7 +218,7 @@ class HochwasserPortalAPI:
 
         try:
             # Get data
-            data = self.fetch_json(
+            data = self.get_json(
                 "https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten/stationen/"
                 + self.ni_sta_id
                 + "?key=9dc05f4e3b4a43a9988d747825b39f43"
@@ -252,7 +267,7 @@ class HochwasserPortalAPI:
         """Parse data for Nordrhein-Westfalen."""
         try:
             # Get data
-            data = self.fetch_json(
+            data = self.get_json(
                 "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
                 + self.ident[3:]
                 + "/S/week.json"
@@ -276,7 +291,7 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            data = self.fetch_json(
+            data = self.get_json(
                 "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
                 + self.ident[3:]
                 + "/S/week.json"
@@ -285,10 +300,11 @@ class HochwasserPortalAPI:
             if data[0]["data"][-1][1] > 0:
                 self.level = data[0]["data"][-1][1]
                 # Get data for stages
-                data_stages = self.fetch_json(
+                data_stages = self.get_json(
                     "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
                     + self.ident[3:]
-                    + "/S/alarmlevel.json"
+                    + "/S/alarmlevel.json",
+                    ttl=86400
                 )
                 # List to store water level measurements for specific ts_names
                 water_level_measurements = []
@@ -366,7 +382,7 @@ class HochwasserPortalAPI:
         """Parse data for Schleswig-Holstein."""
         try:
             # Get data
-            soup = self.fetch_soup("https://hsi-sh.de")
+            soup = self.get_soup("https://hsi-sh.de")
             search_string = "dialogheader-" + self.ident[3:]
             headings = soup.find_all("h1", id=search_string)
             # Parse data
@@ -393,7 +409,7 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            soup = self.fetch_soup("https://hsi-sh.de")
+            soup = self.get_soup("https://hsi-sh.de")
             search_string = "dialogheader-" + self.ident[3:]
             headings = soup.find_all("h1", id=search_string)
             # Parse data

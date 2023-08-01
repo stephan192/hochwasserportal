@@ -9,6 +9,6 @@
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/stephan192/hochwasserportal/issues",
   "loggers": ["hochwasserportal"],
-  "requirements": ["requests>=2.23.0,<3", "lxml>=4.6.2,<5", "bs4==0.0.1"],
+  "requirements": ["requests>=2.23.0,<3", "lxml>=4.6.2,<5", "bs4==0.0.1", "cachetools==5.3.1"],
   "version": "0.0.5"
 }
