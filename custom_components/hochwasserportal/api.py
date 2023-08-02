@@ -43,7 +43,8 @@ class HochwasserPortalAPI:
             return f"{self.name} ({self.ident})"
         return self.ident
 
-    def fetch_json(self, url):
+    @staticmethod
+    def fetch_json(url):
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
             response.raise_for_status()
@@ -56,7 +57,8 @@ class HochwasserPortalAPI:
             LOGGER.error("Error parsing JSON data: %s", e)
             return None
 
-    def fetch_soup(self, url):
+    @staticmethod
+    def fetch_soup(url):
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
             # Override encoding by real educated guess (required for SH)
@@ -354,7 +356,7 @@ class HochwasserPortalAPI:
             # Parse data
             heading = headings[0]
             heading_text = heading.getText().split()
-            self.name = " ".join(heading_text[0 : len(heading_text) - 2])
+            self.name = " ".join(heading_text[0: len(heading_text) - 2])
             d_list = heading.find_next()
             for element in d_list:
                 if (
