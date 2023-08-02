@@ -273,9 +273,9 @@ class HochwasserPortalAPI:
                     )
                     # Get data for stages
                     self.nw_stages = self.fetch_json(
-                            base_url
-                            + "/S/alarmlevel.json"
-                        )
+                        base_url
+                        + "/S/alarmlevel.json"
+                    )
         except Exception as e:
             LOGGER.error(
                 "An error occured while fetching init data for %s: %s", self.ident, e
