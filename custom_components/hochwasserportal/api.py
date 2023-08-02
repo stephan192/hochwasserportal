@@ -22,6 +22,8 @@ class HochwasserPortalAPI:
         self.hint = None
         self.info = None
         self.ni_sta_id = None
+        self.nw_stations = None
+        self.nw_stages = None
         self.last_update = None
         self.data_valid = False
         if len(ident) > 3:
@@ -251,22 +253,32 @@ class HochwasserPortalAPI:
     def parse_init_NW(self):
         """Parse data for Nordrhein-Westfalen."""
         try:
-            # Get data
-            data = self.fetch_json(
-                "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
-                + self.ident[3:]
-                + "/S/week.json"
-            )
-            # Parse data
-            self.name = data[0]["station_name"] + " / " + data[0]["WTO_OBJECT"]
-            self.url = (
-                "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
-                + self.ident[3:]
-                + "/S/week.json"
-            )
+            # Get Stations Data
+            if self.nw_stations is None:
+                self.nw_stations = self.fetch_json(
+                    "https://hochwasserportal.nrw/lanuv/data/internet/stations/stations.json"
+                )
+            for station in self.nw_stations:
+                if station["station_no"] == self.ident[3:]:
+                    self.name = station["station_name"] + " / " + station["WTO_OBJECT"]
+                    self.url = (
+                        "https://hochwasserportal.nrw/lanuv/data/internet/stations/"
+                        + station["site_no"]
+                        + "/"
+                        + self.ident[3:]
+                        + "/S/week.json"
+                    )
+                    # Get data for stages
+                    self.nw_stages = self.fetch_json(
+                            "https://hochwasserportal.nrw/lanuv/data/internet/stations/"
+                            + station["site_no"]
+                            + "/"
+                            + self.ident[3:]
+                            + "/S/alarmlevel.json"
+                        )
         except Exception as e:
             LOGGER.error(
-                "An error occured while fetching data for %s: %s", self.ident, e
+                "An error occured while fetching init data for %s: %s", self.ident, e
             )
 
     def parse_NW(self):
@@ -276,25 +288,15 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            data = self.fetch_json(
-                "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
-                + self.ident[3:]
-                + "/S/week.json"
-            )
+            data = self.fetch_json(self.url)
             # Parse data
             if data[0]["data"][-1][1] > 0:
                 self.level = data[0]["data"][-1][1]
-                # Get data for stages
-                data_stages = self.fetch_json(
-                    "https://hochwasserportal.nrw/lanuv/data/internet/stations/100/"
-                    + self.ident[3:]
-                    + "/S/alarmlevel.json"
-                )
                 # List to store water level measurements for specific ts_names
                 water_level_measurements = []
 
                 # Iterate through each station's data
-                for station_data in data_stages:
+                for station_data in self.nw_stages:
                     LOGGER.debug(station_data)
                     # Unfortunately the source data seems quite incomplete.
                     # So we check if the required keys are present in the station_data dictionary:
