@@ -22,8 +22,7 @@ class HochwasserPortalAPI:
         self.hint = None
         self.info = None
         self.ni_sta_id = None
-        self.nw_stations = None
-        self.nw_stages = None
+        self.nw_stage_levels = [None] * 3
         self.last_update = None
         self.data_valid = False
         if len(ident) > 3:
@@ -254,11 +253,11 @@ class HochwasserPortalAPI:
         """Parse data for Nordrhein-Westfalen."""
         try:
             # Get Stations Data
-            if self.nw_stations is None:
-                self.nw_stations = self.fetch_json(
-                    "https://hochwasserportal.nrw/lanuv/data/internet/stations/stations.json"
-                )
-            for station in self.nw_stations:
+            base_url = None
+            nw_stations = self.fetch_json(
+                "https://hochwasserportal.nrw/lanuv/data/internet/stations/stations.json"
+            )
+            for station in nw_stations:
                 if station["station_no"] == self.ident[3:]:
                     self.name = station["station_name"] + " / " + station["WTO_OBJECT"]
                     base_url = (
@@ -267,15 +266,27 @@ class HochwasserPortalAPI:
                         + "/"
                         + self.ident[3:]
                     )
-                    self.url = (
-                        base_url
-                        + "/S/week.json"
-                    )
-                    # Get data for stages
-                    self.nw_stages = self.fetch_json(
-                        base_url
-                        + "/S/alarmlevel.json"
-                    )
+                    self.url = base_url + "/S/week.json"
+            # Get stage levels
+            if base_url is not None:
+                nw_stages = self.fetch_json(base_url + "/S/alarmlevel.json")
+                for station_data in nw_stages:
+                    # Unfortunately the source data seems quite incomplete.
+                    # So we check if the required keys are present in the station_data dictionary:
+                    if (
+                        "ts_name" in station_data
+                        and "data" in station_data
+                        and isinstance(station_data["data"], list)
+                        and len(station_data["data"]) > 0
+                    ):
+                        # Check if ts_name is one of the desired values
+                        if station_data["ts_name"] == "W.Informationswert_1":
+                            self.nw_stage_levels[0] = float(station_data["data"][-1][1])
+                        elif station_data["ts_name"] == "W.Informationswert_2":
+                            self.nw_stage_levels[1] = float(station_data["data"][-1][1])
+                        elif station_data["ts_name"] == "W.Informationswert_3":
+                            self.nw_stage_levels[2] = float(station_data["data"][-1][1])
+                LOGGER.debug("NW stage levels : %s", self.nw_stage_levels)
         except Exception as e:
             LOGGER.error(
                 "An error occured while fetching init data for %s: %s", self.ident, e
@@ -286,60 +297,30 @@ class HochwasserPortalAPI:
         self.level = None
         self.flow = None
         self.stage = None
+
+        if self.url is None:
+            self.data_valid = False
+            return
+
         try:
             # Get data
             data = self.fetch_json(self.url)
             # Parse data
-            if data[0]["data"][-1][1] > 0:
-                self.level = data[0]["data"][-1][1]
-                # List to store water level measurements for specific ts_names
-                water_level_measurements = []
-
-                # Iterate through each station's data
-                for station_data in self.nw_stages:
-                    LOGGER.debug(station_data)
-                    # Unfortunately the source data seems quite incomplete.
-                    # So we check if the required keys are present in the station_data dictionary:
-                    if (
-                        "ts_name" in station_data
-                        and "data" in station_data
-                        and isinstance(station_data["data"], list)
-                        and len(station_data["data"]) > 0
-                    ):
-                        # Check if ts_name is one of the desired values
-                        if station_data["ts_name"] in {
-                            "W.Informationswert_1",
-                            "W.Informationswert_2",
-                            "W.Informationswert_3",
-                        }:
-                            timestamp, value = station_data["data"][-1]
-
-                            # Append the relevant information to the list
-                            water_level_measurements.append(
-                                {
-                                    "station_name": station_data["station_name"],
-                                    "ts_name": station_data["ts_name"],
-                                    "timestamp": timestamp,
-                                    "water_level": value,
-                                }
-                            )
-                # Check if original_level is not None and compare with the water level measurements
-                if self.level is not None:
-                    for measurement in water_level_measurements:
-                        LOGGER.debug(measurement)
-                        if self.level > measurement["water_level"]:
-                            # Set the stage based on the ts_name (1 to 3)
-                            if measurement["ts_name"] == "W.Informationswert_1":
-                                self.stage = 1
-                            elif measurement["ts_name"] == "W.Informationswert_2":
-                                self.stage = 2
-                            elif measurement["ts_name"] == "W.Informationswert_3":
-                                self.stage = 3
-                        else:
-                            self.stage = 0
+            self.level = float(data[0]["data"][-1][1])
+            if (self.nw_stage_levels[2] is not None) and (
+                self.level > self.nw_stage_levels[2]
+            ):
+                self.stage = 3
+            elif (self.nw_stage_levels[1] is not None) and (
+                self.level > self.nw_stage_levels[1]
+            ):
+                self.stage = 2
+            elif (self.nw_stage_levels[0] is not None) and (
+                self.level > self.nw_stage_levels[0]
+            ):
+                self.stage = 1
             else:
-                self.level = None
-                self.stage = None
+                self.stage = 0
             self.hint = data[0]["AdminStatus"] + " / " + data[0]["AdminBemerkung"]
             self.data_valid = True
             # Extract the last update timestamp from the JSON data
@@ -348,7 +329,6 @@ class HochwasserPortalAPI:
             self.last_update = datetime.datetime.fromisoformat(last_update_str)
         except Exception as e:
             self.data_valid = False
-            self.last_update = datetime.datetime.now(datetime.timezone.utc)
             LOGGER.error(
                 "An error occured while fetching data for %s: %s %s",
                 self.ident,
