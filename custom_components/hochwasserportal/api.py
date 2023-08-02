@@ -262,10 +262,10 @@ class HochwasserPortalAPI:
                 if station["station_no"] == self.ident[3:]:
                     self.name = station["station_name"] + " / " + station["WTO_OBJECT"]
                     base_url = (
-                            "https://hochwasserportal.nrw/lanuv/data/internet/stations/"
-                            + station["site_no"]
-                            + "/"
-                            + self.ident[3:]
+                        "https://hochwasserportal.nrw/lanuv/data/internet/stations/"
+                        + station["site_no"]
+                        + "/"
+                        + self.ident[3:]
                     )
                     self.url = (
                         base_url
