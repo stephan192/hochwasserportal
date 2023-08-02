@@ -261,19 +261,19 @@ class HochwasserPortalAPI:
             for station in self.nw_stations:
                 if station["station_no"] == self.ident[3:]:
                     self.name = station["station_name"] + " / " + station["WTO_OBJECT"]
-                    self.url = (
-                        "https://hochwasserportal.nrw/lanuv/data/internet/stations/"
-                        + station["site_no"]
-                        + "/"
-                        + self.ident[3:]
-                        + "/S/week.json"
-                    )
-                    # Get data for stages
-                    self.nw_stages = self.fetch_json(
+                    base_url = (
                             "https://hochwasserportal.nrw/lanuv/data/internet/stations/"
                             + station["site_no"]
                             + "/"
                             + self.ident[3:]
+                    )
+                    self.url = (
+                        base_url
+                        + "/S/week.json"
+                    )
+                    # Get data for stages
+                    self.nw_stages = self.fetch_json(
+                            base_url
                             + "/S/alarmlevel.json"
                         )
         except Exception as e:
