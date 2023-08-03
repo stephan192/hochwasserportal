@@ -1069,6 +1069,7 @@
 | NW_3132900000100 | Marienfeld_W / Lutter |
 | NW_3166000000100 | Versmold_W / Hessel |
 | NW_3171000000100 | Einen / Ems |
+| NW_3190000000100 | Haskenau / Ems |
 | NW_3211000000300 | Ahlen / Werse |
 | NW_3259000000100 | Albersloh / Werse |
 | NW_3267000000100 | Amelsbueren / Emmerbach |
@@ -1262,3 +1263,57 @@
 | SH_9610080 | Neustadt / Ostsee |
 | SH_9620085 | Travemünde / Trave |
 | SH_9620090 | Lübeck-Bauhof / Trave |
+| TH_25240.1 | Steinach / Steinach |
+| TH_42000.1 | Eisfeld.Bahnbrücke / Werra |
+| TH_42001.1 | Ebenhards / Werra |
+| TH_42002.0 | Meiningen / Werra |
+| TH_42007.0 | Breitungen / Werra |
+| TH_42012.0 | Vacha / Werra |
+| TH_42017.0 | Gerstungen / Werra |
+| TH_42019.0 | Frankenroda / Werra |
+| TH_42151.0 | Rappelsdorf / Schleuse |
+| TH_42160.0 | Hinternah / Nahe |
+| TH_42200.0 | Ellingshausen / Hasel |
+| TH_42220.1 | Suhl / Lauter |
+| TH_42400.0 | Mittelschmalkalden / Schmalkalde |
+| TH_42600.0 | Dorndorf 2 / Felda |
+| TH_42701.0 | Unterbreizbach-Räsa / Ulster |
+| TH_42901.0 | Eisenach-Petersberg / Hörsel |
+| TH_42905.0 | Teutleben / Hörsel |
+| TH_42960.0 | Eisenach-Nessemühle / Nesse |
+| TH_44705.0 | Heiligenstadt / Leine |
+| TH_57021.0 | Blankenstein-Rosenthal / Saale |
+| TH_57025.0 | Kaulsdorf / Saale |
+| TH_57026.0 | Saalfeld-Remschütz / Saale |
+| TH_57027.0 | Rudolstadt / Saale |
+| TH_57028.0 | Rothenstein / Saale |
+| TH_57033.0 | Camburg-Stöben / Saale |
+| TH_57170.0 | Möschlitz / Wisenta |
+| TH_57201.0 | Kaulsdorf-Eichicht / Loquitz |
+| TH_57211.0 | Katzhütte / Schwarza |
+| TH_57211.5 | Schwarzburg / Schwarza |
+| TH_57289.0 | Gräfinau-Angstedt / Ilm |
+| TH_57291.0 | Mellingen / Ilm |
+| TH_57292.0 | Niedertrebra / Ilm |
+| TH_57300.0 | Ammern / Unstrut |
+| TH_57301.0 | Nägelstedt / Unstrut |
+| TH_57310.0 | Straußfurt / Unstrut |
+| TH_57311.0 | Oldisleben / Unstrut |
+| TH_57420.0 | Arnstadt / Gera |
+| TH_57421.0 | Erfurt-Möbisburg / Gera |
+| TH_57430.0 | Gehlberg / Wilde Gera |
+| TH_57440.1 | Geraberg / Zahme Gera |
+| TH_57462.0 | Georgenthal1 / Apfelstädt |
+| TH_57511.0 | Wasserthaleben / Helbe |
+| TH_57521.1 | Wipperdorf / Wipper |
+| TH_57524.0 | Hachelbich / Wipper |
+| TH_57540.0 | Sundhausen / Helme |
+| TH_57550.0 | Nordhausen / Zorge |
+| TH_57566.0 | Ilfeld / Bere |
+| TH_57647.0 | Greiz / Weiße Elster |
+| TH_57650.0 | Berga / Weiße Elster |
+| TH_57652.0 | Gera-Langenberg / Weiße Elster |
+| TH_57732.0 | Weida / Weida |
+| TH_57736.0 | Eisenhammer / Auma |
+| TH_57751.0 | Gößnitz / Pleiße |
+| TH_57780.0 | Großstöbnitz / Sprotte |

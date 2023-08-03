@@ -77,6 +77,27 @@ def get_sh_stations():
         stations.append((ident, name))
     return stations
 
+def get_th_stations():
+    stations = []
+    data = fetch_soup("https://hnz.thueringen.de/hw-portal/thueringen.html")
+    table = data.find_all("table", id="pegelTabelle")[0]
+    tbody = table.find_all("tbody")[0]
+    trs = tbody.find_all("tr")
+    for tr in trs:
+        tds = tr.find_all("td")
+        ident = None
+        name = None
+        cnt = 0
+        for td in tds:
+            if cnt == 1:
+                ident = "TH_"+td.getText().strip()
+            elif cnt == 2:
+                name = td.getText().strip()
+            elif cnt == 3:
+                name += " / "+td.getText().strip()
+            cnt += 1
+        stations.append((ident, name))
+    return stations
 
 # Fetch and sort all available stations
 all_stations = []
@@ -88,6 +109,8 @@ print("Fetching NW")
 all_stations.extend(get_nw_stations())
 print("Fetching SH")
 all_stations.extend(get_sh_stations())
+print("Fetching TH")
+all_stations.extend(get_th_stations())
 
 all_stations.sort(key=lambda x: x[0])
 

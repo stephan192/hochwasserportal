@@ -434,11 +434,72 @@ class HochwasserPortalAPI:
 
     def parse_init_TH(self):
         """Parse data for Thüringen."""
-        pass
+        try:
+            # Get data
+            soup = self.fetch_soup(
+                "https://hnz.thueringen.de/hw-portal/thueringen.html"
+            )
+            table = soup.find_all("table", id="pegelTabelle")[0]
+            tbody = table.find_all("tbody")[0]
+            trs = tbody.find_all("tr")
+            # Parse data
+            for tr in trs:
+                tds = tr.find_all("td")
+                cnt = 0
+                for td in tds:
+                    if (cnt == 1) and (td.getText().strip() != self.ident[3:]):
+                        break
+                    if cnt == 1:
+                        links = td.find_all("a")
+                        self.url = "https://hnz.thueringen.de" + links[0]["href"]
+                    elif cnt == 2:
+                        self.name = td.getText().strip()
+                    elif cnt == 3:
+                        self.name += " / " + td.getText().strip()
+                    cnt += 1
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching init data for %s: %s", self.ident, e
+            )
 
     def parse_TH(self):
         """Parse data for Thüringen."""
-        pass
+        self.level = None
+        self.flow = None
+        self.stage = None
+        try:
+            # Get data
+            soup = self.fetch_soup(
+                "https://hnz.thueringen.de/hw-portal/thueringen.html"
+            )
+            table = soup.find_all("table", id="pegelTabelle")[0]
+            tbody = table.find_all("tbody")[0]
+            trs = tbody.find_all("tr")
+            # Parse data
+            last_update_str = None
+            for tr in trs:
+                tds = tr.find_all("td")
+                cnt = 0
+                for td in tds:
+                    if (cnt == 1) and (td.getText().strip() != self.ident[3:]):
+                        break
+                    if cnt == 7:
+                        last_update_str = td.getText().strip()
+                    elif cnt == 8:
+                        self.level = float(td.getText().strip().replace(",", "."))
+                    elif cnt == 10:
+                        self.flow = float(td.getText().strip().replace(",", "."))
+                    cnt += 1
+            if last_update_str is not None:
+                self.last_update = datetime.datetime.strptime(
+                    last_update_str, "%d.%m.%Y %H:%M"
+                )
+            self.data_valid = True
+        except Exception as e:
+            self.data_valid = False
+            LOGGER.error(
+                "An error occured while fetching data for %s: %s", self.ident, e
+            )
 
     def parse_init(self):
         """Init data."""
