@@ -77,6 +77,16 @@ def get_sh_stations():
         stations.append((ident, name))
     return stations
 
+def get_st_stations():
+    stations = []
+    data = fetch_json("https://hvz.lsaurl.de/fileadmin/Bibliothek/Politik_und_Verwaltung/MLU/HVZ/KISTERS/data/internet/stations/stations.json")
+    for station in data:
+        if len(station["WTO_OBJECT"].strip()) > 0:
+            ident = "ST_"+station["station_no"]
+            name = station["station_name"].strip()+" / "+station["WTO_OBJECT"].strip()
+            stations.append((ident, name))
+    return stations
+
 def get_th_stations():
     stations = []
     data = fetch_soup("https://hnz.thueringen.de/hw-portal/thueringen.html")
@@ -109,6 +119,8 @@ print("Fetching NW")
 all_stations.extend(get_nw_stations())
 print("Fetching SH")
 all_stations.extend(get_sh_stations())
+print("Fetching ST")
+all_stations.extend(get_st_stations())
 print("Fetching TH")
 all_stations.extend(get_th_stations())
 

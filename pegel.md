@@ -1263,6 +1263,219 @@
 | SH_9610080 | Neustadt / Ostsee |
 | SH_9620085 | Travemünde / Trave |
 | SH_9620090 | Lübeck-Bauhof / Trave |
+| ST_440004 | Alleringersleben / Aller |
+| ST_440010 | Weferlingen / Aller |
+| ST_444205 | Ilsenburg / Ilse |
+| ST_444210 | Hoppenstedt / Ilse |
+| ST_501010 | Schöna / Elbe |
+| ST_501040 | Pirna / Elbe |
+| ST_501060 | Dresden / Elbe |
+| ST_501080 | Meißen / Elbe |
+| ST_501110 | Riesa / Elbe |
+| ST_501160 | Mühlberg / Elbe |
+| ST_501261 | Torgau / Elbe |
+| ST_501330 | Pretzsch-Mauken / Elbe |
+| ST_501420 | Wittenberg / Elbe |
+| ST_501470 | Coswig / Elbe |
+| ST_501480 | Vockerode / Elbe |
+| ST_501490 | Roßlau / Elbe |
+| ST_502000 | Dessau-Leopoldshafen / Elbe |
+| ST_502010 | Aken / Elbe |
+| ST_502070 | Barby / Elbe |
+| ST_502130 | Schönebeck / Elbe |
+| ST_502170 | Magdeburg-Buckau / Elbe |
+| ST_502180 | Magdeburg-Strombrücke / Elbe |
+| ST_502210 | Rothensee / Elbe |
+| ST_502240 | Niegripp AP / Elbe |
+| ST_502250 | Rogätz / Elbe |
+| ST_502350 | Tangermünde / Elbe |
+| ST_502370 | Storkau / Elbe |
+| ST_502430 | Sandau / Elbe |
+| ST_502470 | Neuwerben EP / Elbe |
+| ST_502475 | Havelberg EP / Elbe |
+| ST_503010 | Gnevsdorf EP / Elbe |
+| ST_503030 | Scharleuk / Elbe |
+| ST_503050 | Wittenberge / Elbe |
+| ST_503070 | Müggendorf / Elbe |
+| ST_503120 | Lenzen / Elbe |
+| ST_553020 | Neuwiese / Schwarze Elster |
+| ST_5530500 | Bad Liebenwerda / Schwarze Elster |
+| ST_5530501 | Herzberg / Schwarze Elster |
+| ST_553060 | Löben / Schwarze Elster |
+| ST_553080 | Gorsdorf / Schwarze Elster |
+| ST_5544202 | Ortrand / Pulsnitz |
+| ST_554520 | Großdittmannsdorf / Große Röder |
+| ST_554550 | Kleinraschütz / Große Röder |
+| ST_555100 | Mühlstedt / Rossel |
+| ST_560021 | Golzern 1 / Mulde |
+| ST_560051 | Bad Düben 1 / Mulde |
+| ST_560072 | Muldenstein UP / Mulde |
+| ST_560090 | Priorau / Mulde |
+| ST_560110 | Dessau OP / Mulde |
+| ST_560130 | Dessau-Brücke / Mulde |
+| ST_562070 | Zwickau-Pölbitz / Zwickauer Mulde |
+| ST_562115 | Wechselburg 1 / Zwickauer Mulde |
+| ST_566085 | Leisnig / Freiberger Mulde |
+| ST_570210 | Blankenstein-Rosenthal / Saale |
+| ST_570250 | Kaulsdorf / Saale |
+| ST_570260 | Saalfeld-Remschütz / Saale |
+| ST_570270 | Rudolstadt / Saale |
+| ST_570280 | Rothenstein / Saale |
+| ST_570330 | Camburg-Stöben / Saale |
+| ST_570340 | Saaleck / Saale |
+| ST_570500 | Naumburg-Grochlitz / Saale |
+| ST_570611 | Leuna-Kröllwitz / Saale |
+| ST_570630 | Rischmühle UP / Saale |
+| ST_570710 | Hohenweiden-Röpzig / Saale |
+| ST_570810 | Halle-Trotha UP / Saale |
+| ST_570910 | Bernburg UP / Saale |
+| ST_570920 | Calbe OP / Saale |
+| ST_570930 | Calbe UP / Saale |
+| ST_570940 | Calbe-Grizehne / Saale |
+| ST_572010 | Kaulsdorf-Eichicht / Loquitz |
+| ST_572115 | Schwarzburg / Schwarza |
+| ST_572890 | Gräfinau-Angstedt / Ilm |
+| ST_572910 | Mellingen / Ilm |
+| ST_572920 | Niedertrebra / Ilm |
+| ST_573010 | Nägelstedt / Unstrut |
+| ST_573100 | Straußfurt / Unstrut |
+| ST_573110 | Oldisleben / Unstrut |
+| ST_573150 | Gehofen / Flutkanal |
+| ST_573260 | Wangen / Unstrut |
+| ST_573261 | Wendelstein-Schleuse / Unstrut |
+| ST_573360 | Laucha / Unstrut |
+| ST_574210 | Erfurt-Möbisburg / Gera |
+| ST_575110 | Wasserthaleben / Helbe |
+| ST_575211 | Wipperdorf (neu) / Thüringer Wipper |
+| ST_575240 | Hachelbich / Thüringer Wipper |
+| ST_575400 | Sundhausen / Helme |
+| ST_575401 | Görsbach / Helme |
+| ST_575409 | Saukopf / Helme |
+| ST_575410 | Bennungen / Helme |
+| ST_575500 | Nordhausen / Zorge |
+| ST_575560 | Nikolausrieth / Helme |
+| ST_575660 | Ilfeld / Bere |
+| ST_575700 | Stolberg / Thyra |
+| ST_575710 | Berga / Thyra |
+| ST_575850 | Sangerhausen / Gonna |
+| ST_575970 | Thalwinkel / Biberbach |
+| ST_576000 | Mertendorf / Wethau |
+| ST_576100 | Rippach / Rippach |
+| ST_576210 | Frankleben / Geisel |
+| ST_576470 | Greiz / Weiße Elster |
+| ST_576520 | Gera-Langenberg / Weiße Elster |
+| ST_576610 | Zeitz / Weiße Elster |
+| ST_576631 | Kleindalzig / Weiße Elster |
+| ST_576635 | Zitzschen / Weiße Elster |
+| ST_576900 | Oberthau / Weiße Elster |
+| ST_577450 | Oelsen / Schnauder |
+| ST_577501 | Neukirchen 1 / Pleiße |
+| ST_577510 | Gößnitz / Pleiße |
+| ST_577540 | Regis-Serbitz / Pleiße |
+| ST_577571 | Böhlen 1 / Pleiße |
+| ST_577800 | Großstöbnitz / Sprotte |
+| ST_577901 | Streitwald 1 / Wyhra |
+| ST_578180 | Bruckdorf / Reide |
+| ST_578310 | Zappendorf / Salza |
+| ST_578350 | Unterrißdorf / Böse Sieben |
+| ST_578362 | Süßer See - Seepegel Südschleuse / Süßer See Ablauf |
+| ST_578370 | Querfurt / Querne-Weida |
+| ST_578380 | Stedten / Querne-Weida |
+| ST_578390 | Friedeburg / Schlenze |
+| ST_5784001 | VS Wippra Zulaufpegel / Wipper |
+| ST_5784003 | VS Wippra Ablaufpegel / Wipper |
+| ST_578410 | Wippra / Wipper |
+| ST_578420 | Mansfeld-Leimbach / Wipper |
+| ST_578430 | Großschierstedt / Wipper |
+| ST_5784301 | Einlauf Liehte Wehr / Wipper |
+| ST_5784302 | Einlauf Liehte Straßenbrücke / Liethe |
+| ST_578500 | Stangerode / Eine |
+| ST_578510 | Aschersleben / Eine |
+| ST_578600 | Baalberge / Fuhne (westlich) |
+| ST_578620 | Kleinpaschleben / Ziethe |
+| ST_578630 | Zörbig / Zörbiger Strengbach |
+| ST_578650 | Aken (Taube) / Taube-Landgraben |
+| ST_579006 | Wendefurth / Bode |
+| ST_579020 | Thale / Bode |
+| ST_579040 | Ditfurt / Bode |
+| ST_579049 | Wegeleben / Bode |
+| ST_579070 | Hadmersleben / Bode |
+| ST_579085 | Staßfurt / Bode |
+| ST_579100 | Nienburg-Bodemündung / Saale |
+| ST_579205 | Tanne / Warme Bode |
+| ST_579209 | Königshütte-WB / Warme Bode |
+| ST_579305 | Elend / Kalte Bode |
+| ST_579330 | Königshütte-KB / Kalte Bode |
+| ST_579405 | Trautenstein / Rappbode |
+| ST_579504 | Hasselfelde / Hassel |
+| ST_579600 | Güntersberge / Selke |
+| ST_579605 | Silberhütte / Selke |
+| ST_5796072 | Bremer Teich (N) / Bach vom Bremer Teich |
+| ST_579610 | Meisdorf / Selke |
+| ST_579620 | Hausneindorf / Selke |
+| ST_579652 | Pfeifenkrug / Goldbach |
+| ST_579705 | Steinerne Renne / Holtemme |
+| ST_579712 | Mahndorf / Holtemme |
+| ST_579745 | Nienhagen / Holtemme |
+| ST_579754 | Zillierbachtalsperre Zulauf / Zillierbach |
+| ST_579758 | Wernigerode / Zillierbach |
+| ST_579810 | Oschersleben / Großer Graben |
+| ST_580520 | Albertsheim / Havel |
+| ST_580640 | Rathenow OP / Havel |
+| ST_580650 | Rathenow UP / Havel |
+| ST_580700 | Grütz OP / Havel |
+| ST_580710 | Grütz UP / Havel |
+| ST_580750 | Garz OP / Havel |
+| ST_580760 | Garz UP / Havel |
+| ST_580790 | Havelberg Stadt / Havel |
+| ST_580800 | Havelberg UP / Havel |
+| ST_580820 | Quitzöbel OP / Havel |
+| ST_580830 | Quitzöbel UP / Elbe |
+| ST_580840 | Gnevsdorf OP / Gnevsdorfer Vorfluter |
+| ST_587540 | Wusterwitz OP / Elbe-Havel-Kanal |
+| ST_587600 | Grabow / Ihle |
+| ST_587620 | Tucheim / Tucheim-Parchener Bach |
+| ST_5898807 | Waldfrieden / Neue Jäglitz |
+| ST_590005 | Nutha / Nuthe |
+| ST_590210 | Dannigkow / Ehle |
+| ST_5910010 | Schnackenburg / Elbe |
+| ST_5910025 | Dömitz / Elbe |
+| ST_5910030 | Damnatz / Elbe |
+| ST_591005 | Jahrstedt / Ohre |
+| ST_591040 | Calvörde / Ohre |
+| ST_591043 | Satuelle / Ohre |
+| ST_591070 | Wolmirstedt / Ohre |
+| ST_591504 | Hundisburg / Beber |
+| ST_5920010 | Hitzacker / Elbe |
+| ST_592002 | Demker / Tanger |
+| ST_5930010 | Neu Darchau / Elbe |
+| ST_5930020 | Bleckede / Elbe |
+| ST_5930033 | Boizenburg / Elbe |
+| ST_5930040 | Hohnstorf / Elbe |
+| ST_5930050 | Artlenburg / Elbe |
+| ST_5930060 | Geesthacht / Elbe |
+| ST_5930062 | Geesthacht Wehr UP / Elbe |
+| ST_5930090 | Zollenspieker / Elbe |
+| ST_594005 | Hagenau / Biese |
+| ST_594010 | Dobbrun / Biese |
+| ST_594020 | Seehausen / Aland |
+| ST_594021 | Seehausen-Umflut / Aland |
+| ST_594050 | Klein Wanzer OP / Aland |
+| ST_594051 | Klein Wanzer UP / Aland |
+| ST_594104 | Gardelegen / Milde |
+| ST_594107 | Karritz (Milde) / Milde |
+| ST_594137 | Karritz (Secantsgraben) / Schaugraben/Secantsgraben |
+| ST_594143 | Kalbe / Untermilde |
+| ST_594160 | Tornau / Uchte |
+| ST_594171 | Stendal / Uchte |
+| ST_594180 | Goldbeck / Uchte |
+| ST_594953 | Lindenberg / Zehrengraben |
+| ST_594961 | Bömenzien / Seege |
+| ST_597007 | Sienau OP / Jeetze |
+| ST_597008 | Sienau UP / Jeetze |
+| ST_597205 | Tylsen / Salzwedeler Dumme |
+| ST_597208 | Salzwedel-Dumme / Salzwedeler Dumme |
+| ST_597570 | Ziessau / Arendsee |
 | TH_25240.1 | Steinach / Steinach |
 | TH_42000.1 | Eisfeld.Bahnbrücke / Werra |
 | TH_42001.1 | Ebenhards / Werra |

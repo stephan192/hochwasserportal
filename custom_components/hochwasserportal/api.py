@@ -18,11 +18,12 @@ class HochwasserPortalAPI:
         self.level = None
         self.stage = None
         self.flow = None
+        self.internal_url = None
         self.url = None
         self.hint = None
         self.info = None
         self.ni_sta_id = None
-        self.nw_stage_levels = [None] * 3
+        self.stage_levels = [None] * 4
         self.last_update = None
         self.data_valid = False
         if len(ident) > 3:
@@ -49,11 +50,8 @@ class HochwasserPortalAPI:
             response.raise_for_status()
             json_data = response.json()
             return json_data
-        except requests.exceptions.RequestException as e:
-            LOGGER.error("An error occurred while fetching the JSON: %s", e)
-            return None
-        except ValueError as e:
-            LOGGER.error("Error parsing JSON data: %s", e)
+        except:
+            # Don't care about errors because in some cases the requested page doesn't exist
             return None
 
     def fetch_soup(self, url):
@@ -64,11 +62,8 @@ class HochwasserPortalAPI:
             response.raise_for_status()
             soup = bs4.BeautifulSoup(response.text, "lxml")
             return soup
-        except requests.exceptions.RequestException as e:
-            LOGGER.error("An error occurred while fetching the LXML: %s", e)
-            return None
-        except XMLSyntaxError as e:
-            LOGGER.error("Error parsing LXML data: %s", e)
+        except:
+            # Don't care about errors because in some cases the requested page doesn't exist
             return None
 
     def parse_init_BB(self):
@@ -281,12 +276,12 @@ class HochwasserPortalAPI:
                     ):
                         # Check if ts_name is one of the desired values
                         if station_data["ts_name"] == "W.Informationswert_1":
-                            self.nw_stage_levels[0] = float(station_data["data"][-1][1])
+                            self.stage_levels[0] = float(station_data["data"][-1][1])
                         elif station_data["ts_name"] == "W.Informationswert_2":
-                            self.nw_stage_levels[1] = float(station_data["data"][-1][1])
+                            self.stage_levels[1] = float(station_data["data"][-1][1])
                         elif station_data["ts_name"] == "W.Informationswert_3":
-                            self.nw_stage_levels[2] = float(station_data["data"][-1][1])
-                LOGGER.debug("NW stage levels : %s", self.nw_stage_levels)
+                            self.stage_levels[2] = float(station_data["data"][-1][1])
+                LOGGER.debug("Stage levels : %s", self.stage_levels)
         except Exception as e:
             LOGGER.error(
                 "An error occured while fetching init data for %s: %s", self.ident, e
@@ -307,20 +302,23 @@ class HochwasserPortalAPI:
             data = self.fetch_json(self.url)
             # Parse data
             self.level = float(data[0]["data"][-1][1])
-            if (self.nw_stage_levels[2] is not None) and (
-                self.level > self.nw_stage_levels[2]
-            ):
-                self.stage = 3
-            elif (self.nw_stage_levels[1] is not None) and (
-                self.level > self.nw_stage_levels[1]
-            ):
-                self.stage = 2
-            elif (self.nw_stage_levels[0] is not None) and (
-                self.level > self.nw_stage_levels[0]
-            ):
-                self.stage = 1
+            if all(sl is None for sl in self.stage_levels):
+                self.stage = None
             else:
-                self.stage = 0
+                if (self.stage_levels[2] is not None) and (
+                    self.level > self.stage_levels[2]
+                ):
+                    self.stage = 3
+                elif (self.stage_levels[1] is not None) and (
+                    self.level > self.stage_levels[1]
+                ):
+                    self.stage = 2
+                elif (self.stage_levels[0] is not None) and (
+                    self.level > self.stage_levels[0]
+                ):
+                    self.stage = 1
+                else:
+                    self.stage = 0
             self.hint = data[0]["AdminStatus"] + " / " + data[0]["AdminBemerkung"]
             self.data_valid = True
             # Extract the last update timestamp from the JSON data
@@ -426,11 +424,117 @@ class HochwasserPortalAPI:
 
     def parse_init_ST(self):
         """Parse data for Sachsen-Anhalt."""
-        pass
+        try:
+            # Get Stations Data
+            st_stations = self.fetch_json(
+                "https://hvz.lsaurl.de/fileadmin/Bibliothek/Politik_und_Verwaltung/MLU/HVZ/KISTERS/data/internet/stations/stations.json"
+            )
+            for station in st_stations:
+                if station["station_no"] == self.ident[3:]:
+                    self.name = (
+                        station["station_name"].strip()
+                        + " / "
+                        + station["WTO_OBJECT"].strip()
+                    )
+                    self.url = "https://hvz.lsaurl.de/#" + self.ident[3:]
+                    self.internal_url = (
+                        "https://hvz.lsaurl.de/fileadmin/Bibliothek/Politik_und_Verwaltung/MLU/HVZ/KISTERS/data/internet/stations/"
+                        + station["site_no"]
+                        + "/"
+                        + self.ident[3:]
+                    )
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching init data for %s: %s", self.ident, e
+            )
+            return
+        try:
+            # Get stage levels
+            if self.internal_url is not None:
+                alarmlevels = self.fetch_json(self.internal_url + "/W/alarmlevel.json")
+                for station_data in alarmlevels:
+                    if (
+                        "ts_name" in station_data
+                        and "data" in station_data
+                        and isinstance(station_data["data"], list)
+                        and len(station_data["data"]) > 0
+                    ):
+                        # Check if ts_name is one of the desired values
+                        if station_data["ts_name"] == "Alarmstufe 1":
+                            self.stage_levels[0] = float(station_data["data"][-1][1])
+                        elif station_data["ts_name"] == "Alarmstufe 2":
+                            self.stage_levels[1] = float(station_data["data"][-1][1])
+                        elif station_data["ts_name"] == "Alarmstufe 3":
+                            self.stage_levels[2] = float(station_data["data"][-1][1])
+                        elif station_data["ts_name"] == "Alarmstufe 4":
+                            self.stage_levels[3] = float(station_data["data"][-1][1])
+                LOGGER.debug("Stage levels : %s", self.stage_levels)
+        except:
+            self.stage_levels = [None] * 4
+            LOGGER.debug("%s: No stage levels available", self.ident)
 
     def parse_ST(self):
         """Parse data for Sachsen-Anhalt."""
-        pass
+        if self.internal_url is None:
+            self.level = None
+            self.flow = None
+            self.stage = None
+            self.data_valid = False
+            return
+
+        last_update_str_w = None
+        try:
+            # Get data
+            data = self.fetch_json(self.internal_url + "/W/week.json")
+            # Parse data
+            last_update_str_w = data[0]["data"][-1][0]
+            self.level = float(data[0]["data"][-1][1])
+            if all(sl is None for sl in self.stage_levels):
+                self.stage = None
+            else:
+                if (self.stage_levels[3] is not None) and (
+                    self.level > self.stage_levels[3]
+                ):
+                    self.stage = 4
+                elif (self.stage_levels[2] is not None) and (
+                    self.level > self.stage_levels[2]
+                ):
+                    self.stage = 3
+                elif (self.stage_levels[1] is not None) and (
+                    self.level > self.stage_levels[1]
+                ):
+                    self.stage = 2
+                elif (self.stage_levels[0] is not None) and (
+                    self.level > self.stage_levels[0]
+                ):
+                    self.stage = 1
+                else:
+                    self.stage = 0
+        except:
+            self.level = None
+            self.stage = None
+            LOGGER.debug("%s: No level data available", self.ident)
+
+        last_update_str_q = None
+        try:
+            # Get data
+            data = self.fetch_json(self.internal_url + "/Q/week.json")
+            # Parse data
+            last_update_str_q = data[0]["data"][-1][0]
+            self.flow = float(data[0]["data"][-1][1])
+        except:
+            self.flow = None
+            LOGGER.debug("%s: No flow data available", self.ident)
+
+        if self.level is not None:
+            self.data_valid = True
+            self.last_update = datetime.datetime.fromisoformat(last_update_str_w)
+        elif self.level is not None:
+            self.data_valid = True
+            self.last_update = datetime.datetime.fromisoformat(last_update_str_q)
+        else:
+            self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s", self.ident)
 
     def parse_init_TH(self):
         """Parse data for Thüringen."""
