@@ -248,23 +248,22 @@ class HochwasserPortalAPI:
         """Parse data for Nordrhein-Westfalen."""
         try:
             # Get Stations Data
-            base_url = None
             nw_stations = self.fetch_json(
                 "https://hochwasserportal.nrw/lanuv/data/internet/stations/stations.json"
             )
             for station in nw_stations:
                 if station["station_no"] == self.ident[3:]:
                     self.name = station["station_name"] + " / " + station["WTO_OBJECT"]
-                    base_url = (
+                    self.internal_url = (
                         "https://hochwasserportal.nrw/lanuv/data/internet/stations/"
                         + station["site_no"]
                         + "/"
                         + self.ident[3:]
                     )
-                    self.url = base_url + "/S/week.json"
+            self.url = "https://hochwasserportal.nrw/lanuv"
             # Get stage levels
-            if base_url is not None:
-                nw_stages = self.fetch_json(base_url + "/S/alarmlevel.json")
+            if self.internal_url is not None:
+                nw_stages = self.fetch_json(self.internal_url + "/S/alarmlevel.json")
                 for station_data in nw_stages:
                     # Unfortunately the source data seems quite incomplete.
                     # So we check if the required keys are present in the station_data dictionary:
@@ -298,7 +297,7 @@ class HochwasserPortalAPI:
 
         try:
             # Get data
-            data = self.fetch_json(self.url)
+            data = self.fetch_json(self.internal_url + "/S/week.json")
             # Parse data
             self.level = float(data[0]["data"][-1][1])
             if all(sl is None for sl in self.stage_levels):
