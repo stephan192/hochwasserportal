@@ -289,11 +289,10 @@ class HochwasserPortalAPI:
 
     def parse_NW(self):
         """Parse data for Nordrhein-Westfalen."""
-        self.level = None
-        self.flow = None
-        self.stage = None
-
         if self.url is None:
+            self.level = None
+            self.flow = None
+            self.stage = None
             self.data_valid = False
             return
 
@@ -319,13 +318,23 @@ class HochwasserPortalAPI:
                     self.stage = 1
                 else:
                     self.stage = 0
-            self.hint = data[0]["AdminStatus"] + " / " + data[0]["AdminBemerkung"]
-            self.data_valid = True
+            self.hint = None
+            if len(data[0]["AdminStatus"].strip()) > 0:
+                self.hint = data[0]["AdminStatus"].strip()
+            if len(data[0]["AdminBemerkung"].strip()) > 0:
+                if len(self.hint) > 0:
+                    self.hint += " / " + data[0]["AdminBemerkung"].strip()
+                else:
+                    self.hint = data[0]["AdminBemerkung"].strip()
             # Extract the last update timestamp from the JSON data
             last_update_str = data[0]["data"][-1][0]
             # Convert the string timestamp to a datetime object
             self.last_update = datetime.datetime.fromisoformat(last_update_str)
+            self.data_valid = True
         except Exception as e:
+            self.level = None
+            self.stage = None
+            self.hint = None
             self.data_valid = False
             LOGGER.error(
                 "An error occured while fetching data for %s: %s %s",
