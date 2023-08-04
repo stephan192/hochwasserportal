@@ -102,7 +102,7 @@ class HochwasserPortalAPI:
             self.name = data.get("data-name")
             if len(data.get("data-zeile2")) > 0:
                 self.name += " / " + data.get("data-zeile2")
-            self.url = "https://www.hnd.bayern.de/pegel"
+            self.url = data.parent.attrs["href"]
         except Exception as e:
             LOGGER.error(
                 "An error occured while fetching data for %s: %s", self.ident, e
@@ -133,13 +133,21 @@ class HochwasserPortalAPI:
             else:
                 self.stage = None
             self.hint = data.get("data-stoerung")
+            if len(data.get("data-datum")) > 0:
+                try:
+                    self.last_update = datetime.datetime.strptime(
+                        data.get("data-datum"), "%d.%m.%Y, %H:%M"
+                    )
+                except:
+                    self.last_update = None
+            else:
+                self.last_update = None
             self.data_valid = True
         except Exception as e:
             self.data_valid = False
             LOGGER.error(
                 "An error occured while fetching data for %s: %s", self.ident, e
             )
-        self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
     def parse_init_HB(self):
         """Parse data for Bremen."""
