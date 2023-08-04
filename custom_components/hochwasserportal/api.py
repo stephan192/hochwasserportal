@@ -190,11 +190,12 @@ class HochwasserPortalAPI:
             )
             # Parse data
             self.ni_sta_id = None
+            self.url = "https://www.pegelonline.nlwkn.niedersachsen.de"
             for entry in data["getStammdatenResult"]:
                 if entry["STA_Nummer"] == self.ident[3:]:
                     self.name = entry["Name"] + " / " + entry["GewaesserName"]
                     self.ni_sta_id = str(entry["STA_ID"])
-            self.url = "https://www.pegelonline.nlwkn.niedersachsen.de/Karte"
+                    self.url += "/Pegel/Karte/Binnenpegel/ID/" + self.ni_sta_id
         except Exception as e:
             LOGGER.error(
                 "An error occured while fetching data for %s: %s", self.ident, e
@@ -244,8 +245,16 @@ class HochwasserPortalAPI:
             except (IndexError, KeyError, TypeError):
                 self.level = None
                 self.flow = None
+            try:
+                self.last_update = datetime.datetime.strptime(
+                    data["getStammdatenResult"][0]["Parameter"][0]["Datenspuren"][0][
+                        "AktuellerMesswert_Zeitpunkt"
+                    ],
+                    "%d.%m.%Y %H:%M",
+                )
+            except (IndexError, KeyError, TypeError):
+                self.last_update = None
             self.data_valid = True
-            self.last_update = datetime.datetime.now(datetime.timezone.utc)
         except Exception as e:
             self.data_valid = False
             LOGGER.error(
