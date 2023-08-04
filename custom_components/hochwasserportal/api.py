@@ -6,6 +6,7 @@ import datetime
 import requests
 import bs4
 import traceback
+import json
 
 
 class HochwasserPortalAPI:
@@ -66,6 +67,17 @@ class HochwasserPortalAPI:
             # Don't care about errors because in some cases the requested page doesn't exist
             return None
 
+    def fetch_text(self, url):
+        try:
+            response = requests.get(url, timeout=API_TIMEOUT)
+            # Override encoding by real educated guess (required for BW)
+            response.encoding = response.apparent_encoding
+            response.raise_for_status()
+            return response.text
+        except:
+            # Don't care about errors because in some cases the requested page doesn't exist
+            return None
+
     def parse_init_BB(self):
         """Parse data for Brandenburg."""
         pass
@@ -84,11 +96,113 @@ class HochwasserPortalAPI:
 
     def parse_init_BW(self):
         """Parse data for Baden-Württemberg."""
-        pass
+        try:
+            # Get data
+            page = self.fetch_text(
+                "https://www.hvz.baden-wuerttemberg.de/js/hvz_peg_stmn.js"
+            )
+            lines = page.split("\r\n")[6:-4]
+            # Parse data
+            for line in lines:
+                # Building a valid json string
+                content = line[line.find("[") : (line.find("]") + 1)]
+                content = content.replace("'", '"')
+                content = '{ "data":' + content + "}"
+                data = json.loads(content)["data"]
+                if data[0] == self.ident[3:]:
+                    self.name = data[1] + " / " + data[2]
+                    self.url = (
+                        "https://hvz.baden-wuerttemberg.de/pegel.html?id="
+                        + self.ident[3:]
+                    )
+                    if data[30] > 0:
+                        self.stage_levels[0] = float(data[30])
+                    if data[31] > 0:
+                        self.stage_levels[1] = float(data[31])
+                    if data[32] > 0:
+                        self.stage_levels[2] = float(data[32])
+                    if data[33] > 0:
+                        self.stage_levels[3] = float(data[33])
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching init data for %s: %s", self.ident, e
+            )
 
     def parse_BW(self):
         """Parse data for Baden-Württemberg."""
-        pass
+        try:
+            # Get data
+            page = self.fetch_text(
+                "https://www.hvz.baden-wuerttemberg.de/js/hvz_peg_stmn.js"
+            )
+            lines = page.split("\r\n")[6:-4]
+            # Parse data
+            self.last_update = None
+            for line in lines:
+                # Building a valid json string
+                content = line[line.find("[") : (line.find("]") + 1)]
+                content = content.replace("'", '"')
+                content = '{ "data":' + content + "}"
+                data = json.loads(content)["data"]
+                if data[0] == self.ident[3:]:
+                    try:
+                        if data[5] == "cm":
+                            self.level = float(data[4])
+                            if all(sl is None for sl in self.stage_levels):
+                                self.stage = None
+                            else:
+                                if (self.stage_levels[3] is not None) and (
+                                    self.level > self.stage_levels[3]
+                                ):
+                                    self.stage = 4
+                                elif (self.stage_levels[2] is not None) and (
+                                    self.level > self.stage_levels[2]
+                                ):
+                                    self.stage = 3
+                                elif (self.stage_levels[1] is not None) and (
+                                    self.level > self.stage_levels[1]
+                                ):
+                                    self.stage = 2
+                                elif (self.stage_levels[0] is not None) and (
+                                    self.level > self.stage_levels[0]
+                                ):
+                                    self.stage = 1
+                                else:
+                                    self.stage = 0
+                            try:
+                                dt = data[6].split()
+                                self.last_update = datetime.datetime.strptime(
+                                    dt[0] + dt[1], "%d.%m.%Y%H:%M"
+                                )
+                            except:
+                                self.last_update = None
+                        else:
+                            self.level = None
+                            self.stage = None
+                    except:
+                        self.level = None
+                        self.stage = None
+                    try:
+                        if data[8] == "m³/s":
+                            self.flow = float(data[7])
+                        else:
+                            self.flow = None
+                    except:
+                        self.flow = None
+                    if self.last_update is None:
+                        try:
+                            dt = data[9].split()
+                            self.last_update = datetime.datetime.strptime(
+                                dt[0] + dt[1], "%d.%m.%Y%H:%M"
+                            )
+                        except:
+                            self.last_update = None
+            self.data_valid = True
+        except Exception as e:
+            self.data_valid = False
+            LOGGER.error(
+                "An error occured while fetching data for %s: %s", self.ident, e
+            )
 
     def parse_init_BY(self):
         """Parse data for Bayern."""
@@ -105,7 +219,7 @@ class HochwasserPortalAPI:
             self.url = data.parent.attrs["href"]
         except Exception as e:
             LOGGER.error(
-                "An error occured while fetching data for %s: %s", self.ident, e
+                "An error occured while fetching init data for %s: %s", self.ident, e
             )
 
     def parse_BY(self):

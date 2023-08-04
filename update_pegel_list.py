@@ -1,6 +1,7 @@
 import requests
 import bs4
 import re
+import json
 
 API_TIMEOUT = 10
 
@@ -31,6 +32,31 @@ def fetch_soup(url):
     except XMLSyntaxError as e:
         LOGGER.error("Error parsing LXML data: %s", e)
         return None
+
+def fetch_text(url):
+    try:
+        response = requests.get(url, timeout=API_TIMEOUT)
+        # Override encoding by real educated guess (required for BW)
+        response.encoding = response.apparent_encoding
+        response.raise_for_status()
+        return response.text
+    except requests.exceptions.RequestException as e:
+        LOGGER.error("An error occurred while fetching the TEXT: %s", e)
+        return None
+
+def get_bw_stations():
+    stations = []
+    page = fetch_text("https://www.hvz.baden-wuerttemberg.de/js/hvz_peg_stmn.js")
+    lines = page.split("\r\n")[6:-4]
+    for line in lines:
+        content = line[line.find("["):line.find("]") + 1]
+        content = content.replace("'", '"')
+        content = '{ "data":'+content+'}'
+        data = json.loads(content)['data']
+        ident = "BW_"+data[0]
+        name = data[1] + " / " + data[2]
+        stations.append((ident, name))
+    return stations
 
 def get_by_stations():
     stations = []
@@ -122,6 +148,8 @@ def get_th_stations():
 
 # Fetch and sort all available stations
 all_stations = []
+print("Fetching BW")
+all_stations.extend(get_bw_stations())
 print("Fetching BY")
 all_stations.extend(get_by_stations())
 print("Fetching NI")

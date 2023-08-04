@@ -1,5 +1,334 @@
 | Pegel | Description |
 |-------|-------------|
+| BW_00001 | Eberfingen / Wutach |
+| BW_00002 | Schwaibach / Kinzig |
+| BW_00004 | Kirchen-Hausen / Donau |
+| BW_00005 | Hundersingen / Donau |
+| BW_00006 | Berg / Donau |
+| BW_00007 | Konstanz / Bodensee |
+| BW_00010 | Lauffen / Neckar |
+| BW_00011 | Riegel / Leopoldskanal |
+| BW_00012 | Ziegelhausen AMS / Neckar |
+| BW_00015 | Murr / Murr |
+| BW_00020 | Möhringen-Espenbrücke / Donau |
+| BW_00021 | Aach / Radolfzeller Aach |
+| BW_00022 | Immendingen / Donau |
+| BW_00025 | Plochingen / Fils |
+| BW_00026 | Beuron / Donau |
+| BW_00027 | Pforzheim / Enz |
+| BW_00028 | Vaihingen / Enz |
+| BW_00029 | Oppenweiler / Murr |
+| BW_00030 | Neustadt / Rems |
+| BW_00032 | Schorndorf / Rems |
+| BW_00033 | Wendlingen / Lauter |
+| BW_00034 | Stein / Kocher |
+| BW_00035 | Untergriesheim / Jagst |
+| BW_00037 | Höfen / Enz |
+| BW_00038 | Calw / Nagold |
+| BW_00039 | Nagold / Nagold |
+| BW_00040 | Konstanz / Rhein |
+| BW_00041 | Rielasingen / Radolfzeller Aach |
+| BW_00042 | Wolfach / Kinzig |
+| BW_00043 | Weinheim / Weschnitz |
+| BW_00044 | Eschelbronn / Schwarzbach |
+| BW_00045 | Abtsgmünd / Lein |
+| BW_00047 | Schwabsberg / Jagst |
+| BW_00048 | Jagstzell / Jagst |
+| BW_00049 | Unterkochen / Weißer Kocher |
+| BW_00050 | Riedern / Schwarzbach |
+| BW_00052 | Weisweil / Seegraben |
+| BW_00053 | Maria Tann / Kirnach |
+| BW_00054 | Hammereisenbach / Breg |
+| BW_00055 | Donaueschingen / Brigach |
+| BW_00056 | Wöllstein / Kocher |
+| BW_00057 | Oberensingen / Aich |
+| BW_00058 | Biberach / Kinzig |
+| BW_00059 | Bad Mergentheim / Tauber |
+| BW_00060 | Archshofen / Tauber |
+| BW_00061 | Dörzbach / Jagst |
+| BW_00062 | Kocherstetten / Kocher |
+| BW_00063 | Elpershofen / Jagst |
+| BW_00064 | Geislingen / Bühler |
+| BW_00065 | Mittelrot / Fichtenberger Rot |
+| BW_00066 | Gaildorf / Kocher |
+| BW_00069 | Untermünstertal / Neumagen |
+| BW_00070 | Oberkirch / Rench |
+| BW_00071 | Lahr / Schutter |
+| BW_00072 | Ewattingen / Wutach |
+| BW_00073 | Oberlauchringen / Wutach |
+| BW_00074 | Zell / Wiese |
+| BW_00075 | Nibelhöfe / Eschach |
+| BW_00076 | Rengers / Untere Argen |
+| BW_00077 | Epplings / Obere Argen |
+| BW_00078 | Gerbertshaus / Schussen |
+| BW_00079 | Schwarzenberg / Murg |
+| BW_00080 | Lauben / Aitrach |
+| BW_00081 | Oberhalb Urlau / Eschach |
+| BW_00082 | Urlau / Eschach |
+| BW_00083 | Reichenhofen / Wurzacher Ach |
+| BW_00084 | Sigmaringen / Donau |
+| BW_00085 | Laucherthal / Lauchert |
+| BW_00086 | Kirchentellinsfurt / Neckar |
+| BW_00087 | Balingen / Eyach |
+| BW_00088 | Bad Imnau / Eyach |
+| BW_00089 | Tübingen / Steinlach |
+| BW_00090 | Schömberg-Stausee / Schlichem |
+| BW_00091 | Schömberg-Zulauf / Schlichem |
+| BW_00092 | Wannweil / Echaz |
+| BW_00093 | Owingen / Eyach |
+| BW_00095 | Laupheim / Rottum |
+| BW_00096 | Niederkirch / Riß |
+| BW_00102 | Rottenburg / Bronnbachquelle |
+| BW_00103 | Hermentingen-Pegel / Gallusquelle |
+| BW_00105 | Schwäbisch Gmünd / Rems |
+| BW_00106 | Hopfau / Glatt |
+| BW_00108 | Wiesloch / Leimbach |
+| BW_00109 | Berghausen / Pfinz |
+| BW_00110 | Ettlingen / Alb |
+| BW_00111 | Bad Rotenfels / Murg |
+| BW_00112 | Baden-Baden / Oos |
+| BW_00113 | Ubstadt / Kraichbach |
+| BW_00114 | Kappelrodeck / Acher |
+| BW_00115 | Altensteig / Nagold |
+| BW_00116 | Erzgrube-Zulauf / Nagold |
+| BW_00117 | Horb / Neckar |
+| BW_00119 | Wittelbach / Schutter |
+| BW_00121 | Donaueschingen / Breg |
+| BW_00122 | Tauberbischofsheim / Tauber |
+| BW_00124 | Kadelburg / Rhein |
+| BW_00126 | Altschweier / Bühlot |
+| BW_00127 | Steinheim / Bottwar |
+| BW_00128 | Talhausen / Glems |
+| BW_00129 | Denkendorf / Körsch |
+| BW_00131 | Sennfeld / Seckach |
+| BW_00133 | Riegel-Pumpwerksteg / Alte Elz |
+| BW_00136 | Hauenstein / Rhein |
+| BW_00138 | Zell am Harmersbach / Erlenbach |
+| BW_00139 | Hausach / Kinzig |
+| BW_00142 | Hüttlingen / Kocher |
+| BW_00143 | Stefansweiler Mühle / Schwarzer Kocher |
+| BW_00146 | Rottweil / Neckar |
+| BW_00147 | Ramsbach / Rench |
+| BW_00148 | Mosbach / Elz |
+| BW_00149 | Hausen / Zaber |
+| BW_00151 | Donaueschingen / Donau |
+| BW_00152 | Schadberg / Blinde Rot |
+| BW_00153 | Wendlingen-Kläranlage / Neckar |
+| BW_00155 | Tegernau / Kleine Wiese |
+| BW_00158 | Königsbronn / Brenz |
+| BW_00159 | Dalkingen / Röhlinger Sechta |
+| BW_00160 | Lippach-Stockmühle / Jagst |
+| BW_00162 | Talheim / Schozach |
+| BW_00163 | Neuenstadt / Brettach |
+| BW_00164 | Geislingen / Fils |
+| BW_00165 | Königheim / Brehmbach |
+| BW_00166 | Oberrot / Fichtenberger Rot |
+| BW_00167 | Böhringsweiler / Fichtenberger Rot |
+| BW_00168 | Bühlertann / Bühler |
+| BW_00169 | Lautenhof / Große Enz |
+| BW_00170 | Schönmünzach / Schönmünz |
+| BW_00171 | Baiersbronn / Murg |
+| BW_00172 | Pforzheim / Würm |
+| BW_00173 | Eberbach / Itter |
+| BW_00174 | Meckesheim / Elsenz |
+| BW_00176 | Wiesloch / Waldangelbach |
+| BW_00177 | Gondelsheim / Saalbach |
+| BW_00178 | Hardheim / Erfa |
+| BW_00180 | Allfeld / Schefflenz |
+| BW_00181 | Hölzlebruck / Josbach |
+| BW_00182 | Neckargröningen / Neckar |
+| BW_00183 | Oberambringen / Möhlin |
+| BW_00185 | Oberried / Brugga |
+| BW_00187 | Falkensteig / Rotbach |
+| BW_00188 | Bleibach-WKA / Elz |
+| BW_00189 | Simonswald / Wilde Gutach |
+| BW_00190 | Hausen / Saubach |
+| BW_00191 | Wahlwies / Stockacher Aach |
+| BW_00192 | Oberwolfach / Wolf |
+| BW_00193 | Gutach / Gutach |
+| BW_00195 | Tuttlingen / Elta |
+| BW_00196 | Hinterlehengericht / Schiltach |
+| BW_00197 | Oberndorf / Neckar |
+| BW_00198 | Fridingen / Bära |
+| BW_00199 | Horgen-Kläranlage / Eschach |
+| BW_00200 | Schenkenzell / Kinzig |
+| BW_00201 | Möhringen / Krähenbach |
+| BW_00204 | Göllsdorf / Prim |
+| BW_00206 | St. Blasien / Hauensteiner Alb |
+| BW_00207 | Leutkirch / Eschach |
+| BW_00208 | Wehr / Hasel |
+| BW_00209 | Häfeliswald / Kürnach |
+| BW_00211 | Schorndorf-Bauhof / Rems |
+| BW_00212 | Beutelsau / Untere Argen |
+| BW_00213 | Gießen / Argen |
+| BW_00214 | Rainpadent / Wolfegger Ach |
+| BW_00215 | Radolfzell / Bodensee (Untersee) |
+| BW_00216 | Friedrichshafen / Rotach |
+| BW_00217 | Ravensburg / Schussen |
+| BW_00218 | Durlesbach / Schussen |
+| BW_00219 | Uhldingen / Seefelder Aach |
+| BW_00220 | Fuchstobel / Rotach |
+| BW_00221 | Lochhammer / Gießbach |
+| BW_00222 | Wimsen / Zwiefalter Ach |
+| BW_00223 | Rangendingen / Starzel |
+| BW_00224 | Riederich / Erms |
+| BW_00225 | Bad Urach / Erms |
+| BW_00226 | Lauterach / Große Lauter |
+| BW_00227 | Blaubeuren-1 / Blautopf |
+| BW_00228 | Unterstadion / Stehenbach |
+| BW_00231 | Blaubeuren / Ach |
+| BW_00232 | Unterschmeien / Schmeie |
+| BW_00234 | Mengen / Ennetacher Ablach |
+| BW_00235 | Jettkofen / Ostrach |
+| BW_00236 | Unlingen / Kanzach |
+| BW_00237 | Achstetten / Baierzer Rot |
+| BW_00238 | Laupheim / Dürnach |
+| BW_00239 | Kanzach / Kanzach |
+| BW_00240 | Ertingen / Schwarzach |
+| BW_00241 | Warthausen / Riß |
+| BW_00242 | Hirschbronn-Zulauf / Ölbach |
+| BW_00243 | Spindelwag-Zulauf / Pfaffenrieder Bach |
+| BW_00244 | Menningen / Ablach |
+| BW_00246 | Forbach / Murg |
+| BW_00247 | Wolterdingen-Auslauf / Breg |
+| BW_00248 | Haubersbronn / Wieslauf |
+| BW_00251 | Besigheim / Enz |
+| BW_00252 | Bolheim / Brenz |
+| BW_00253 | Gruol / Stunzach |
+| BW_00256 | Burgberg-Oberer Steg / Hürbe |
+| BW_00260 | Burgberg-Ort / Hürbe |
+| BW_00261 | Lontal / Lone |
+| BW_00263 | Bittelschieß / Andelsbach |
+| BW_00264 | Mengen / Mengener Ablach |
+| BW_00265 | Salach / Fils |
+| BW_00266 | Weinheim-SKA / Weschnitz |
+| BW_00270 | Süßen / Lauter |
+| BW_00271 | Geislingen / Eyb |
+| BW_00273 | Wiesensteig / Fils |
+| BW_00275 | Kirchheim / Lindach |
+| BW_00277 | Ohrnberg-Ohrnwiesen / Ohrn |
+| BW_00278 | Grünsfeld oh. Mündung / Grünbach |
+| BW_00279 | Grünsfeld / Wittigbach |
+| BW_00280 | Sachsenflur / Umpfer |
+| BW_00282 | Kochendorf / Kochermühlkanal |
+| BW_00283 | Oberlauchringen / Kotbach |
+| BW_00284 | Forchtenberg / Kupfer |
+| BW_00285 | Ohrnberg-Ort / Ohrn |
+| BW_00287 | Unterlenningen / Lauter |
+| BW_00288 | Offenau / Neckar |
+| BW_00289 | Westheim / Bibers |
+| BW_00290 | Bopfingen / Eger |
+| BW_00291 | Unterspeltach / Speltach |
+| BW_00292 | Ottenheim / Altrheinzug |
+| BW_00294 | Sasbach / Altrheinzug |
+| BW_00296 | Ehingen-Berkach / Schmiech |
+| BW_00297 | Leutenbach / Buchenbach |
+| BW_00298 | Beutelsbach-Bad / Schweizerbach |
+| BW_00300 | Gutach / Elz |
+| BW_00301 | Wolterdingen HRB Beckenpegel / Breg |
+| BW_00302 | Rust / Altrheinzug |
+| BW_00303 | Schafhausen / Würm |
+| BW_00304 | Christophstal / Forbach |
+| BW_00305 | Bad Teinach / Teinach |
+| BW_00306 | Eyachmühle / Eyach |
+| BW_00307 | Brotenau / Brotenaubach |
+| BW_00312 | Iselshausen / Waldach |
+| BW_00313 | Vörbach / Waldach |
+| BW_00314 | Eutingen / Enz |
+| BW_00317 | Bruchsal / Saalbach |
+| BW_00319 | Ulm / Blau |
+| BW_00320 | Erlenbach / Sulm |
+| BW_00325 | Dillweissenstein / Nagold |
+| BW_00326 | Wildberg / Nagold |
+| BW_00327 | Neuenbürg / Enz |
+| BW_00328 | Calmbach / Enz |
+| BW_00329 | Calmbach-Mitte / Große Enz |
+| BW_00331 | Erzingen / Klingengraben |
+| BW_00334 | Möhringen / Donau |
+| BW_00337 | Fridingen oberhalb Versinkung / Donau |
+| BW_00338 | Fridingen unterhalb Versinkung / Donau |
+| BW_00340 | Illmühle / Steina |
+| BW_00343 | Urach / Urach |
+| BW_00344 | Villingen / Brigach |
+| BW_00345 | Unterlinach / Linach |
+| BW_00347 | Märkt / Kander |
+| BW_00353 | Friedrichshafen / Bodensee |
+| BW_00355 | Neufrach / Deggenhauser Aach |
+| BW_00356 | Friesenhofen / Eschach |
+| BW_00358 | Mägerkingen / Lauchert |
+| BW_00359 | Pfäffingen / Ammer |
+| BW_00360 | Ebingen / Schmeie |
+| BW_00367 | Breitingen / Lone |
+| BW_00368 | Unterkirchberg / Weihung |
+| BW_00370 | Rot an der Rot / Haslach |
+| BW_00371 | Gammertingen / Lauchert |
+| BW_00372 | Ummendorf / Umlach |
+| BW_00373 | Binnrot / Rot |
+| BW_00374 | Schweinhausen / Riß |
+| BW_00375 | Goppertshofen / Rottum |
+| BW_00376 | Kunenberg / Rappenbach |
+| BW_00377 | Schmiddis / Schmiddisbach |
+| BW_00381 | HRB Urlau-Mönch / Eschach |
+| BW_00389 | Ebnet / Dreisam |
+| BW_00415 | Rastatt Hindenburgbrücke / Murg |
+| BW_00416 | Rheinhausen BW6_16 / Altrheinzug |
+| BW_00417 | Rheinhausen PW / Altrheinzug |
+| BW_05000 | Königsbronn / Leerausbach |
+| BW_05002 | Wahlwies / Alte Aach |
+| BW_09000 | Lauterbourg / Rhein |
+| BW_09001 | Mannheim / Rhein |
+| BW_09002 | Basel / Wiese |
+| BW_09004 | Untersiggenthal-Sti. / Aare |
+| BW_09005 | Andelfingen / Thur |
+| BW_09006 | Schweinfurt Neuer Hafen / Main |
+| BW_09007 | Würzburg / Main |
+| BW_09008 | Steinbach / Main |
+| BW_09009 | Faulbach / Main |
+| BW_09010 | Bockenfeld / Tauber |
+| BW_09012 | Basel Rheinhalle / Rhein |
+| BW_09013 | Rheinweiler / Rhein |
+| BW_09014 | Kehl-Kronenhof / Rhein |
+| BW_09015 | Plittersdorf / Rhein |
+| BW_09016 | Maxau / Rhein |
+| BW_09017 | Speyer / Rhein |
+| BW_09018 | Worms / Rhein |
+| BW_09019 | Gundelsheim UP / Neckar |
+| BW_09020 | Rockenau SKA / Neckar |
+| BW_09021 | Heidelberg UP / Neckar |
+| BW_09022 | Illentlastung / Ill |
+| BW_09023 | Plochingen / Neckar |
+| BW_09024 | Wertheim / Main |
+| BW_09026 | Ladenburg Wehr OP / Neckar |
+| BW_09029 | Breisach / Rhein |
+| BW_09030 | KW Breisach / Rhein |
+| BW_09036 | Kempten / Iller |
+| BW_09037 | Sonthofen / Iller |
+| BW_09043 | Rekingen / Rhein |
+| BW_09045 | Mannheim Neckar / Neckar |
+| BW_09046 | Altenheim / Rhein |
+| BW_09047 | Neu Ulm-Bad Held / Donau |
+| BW_09050 | Wiblingen / Iller |
+| BW_09055 | Diepoldsau / Alpenrhein |
+| BW_09056 | Neuhausen / Rhein |
+| BW_09066 | Kappel / Rhein |
+| BW_09067 | Neckarsulm Wehr OP / Neckar |
+| BW_09082 | Zwirkenberg / Obere Argen |
+| BW_09083 | Seltmans / Untere Argen |
+| BW_09084 | Bächingen / Brenz |
+| BW_09086 | Rheinfelden / Rhein |
+| BW_09100 | Besigheim SKA / Neckar |
+| BW_09102 | Haßmersheim AMS / Neckar |
+| BW_09117 | Kochendorf Schleuse OP / Neckar |
+| BW_09124 | Freudenberg / Main |
+| BW_09132 | Mengen (Add.) / Ablach |
+| BW_09135 | Hartheim / Rhein |
+| BW_09137 | Iffezheim / Rhein |
+| BW_09141 | Ottenheim / Rhein |
+| BW_09142 | Philippsburg / Rhein |
+| BW_09144 | Marbach Wehr UP / Neckar |
+| BW_09145 | Neckarsulm Wehr UP / Neckar |
+| BW_09150 | Bieberehren / Gollach |
+| BW_09151 | Wüstenzell / Aalbach |
 | BY_10024000 | Berg / Donau |
 | BY_10026301 | Neu Ulm, Bad Held / Donau |
 | BY_10026302 | Neu Ulm, Bad Held Q / Donau |
