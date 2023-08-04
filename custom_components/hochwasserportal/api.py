@@ -389,9 +389,14 @@ class HochwasserPortalAPI:
                         "https://hochwasserportal.nrw/lanuv/data/internet/stations/"
                         + station["site_no"]
                         + "/"
-                        + self.ident[3:]
+                        + station["station_no"]
                     )
-            self.url = "https://hochwasserportal.nrw/lanuv"
+                    self.url = (
+                        "https://hochwasserportal.nrw/lanuv/webpublic/index.html#/overview/Wasserstand/station/"
+                        + station["station_id"]
+                        + "/"
+                        + station["station_name"]
+                    )
             # Get stage levels
             if self.internal_url is not None:
                 nw_stages = self.fetch_json(self.internal_url + "/S/alarmlevel.json")
