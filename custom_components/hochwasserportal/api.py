@@ -376,7 +376,12 @@ class HochwasserPortalAPI:
                     and element.attrs["class"][0] == "tooltip-content__gewaesser"
                 ):
                     self.name += " / " + element.getText()
-            self.url = "https://hsi-sh.de"
+            paragraph = heading.find_next("p", class_="tooltip-content__link")
+            link = paragraph.find_next("a")
+            if link["href"][0] == ".":
+                self.url = "https://hsi-sh.de/" + link["href"][2:]
+            else:
+                self.url = link["href"]
         except Exception as e:
             LOGGER.error(
                 "An error occured while fetching data for %s: %s", self.ident, e
@@ -387,6 +392,7 @@ class HochwasserPortalAPI:
         self.level = None
         self.flow = None
         self.stage = None
+        self.last_update = None
         try:
             # Get data
             soup = self.fetch_soup("https://hsi-sh.de")
@@ -407,6 +413,15 @@ class HochwasserPortalAPI:
                     element_text = element.getText().split()
                     if element_text[1] == "cm":
                         self.level = float(element_text[0].replace(",", "."))
+                        if element_text[4] == "(MEZ)":
+                            self.last_update = datetime.datetime.strptime(
+                                element_text[2] + element_text[3] + "+0100",
+                                "%d.%m.%Y%H:%M%z",
+                            )
+                        else:
+                            self.last_update = datetime.datetime.strptime(
+                                element_text[2] + element_text[3], "%d.%m.%Y%H:%M"
+                            )
                 if (
                     element.name == "dd"
                     and element.attrs["class"][0] == "tooltip-content__q"
@@ -420,7 +435,6 @@ class HochwasserPortalAPI:
             LOGGER.error(
                 "An error occured while fetching data for %s: %s", self.ident, e
             )
-        self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
     def parse_init_SL(self):
         """Parse data for Saarland."""
@@ -688,6 +702,8 @@ class HochwasserPortalAPI:
                 self.last_update = datetime.datetime.strptime(
                     last_update_str, "%d.%m.%Y %H:%M"
                 )
+            else:
+                self.last_update = None
             self.data_valid = True
         except Exception as e:
             self.data_valid = False
