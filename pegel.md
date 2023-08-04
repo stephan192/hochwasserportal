@@ -1263,6 +1263,191 @@
 | SH_9610080 | Neustadt / Ostsee |
 | SH_9620085 | Travemünde / Trave |
 | SH_9620090 | Lübeck-Bauhof / Trave |
+| SN_1000000 | Hohberg / Rosenbach |
+| SN_1000001 | Burgneudorf / Kleine Spree |
+| SN_10000020 | Hagenwerder 3 / Lausitzer Neiße |
+| SN_10000080 | Pietzschwitz / Langes Wasser |
+| SN_10000100 | Bautzen 1 / Spree |
+| SN_10000120 | Oberschöna 1 / Große Striegis |
+| SN_10000222 | Klingenhain / Dahle |
+| SN_10000223 | Melpitz 1 / Schwarzer Graben |
+| SN_10000224 | Stroga / Elligastbach |
+| SN_10000226 | Hainsberg 7 / Wilde Weißeritz |
+| SN_10000241 | Kössern / Vereinigte Mulde |
+| SN_10000244 | Zitzschen / Weiße Elster |
+| SN_10000246 | Kleinwolmsdorf / Schwarze Röder |
+| SN_10000260 | Freiberg / Münzbach |
+| SN_10000300 | Rittersgrün 1 / Pöhlwasser |
+| SN_10000320 | Oberneuschönberg / Flöha |
+| SN_10000380 | Schlößchen / Wilisch |
+| SN_10000540 | Bienenmühle / Freiberger Mulde |
+| SN_10000580 | Buschmühle 1 / Kirnitzsch |
+| SN_10000620 | Röhrsdorf / Pleißenbach |
+| SN_10000641 | Schlettau / Zschopau |
+| SN_10000680 | Straßberg 2 / Rosenbach |
+| SN_10000780 | Friedrichstadt / Vereinigte Weißeritz |
+| SN_10000800 | Kleinzschepa / Lossa |
+| SN_10000820 | Herzogswalde 2 / Triebisch |
+| SN_10000940 | Niederau / Niederauer Dorfbach |
+| SN_10000960 | Neusalza-Spremberg / Spree |
+| SN_10001080 | Niederbobritzsch / Bobritzsch |
+| SN_10001120 | Sebnitz 3 / Sebnitz |
+| SN_1100001 | Rosenthal 1 / Lausitzer Neiße |
+| SN_1100002 | Jänkendorf 1 / Schwarzer Schöps |
+| SN_1100003 | Hartau 1 / Lausitzer Neiße |
+| SN_1100020 | Wilkau / Rödelbach |
+| SN_501010 | Schöna / Elbe |
+| SN_501040 | Pirna / Elbe |
+| SN_501060 | Dresden / Elbe |
+| SN_501080 | Meißen / Elbe |
+| SN_501110 | Riesa / Elbe |
+| SN_501261 | Torgau / Elbe |
+| SN_530020 | Klingenthal 1 / Zwota (Svatava) |
+| SN_550110 | Kirnitzschtal / Kirnitzsch |
+| SN_550190 | Porschdorf 1 / Lachsbach |
+| SN_550302 | Sebnitz 2 / Sebnitz |
+| SN_550390 | Neustadt 1 / Polenz |
+| SN_550490 | Bielatal 1 / Biela |
+| SN_550560 | Cunnersdorf 1 / Cunnersdorfer Bach |
+| SN_550620 | Neundorf / Gottleuba |
+| SN_550710 | Markersbach / Bahra |
+| SN_550762 | Liebstadt 2 / Seidewitz |
+| SN_550800 | Bischofswerda / Wesenitz |
+| SN_550810 | Elbersdorf / Wesenitz |
+| SN_550913 | Lauenstein 4 / Müglitz |
+| SN_550931 | Mühlbach 1 / Müglitz |
+| SN_550940 | Dohna / Müglitz |
+| SN_550961 | Geising 1 / Rotes Wasser |
+| SN_551000 | Kreischa / Lockwitzbach |
+| SN_551005 | Lockwitz / Lockwitzbach |
+| SN_551190 | Hainsberg 6 / Vereinigte Weißeritz |
+| SN_551302 | Rehefeld 2 / Wilde Weißeritz |
+| SN_551310 | Ammelsdorf / Wilde Weißeritz |
+| SN_551411 | Schmiedeberg 1 / Rote Weißeritz |
+| SN_551420 | Dippoldiswalde 1 / Rote Weißeritz |
+| SN_551465 | Hainsberg 5 / Rote Weißeritz |
+| SN_551601 | Wilsdruff 1 / Wilde Sau |
+| SN_551811 | Munzig 1 / Triebisch |
+| SN_551820 | Garsebach / Triebisch |
+| SN_551890 | Rothschönberg / Rothschönberger Stolln (Techn. Anlage) |
+| SN_552000 | Ziegenhain / Ketzerbach |
+| SN_552012 | Piskowitz 2 / Ketzerbach |
+| SN_552101 | Ostrau 1 / Jahna |
+| SN_552110 | Seerhausen 1 / Jahna |
+| SN_552121 | Seerhausen 3 / Jahna-Umflut |
+| SN_552143 | Paltzschen 3 / Keppritzbach |
+| SN_552190 | Nebitzschen / Döllnitz |
+| SN_552210 | Merzdorf / Döllnitz |
+| SN_553001 | Kamenz 1 / Schwarze Elster |
+| SN_553012 | Trado 2 / Schwarze Elster-Umflut (Tradoer Teichgruppe) |
+| SN_553013 | Trado 3 / Schwarze Elster |
+| SN_553020 | Neuwiese / Schwarze Elster |
+| SN_554100 | Panschwitz / Klosterwasser |
+| SN_554120 | Schönau / Klosterwasser |
+| SN_554210 | Prischwitz / Hoyerswerdaer Schwarzwasser |
+| SN_554220 | Zescha / Hoyerswerdaer Schwarzwasser |
+| SN_554411 | Reichenau 1 / Pulsnitz |
+| SN_554510 | Radeberg / Große Röder |
+| SN_554520 | Großdittmannsdorf / Große Röder |
+| SN_554550 | Kleinraschütz / Große Röder |
+| SN_554570 | Radeburg 3 / Promnitz |
+| SN_560021 | Golzern 1 / Vereinigte Mulde |
+| SN_560051 | Bad Düben 1 / Vereinigte Mulde |
+| SN_560201 | Neichen 1 / Mutzschener Wasser |
+| SN_560301 | Nemt 1 / Mühlbach |
+| SN_562010 | Rautenkranz / Zwickauer Mulde |
+| SN_562014 | Neidhardtsthal 1 / Zwickauer Mulde |
+| SN_562031 | Aue 3 / Zwickauer Mulde |
+| SN_562040 | Niederschlema / Zwickauer Mulde |
+| SN_562070 | Zwickau-Pölbitz / Zwickauer Mulde |
+| SN_562090 | Wolkenburg / Zwickauer Mulde |
+| SN_562115 | Wechselburg 1 / Zwickauer Mulde |
+| SN_562135 | Colditz / Zwickauer Mulde |
+| SN_563290 | Sachsengrund / Große Pyra |
+| SN_563745 | Johanngeorgenstadt 4 / Schwarzwasser |
+| SN_563780 | Schwarzenberg / Schwarzwasser |
+| SN_563790 | Aue 1 / Schwarzwasser |
+| SN_563800 | Johanngeorgenstadt 2 / Breitenbach (Blatensky potok) |
+| SN_563880 | Markersbach 1 / Große Mittweida |
+| SN_563890 | Markersbach 2 / Große Mittweida |
+| SN_563950 | Wildenau 1 / Große Mittweida |
+| SN_564201 | Niedermülsen 1 / Mülsenbach |
+| SN_564290 | St. Egidien / Lungwitzbach |
+| SN_564400 | Chemnitz 1 / Chemnitz |
+| SN_564410 | Göritzhain / Chemnitz |
+| SN_564500 | Niederzwönitz / Zwönitz |
+| SN_564505 | Burkhardtsdorf 2 / Zwönitz |
+| SN_564531 | Altchemnitz 2 / Zwönitz |
+| SN_564611 | Jahnsdorf 1 / Würschnitz |
+| SN_564620 | Harthau / Würschnitz |
+| SN_565990 | Mulda 1 / Freiberger Mulde |
+| SN_566010 | Berthelsdorf / Freiberger Mulde |
+| SN_566040 | Nossen 1 / Freiberger Mulde |
+| SN_566055 | Mahlitzsch / Freiberger Mulde |
+| SN_566085 | Leisnig / Freiberger Mulde |
+| SN_567000 | Wolfsgrund / Chemnitzbach |
+| SN_567221 | Krummenhennersdorf 1 / Bobritzsch |
+| SN_567310 | Böhrigen / Striegis |
+| SN_567400 | Tannenberg / Zschopau |
+| SN_567420 | Hopfgarten / Zschopau |
+| SN_567435 | Kunnersdorf / Zschopau |
+| SN_567451 | Lichtenwalde 1 / Zschopau |
+| SN_567470 | Kriebstein UP / Zschopau |
+| SN_567590 | Annaberg 1 / Sehma |
+| SN_567700 | Wiesa / Pöhlbach |
+| SN_567840 | Schmalzgrube 2 / Preßnitz |
+| SN_567850 | Streckewalde / Preßnitz |
+| SN_567890 | Jöhstadt 4 / Jöhstädter Schwarzwasser |
+| SN_568102 | Rauschenbach 3 / Flöha |
+| SN_568133 | Olbernhau 3 / Flöha |
+| SN_568160 | Borstendorf / Flöha |
+| SN_568185 | Flöha 1 / Flöha |
+| SN_568350 | Rothenthal / Natzschung (Nacetinsky potok) |
+| SN_568400 | Zöblitz / Schwarze Pockau |
+| SN_576391 | Bad Elster 1 / Weiße Elster |
+| SN_576401 | Adorf 1 / Weiße Elster |
+| SN_576410 | Oelsnitz 1 / Weiße Elster |
+| SN_576420 | Magwitz / Weiße Elster |
+| SN_576421 | Straßberg / Weiße Elster |
+| SN_576440 | Elsterberg / Weiße Elster |
+| SN_576631 | Kleindalzig / Weiße Elster |
+| SN_577120 | Neuensalz / Rabenbach |
+| SN_577211 | Rodewisch 1 / Göltzsch |
+| SN_577220 | Mylau / Göltzsch |
+| SN_577490 | Werdau / Pleiße |
+| SN_577501 | Neukirchen 1 / Pleiße |
+| SN_577540 | Regis-Serbitz / Pleiße |
+| SN_577571 | Böhlen 1 / Pleiße |
+| SN_577901 | Streitwald 1 / Wyhra |
+| SN_578091 | Albrechtshain 1 / Parthe |
+| SN_578110 | Leipzig-Thekla / Parthe |
+| SN_582000 | Ebersbach / Spree |
+| SN_582010 | Schirgiswalde / Spree |
+| SN_582032 | Bautzen UP 1 / Spree |
+| SN_582060 | Lieske / Spree |
+| SN_582080 | Sprey / Spree |
+| SN_582820 | Spreewitz / Spree |
+| SN_583090 | Großschweidnitz / Löbauer Wasser |
+| SN_583122 | Gröditz 2 / Löbauer Wasser |
+| SN_583200 | Boxberg / Schwarzer Schöps |
+| SN_583223 | Reichwalde 3 / Schwarzer Schöps |
+| SN_583235 | Schöps / Schwarzer Schöps |
+| SN_583271 | Sproitz / Schwarzer Schöps |
+| SN_583280 | Holtendorf / Weißer Schöps |
+| SN_583290 | Särichen / Weißer Schöps |
+| SN_583302 | Hammerstadt 1 / Weißer Schöps |
+| SN_583342 | Lomske / Lomschanke |
+| SN_583352 | Burg 2 / Kleine Spree |
+| SN_660100 | Zittau 1 / Lausitzer Neiße |
+| SN_660160 | Görlitz / Lausitzer Neiße |
+| SN_660193 | Podrosche 3 / Lausitzer Neiße |
+| SN_662001 | Seifhennersdorf 1 / Mandau |
+| SN_662011 | Großschönau 2 / Mandau |
+| SN_662022 | Zittau 6 / Mandau |
+| SN_662096 | Niederoderwitz / Landwasser |
+| SN_663000 | Rennersdorf 3 / Pließnitz |
+| SN_663090 | Tauchritz / Pließnitz |
+| SN_663131 | Rennersdorf 6 / Berthelsdorfer Wasser |
 | ST_440004 | Alleringersleben / Aller |
 | ST_440010 | Weferlingen / Aller |
 | ST_444205 | Ilsenburg / Ilse |

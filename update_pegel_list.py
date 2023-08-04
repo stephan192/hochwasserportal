@@ -77,6 +77,17 @@ def get_sh_stations():
         stations.append((ident, name))
     return stations
 
+def get_sn_stations():
+    stations = []
+    data = fetch_soup("https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/wasserstand-uebersicht")
+    karte = data.find_all("div", class_="karteWrapper")[0]
+    links = karte.find_all("a", class_="msWrapper")
+    for link in links:
+        ident = "SN_"+link["href"].split("-")[-1]
+        name = link.find_next("span", class_="popUpTitleBold").getText().strip()
+        stations.append((ident, name))
+    return stations
+
 def get_st_stations():
     stations = []
     data = fetch_json("https://hvz.lsaurl.de/fileadmin/Bibliothek/Politik_und_Verwaltung/MLU/HVZ/KISTERS/data/internet/stations/stations.json")
@@ -119,6 +130,8 @@ print("Fetching NW")
 all_stations.extend(get_nw_stations())
 print("Fetching SH")
 all_stations.extend(get_sh_stations())
+print("Fetching SN")
+all_stations.extend(get_sn_stations())
 print("Fetching ST")
 all_stations.extend(get_st_stations())
 print("Fetching TH")
