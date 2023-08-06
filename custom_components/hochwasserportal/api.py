@@ -150,6 +150,7 @@ class HochwasserPortalAPI:
                         self.stage_levels[2] = float(data[32])
                     if data[33] > 0:
                         self.stage_levels[3] = float(data[33])
+                    break
         except Exception as e:
             LOGGER.error(
                 "An error occured while fetching init data for %s: %s", self.ident, e
@@ -204,6 +205,7 @@ class HochwasserPortalAPI:
                             )
                         except:
                             self.last_update = None
+                    break
             self.data_valid = True
         except Exception as e:
             self.data_valid = False
@@ -317,9 +319,10 @@ class HochwasserPortalAPI:
                     self.name = entry["Name"] + " / " + entry["GewaesserName"]
                     self.ni_sta_id = str(entry["STA_ID"])
                     self.url += "/Pegel/Karte/Binnenpegel/ID/" + self.ni_sta_id
+                    break
         except Exception as e:
             LOGGER.error(
-                "An error occured while fetching data for %s: %s", self.ident, e
+                "An error occured while fetching init data for %s: %s", self.ident, e
             )
 
     def parse_NI(self):
@@ -404,6 +407,7 @@ class HochwasserPortalAPI:
                         + "/"
                         + station["station_name"]
                     )
+                    break
             # Get stage levels
             if self.internal_url is not None:
                 nw_stages = self.fetch_json(self.internal_url + "/S/alarmlevel.json")
@@ -503,7 +507,7 @@ class HochwasserPortalAPI:
                 self.url = link["href"]
         except Exception as e:
             LOGGER.error(
-                "An error occured while fetching data for %s: %s", self.ident, e
+                "An error occured while fetching init data for %s: %s", self.ident, e
             )
 
     def parse_SH(self):
@@ -666,6 +670,7 @@ class HochwasserPortalAPI:
                         + "/"
                         + self.ident[3:]
                     )
+                    break
         except Exception as e:
             LOGGER.error(
                 "An error occured while fetching init data for %s: %s", self.ident, e
@@ -763,7 +768,10 @@ class HochwasserPortalAPI:
                         self.name = td.getText().strip()
                     elif cnt == 3:
                         self.name += " / " + td.getText().strip()
+                        break
                     cnt += 1
+                if cnt == 3:
+                    break
         except Exception as e:
             LOGGER.error(
                 "An error occured while fetching init data for %s: %s", self.ident, e
@@ -796,14 +804,18 @@ class HochwasserPortalAPI:
                         self.level = float(td.getText().strip().replace(",", "."))
                     elif cnt == 10:
                         self.flow = float(td.getText().strip().replace(",", "."))
+                        break
                     cnt += 1
+                if cnt == 10:
+                    break
             if last_update_str is not None:
                 self.last_update = datetime.datetime.strptime(
                     last_update_str, "%d.%m.%Y %H:%M"
                 )
+                self.data_valid = True
             else:
                 self.last_update = None
-            self.data_valid = True
+                self.data_valid = False
         except Exception as e:
             self.data_valid = False
             LOGGER.error(
