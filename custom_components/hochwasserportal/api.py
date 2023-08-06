@@ -46,6 +46,7 @@ class HochwasserPortalAPI:
         return self.ident
 
     def fetch_json(self, url):
+        """Fetch data via json."""
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
             response.raise_for_status()
@@ -56,6 +57,7 @@ class HochwasserPortalAPI:
             return None
 
     def fetch_soup(self, url):
+        """Fetch data via soup."""
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
             # Override encoding by real educated guess (required for SH)
@@ -68,6 +70,7 @@ class HochwasserPortalAPI:
             return None
 
     def fetch_text(self, url):
+        """Fetch data via text."""
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
             # Override encoding by real educated guess (required for BW)
@@ -77,6 +80,30 @@ class HochwasserPortalAPI:
         except:
             # Don't care about errors because in some cases the requested page doesn't exist
             return None
+
+    def calc_stage(self):
+        """Calc stage from level and stage levels."""
+        if all(sl is None for sl in self.stage_levels):
+            self.stage = None
+        else:
+            if (self.stage_levels[3] is not None) and (
+                self.level > self.stage_levels[3]
+            ):
+                self.stage = 4
+            elif (self.stage_levels[2] is not None) and (
+                self.level > self.stage_levels[2]
+            ):
+                self.stage = 3
+            elif (self.stage_levels[1] is not None) and (
+                self.level > self.stage_levels[1]
+            ):
+                self.stage = 2
+            elif (self.stage_levels[0] is not None) and (
+                self.level > self.stage_levels[0]
+            ):
+                self.stage = 1
+            else:
+                self.stage = 0
 
     def parse_init_BB(self):
         """Parse data for Brandenburg."""
@@ -148,27 +175,7 @@ class HochwasserPortalAPI:
                     try:
                         if data[5] == "cm":
                             self.level = float(data[4])
-                            if all(sl is None for sl in self.stage_levels):
-                                self.stage = None
-                            else:
-                                if (self.stage_levels[3] is not None) and (
-                                    self.level > self.stage_levels[3]
-                                ):
-                                    self.stage = 4
-                                elif (self.stage_levels[2] is not None) and (
-                                    self.level > self.stage_levels[2]
-                                ):
-                                    self.stage = 3
-                                elif (self.stage_levels[1] is not None) and (
-                                    self.level > self.stage_levels[1]
-                                ):
-                                    self.stage = 2
-                                elif (self.stage_levels[0] is not None) and (
-                                    self.level > self.stage_levels[0]
-                                ):
-                                    self.stage = 1
-                                else:
-                                    self.stage = 0
+                            self.calc_stage()
                             try:
                                 dt = data[6].split()
                                 self.last_update = datetime.datetime.strptime(
@@ -436,23 +443,7 @@ class HochwasserPortalAPI:
             data = self.fetch_json(self.internal_url + "/S/week.json")
             # Parse data
             self.level = float(data[0]["data"][-1][1])
-            if all(sl is None for sl in self.stage_levels):
-                self.stage = None
-            else:
-                if (self.stage_levels[2] is not None) and (
-                    self.level > self.stage_levels[2]
-                ):
-                    self.stage = 3
-                elif (self.stage_levels[1] is not None) and (
-                    self.level > self.stage_levels[1]
-                ):
-                    self.stage = 2
-                elif (self.stage_levels[0] is not None) and (
-                    self.level > self.stage_levels[0]
-                ):
-                    self.stage = 1
-                else:
-                    self.stage = 0
+            self.calc_stage()
             self.hint = None
             if len(data[0]["AdminStatus"].strip()) > 0:
                 self.hint = data[0]["AdminStatus"].strip()
@@ -721,27 +712,7 @@ class HochwasserPortalAPI:
             # Parse data
             last_update_str_w = data[0]["data"][-1][0]
             self.level = float(data[0]["data"][-1][1])
-            if all(sl is None for sl in self.stage_levels):
-                self.stage = None
-            else:
-                if (self.stage_levels[3] is not None) and (
-                    self.level > self.stage_levels[3]
-                ):
-                    self.stage = 4
-                elif (self.stage_levels[2] is not None) and (
-                    self.level > self.stage_levels[2]
-                ):
-                    self.stage = 3
-                elif (self.stage_levels[1] is not None) and (
-                    self.level > self.stage_levels[1]
-                ):
-                    self.stage = 2
-                elif (self.stage_levels[0] is not None) and (
-                    self.level > self.stage_levels[0]
-                ):
-                    self.stage = 1
-                else:
-                    self.stage = 0
+            self.calc_stage()
         except:
             self.level = None
             self.stage = None
