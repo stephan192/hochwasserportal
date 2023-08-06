@@ -282,11 +282,109 @@ class HochwasserPortalAPI:
 
     def parse_init_HE(self):
         """Parse data for Hessen."""
-        pass
+        try:
+            # Get Stations Data
+            he_stations = self.fetch_json(
+                "https://www.hlnug.de/static/pegel/wiskiweb3/data/internet/stations/stations.json"
+            )
+            for station in he_stations:
+                if station["station_no"] == self.ident[3:]:
+                    self.name = (
+                        station["station_name"].strip()
+                        + " / "
+                        + station["WTO_OBJECT"].strip()
+                    )
+                    self.url = (
+                        "https://www.hlnug.de/static/pegel/wiskiweb3/webpublic/#/overview/Wasserstand/station/"
+                        + station["station_id"]
+                        + "/"
+                        + station["station_name"]
+                        + "/Wasserstand"
+                    )
+                    self.internal_url = (
+                        "https://www.hlnug.de/static/pegel/wiskiweb3/data/internet/stations/"
+                        + station["site_no"]
+                        + "/"
+                        + station["station_no"]
+                    )
+                    break
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching init data for %s: %s", self.ident, e
+            )
+            return
+        try:
+            # Get stage levels
+            if self.internal_url is not None:
+                alarmlevels = self.fetch_json(self.internal_url + "/W/alarmlevel.json")
+                for station_data in alarmlevels:
+                    if (
+                        "ts_name" in station_data
+                        and "data" in station_data
+                        and isinstance(station_data["data"], list)
+                        and len(station_data["data"]) > 0
+                    ):
+                        # Check if ts_name is one of the desired values
+                        if station_data["ts_name"] == "Meldestufe1":
+                            self.stage_levels[0] = float(station_data["data"][-1][1])
+                        elif station_data["ts_name"] == "Meldestufe2":
+                            self.stage_levels[1] = float(station_data["data"][-1][1])
+                        # No equivalent to stage_levels[2] available
+                        elif station_data["ts_name"] == "Meldestufe3":
+                            self.stage_levels[3] = float(station_data["data"][-1][1])
+                LOGGER.debug("Stage levels : %s", self.stage_levels)
+        except:
+            self.stage_levels = [None] * 4
+            LOGGER.debug("%s: No stage levels available", self.ident)
 
     def parse_HE(self):
         """Parse data for Hessen."""
-        pass
+        if self.internal_url is None:
+            self.level = None
+            self.flow = None
+            self.stage = None
+            self.data_valid = False
+            return
+
+        last_update_str_w = None
+        try:
+            # Get data
+            data = self.fetch_json(self.internal_url + "/W/week.json")
+            # Parse data
+            for dataset in data:
+                if dataset["ts_name"] == "15.P":
+                    last_update_str_w = dataset["data"][-1][0]
+                    self.level = float(dataset["data"][-1][1])
+                    self.calc_stage()
+                    break
+        except:
+            self.level = None
+            self.stage = None
+            LOGGER.debug("%s: No level data available", self.ident)
+
+        last_update_str_q = None
+        try:
+            # Get data
+            data = self.fetch_json(self.internal_url + "/Q/week.json")
+            # Parse data
+            for dataset in data:
+                if dataset["ts_name"] == "15.P":
+                    last_update_str_q = dataset["data"][-1][0]
+                    self.flow = float(dataset["data"][-1][1])
+                    break
+        except:
+            self.flow = None
+            LOGGER.debug("%s: No flow data available", self.ident)
+
+        if self.level is not None:
+            self.data_valid = True
+            self.last_update = datetime.datetime.fromisoformat(last_update_str_w)
+        elif self.level is not None:
+            self.data_valid = True
+            self.last_update = datetime.datetime.fromisoformat(last_update_str_q)
+        else:
+            self.data_valid = False
+            LOGGER.error("An error occured while fetching data for %s", self.ident)
 
     def parse_init_HH(self):
         """Parse data for Hamburg."""

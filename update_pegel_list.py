@@ -63,6 +63,16 @@ def get_by_stations():
         stations.append((ident, name))
     return stations
 
+def get_he_stations():
+    stations = []
+    data = fetch_json("https://www.hlnug.de/static/pegel/wiskiweb3/data/internet/stations/stations.json")
+    for station in data:
+        if len(station["WTO_OBJECT"].strip()) > 0:
+            ident = "HE_"+station["station_no"]
+            name = station["station_name"].strip()+" / "+station["WTO_OBJECT"].strip()
+            stations.append((ident, name))
+    return stations
+
 def get_ni_stations():
     stations = []
     data = fetch_json("https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten/stationen/All?key=9dc05f4e3b4a43a9988d747825b39f43")
@@ -159,6 +169,8 @@ print("Fetching BW")
 all_stations.extend(get_bw_stations())
 print("Fetching BY")
 all_stations.extend(get_by_stations())
+print("Fetching HE")
+all_stations.extend(get_he_stations())
 print("Fetching NI")
 all_stations.extend(get_ni_stations())
 print("Fetching NW")
