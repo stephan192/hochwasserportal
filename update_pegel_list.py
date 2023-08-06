@@ -12,10 +12,8 @@ def fetch_json(url):
         json_data = response.json()
         return json_data
     except requests.exceptions.RequestException as e:
-        LOGGER.error("An error occurred while fetching the JSON: %s", e)
         return None
     except ValueError as e:
-        LOGGER.error("Error parsing JSON data: %s", e)
         return None
 
 def fetch_soup(url):
@@ -27,10 +25,8 @@ def fetch_soup(url):
         soup = bs4.BeautifulSoup(response.text, "lxml")
         return soup
     except requests.exceptions.RequestException as e:
-        LOGGER.error("An error occurred while fetching the LXML: %s", e)
         return None
     except XMLSyntaxError as e:
-        LOGGER.error("Error parsing LXML data: %s", e)
         return None
 
 def fetch_text(url):
@@ -41,7 +37,6 @@ def fetch_text(url):
         response.raise_for_status()
         return response.text
     except requests.exceptions.RequestException as e:
-        LOGGER.error("An error occurred while fetching the TEXT: %s", e)
         return None
 
 def get_bw_stations():
@@ -85,6 +80,18 @@ def get_nw_stations():
             ident = "NW_"+station["station_no"]
             name = station["station_name"].strip()+" / "+station["WTO_OBJECT"].strip()
             stations.append((ident, name))
+    return stations
+
+def get_rp_stations():
+    stations = []
+    data = fetch_json("https://hochwasser.rlp.de/api/v1/config")
+    measurementsites = data["measurementsite"]
+    rivers = data["rivers"]
+    for key in measurementsites:
+        site = measurementsites[key]
+        ident = "RP_" + site["number"]
+        name = site["name"] + " / " + rivers[site["rivers"][0]]["name"]
+        stations.append((ident, name))
     return stations
 
 def get_sh_stations():
@@ -156,6 +163,8 @@ print("Fetching NI")
 all_stations.extend(get_ni_stations())
 print("Fetching NW")
 all_stations.extend(get_nw_stations())
+print("Fetching RP")
+all_stations.extend(get_rp_stations())
 print("Fetching SH")
 all_stations.extend(get_sh_stations())
 print("Fetching SN")

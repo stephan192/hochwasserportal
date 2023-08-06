@@ -475,11 +475,77 @@ class HochwasserPortalAPI:
 
     def parse_init_RP(self):
         """Parse data for Rheinland-Pfalz."""
-        pass
+        try:
+            # Get data
+            data = self.fetch_json("https://hochwasser.rlp.de/api/v1/config")
+            measurementsites = data["measurementsite"]
+            rivers = data["rivers"]
+            riverareas = data["riverareas"]
+            thresholds = data["legends"]["thresholds"]
+            # Parse data
+            for key in measurementsites:
+                site = measurementsites[key]
+                if site["number"] == self.ident[3:]:
+                    self.name = site["name"] + " / " + rivers[site["rivers"][0]]["name"]
+                    self.url = (
+                        "https://www.hochwasser.rlp.de/flussgebiet/"
+                        + riverareas[str(site["riverAreas"][0])]["name"].lower()
+                        + "/"
+                        + site["name"]
+                        .replace(" ", "-")
+                        .replace(",", "")
+                        .replace("ß", "ss")
+                        .replace("ä", "ae")
+                        .replace("ö", "oe")
+                        .replace("ü", "ue")
+                        .lower()
+                    )
+                    try:
+                        self.stage_levels[0] = thresholds[key]["W"]["22"]
+                        self.stage_levels[1] = thresholds[key]["W"]["21"]
+                        self.stage_levels[2] = thresholds[key]["W"]["20"]
+                        self.stage_levels[3] = thresholds[key]["W"]["19"]
+                    except:
+                        self.stage_levels = [None] * 4
+                    LOGGER.debug("Stage levels : %s", self.stage_levels)
+                    break
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching init data for %s: %s", self.ident, e
+            )
 
     def parse_RP(self):
         """Parse data for Rheinland-Pfalz."""
-        pass
+        try:
+            # Get data
+            data = self.fetch_json(
+                "https://hochwasser.rlp.de/api/v1/measurement-site/" + self.ident[3:]
+            )
+            # Parse data
+            last_update_str = None
+            try:
+                self.level = float(data["W"]["yLast"])
+                self.calc_stage()
+                last_update_str = data["W"]["xLast"][:-1] + "+00:00"
+            except:
+                self.level = None
+                self.stage = None
+            try:
+                self.flow = float(data["Q"]["yLast"])
+                if last_update_str is None:
+                    last_update_str = data["Q"]["xLast"][:-1] + "+00:00"
+            except:
+                self.flow = None
+            if last_update_str is not None:
+                self.last_update = datetime.datetime.fromisoformat(last_update_str)
+                self.data_valid = True
+            else:
+                self.last_update = None
+                self.data_valid = False
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching data for %s: %s", self.ident, e
+            )
 
     def parse_init_SH(self):
         """Parse data for Schleswig-Holstein."""

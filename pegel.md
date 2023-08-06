@@ -1464,6 +1464,237 @@
 | NW_9286410000100 | Legden / Dinkel |
 | NW_9286453000200 | Heek / Dinkel |
 | NW_9286455000200 | Gronau / Dinkel |
+| RP_11 | Diekirch / Sauer |
+| RP_1231120 | Nohfelden / Nahe |
+| RP_13 | Dasbourg / Our |
+| RP_16 | Rosport / Sauer |
+| RP_2230310 | Kogenheim / Ill |
+| RP_2280350 | Chasseur-Froid / Ill |
+| RP_229150 | Remich / Mosel |
+| RP_229151 | Wasserbillig / Mosel |
+| RP_2310010 | Basel-Rheinhalle / Rhein |
+| RP_2330090 | Kehl-Kronenhof / Rhein |
+| RP_2350070 | Plittersdorf / Rhein |
+| RP_23700200 | Maxau / Rhein |
+| RP_23700600 | Speyer / Rhein |
+| RP_23700700 | Mannheim / Rhein |
+| RP_23720305 | Bobenthal / Wieslauter |
+| RP_23720600 | Salmbacher Passage / Wieslauter |
+| RP_23730116 | Wörth 2 / Heilbach |
+| RP_23750000 | Rheinzabern Süd / Otterbach |
+| RP_23750102 | Minfeld / Dierbach |
+| RP_23750204 | Rheinzabern / Erlenbach |
+| RP_23750306 | Herxheim / Klingbach |
+| RP_23750500 | Hördt / Klingbach |
+| RP_23770008 | Germersheim / Queich |
+| RP_23770507 | Siebeldingen / Queich |
+| RP_23780500 | Neustadt Weinstraße / Speyerbach |
+| RP_23780602 | Dudenhofen / Speyerbach |
+| RP_23780806 | Speyer Nord / Nonnenbach |
+| RP_23790504 | Rheingönheim / Rehbach |
+| RP_23800690 | Rockenau SKA / Neckar |
+| RP_23900200 | Worms / Rhein |
+| RP_23900600 | Nierstein-Oppenheim / Rhein |
+| RP_23910151 | Hardenburg / Isenach |
+| RP_23910253 | Bad Dürkheim, Sägmühle / Isenach |
+| RP_23910402 | Flomersheim / Isenach |
+| RP_23910854 | Wiesoppenheim 2 / Eisbach |
+| RP_23910901 | Kleinniedesheim / Eckbach |
+| RP_23920304 | Albisheim / Pfrimm |
+| RP_23920803 | Pfeddersheim / Pfrimm |
+| RP_23970506 | Nierstein 2 / Flügelsbach |
+| RP_24900108 | Raunheim / Main |
+| RP_25100100 | Mainz / Rhein |
+| RP_25100300 | Oestrich / Rhein |
+| RP_25200306 | Alzey / Selz |
+| RP_25200601 | Stadecken / Selz |
+| RP_25200805 | Oberingelheim / Selz |
+| RP_25300200 | Bingen / Rhein |
+| RP_25400054 | Heimbach Bhf. / Nahe |
+| RP_25400258 | Oberstein 2 / Nahe |
+| RP_25400407 | Martinstein 2 / Nahe |
+| RP_25400600 | Boos / Nahe |
+| RP_25400750 | Bad Kreuznach / Nahe |
+| RP_25400826 | Dietersheim / Nahe |
+| RP_25410105 | Abentheuer / Traunbach |
+| RP_25410309 | Kronweiler / Schwollbach |
+| RP_25410400 | Enzweiler / Siesbach |
+| RP_25410579 | Idar / Idarbach |
+| RP_25410750 | Gerach 2 / Fischbach |
+| RP_25420404 | Kallenfels / Hahnenbach |
+| RP_25440106 | Steinbach / Simmerbach |
+| RP_25440401 | Kellenbach 2 / Simmerbach |
+| RP_25440708 | Mengerschied B2 / Lametbach |
+| RP_25460158 | Nanzdietschweiler / Glan |
+| RP_25460307 | Eschenau / Glan |
+| RP_25460409 | Odenbach / Glan |
+| RP_25460522 | Stausee Ohmbach / Ohmbach |
+| RP_25460588 | Niedermohr / Mohrbach |
+| RP_25460613 | Rammelsbach 2 / Kuselbach |
+| RP_25460704 | Untersulzbach / Lauter |
+| RP_25460770 | Lohnweiler / Lauter |
+| RP_25460850 | Odenbach Steinbruch 2 / Odenbach |
+| RP_25460908 | Löllbach / Jeckenbach |
+| RP_25480202 | Imsweiler / Alsenz |
+| RP_25480304 | Altenbamberg / Alsenz |
+| RP_25480950 | Obermoschel / Moschel |
+| RP_25490148 | Schleifmühle / Ellerbach |
+| RP_25490206 | Argenschwang / Gräfenbach |
+| RP_25490400 | Heddesheim / Guldenbach |
+| RP_25490501 | Gaugrehweiler / Appelbach |
+| RP_25490614 | Planig / Appelbach |
+| RP_25490705 | Uffhofen / Wiesbach |
+| RP_25490807 | Gensingen / Wiesbach |
+| RP_25700100 | Kaub / Rhein |
+| RP_2570030 | Sankt Goar / Rhein |
+| RP_25700600 | Braubach / Rhein |
+| RP_25720500 | Rheindiebach / Gailsbach |
+| RP_25800200 | Leun / Lahn |
+| RP_25800500 | Diez / Lahn |
+| RP_25800600 | Kalkofen_Neu / Lahn |
+| RP_25810558 | Biedenkopf / Lahn |
+| RP_25811190 | Feudingen / Lahn |
+| RP_25830056 | Marburg / Lahn |
+| RP_25870502 | Westerburg / Schafbach |
+| RP_25880506 | Zollhaus / Aar |
+| RP_25890102 | Kloster Arnstein / Dörsbach |
+| RP_25890306 | Weinähr / Gelbach |
+| RP_25890500 | Niederelbert / Niederelberterbach |
+| RP_25890601 | Kautenmühle / Eisenbach |
+| RP_25890758 | Miehlen 2 / Mühlbach |
+| RP_25890805 | Schulmühle / Mühlbach |
+| RP_25900700 | Koblenz / Rhein |
+| RP_26100102 | Perl / Mosel |
+| RP_2610012 | Stadtbredimus / Mosel |
+| RP_26200505 | Bollendorf 2 / Sauer |
+| RP_26260303 | Gemünd Our / Our |
+| RP_26260609 | Gemünd Irsen / Irsen |
+| RP_26280050 | Prüm 2 / Prüm |
+| RP_26280300 | Echtershausen / Prüm |
+| RP_26280366 | Stausee Bitburg / Prüm |
+| RP_26280402 | Wiersdorf / Prüm |
+| RP_26280504 | Prümzurlay / Prüm |
+| RP_26280650 | Sinspelt / Enz |
+| RP_26280708 | Giesdorf / Nims |
+| RP_26280800 | Seffern / Nims |
+| RP_26280854 | Alsdorf-Oberecken / Nims |
+| RP_26300500 | Wasserliesch / Albach |
+| RP_26400220 | Sankt Arnual / Saar |
+| RP_26400550 | Fremersdorf / Saar |
+| RP_26420159 | Steinalben / Queidersbach |
+| RP_26420206 | Thaleischweiler 2 / Schwarzbach |
+| RP_26420308 | Contwig / Schwarzbach |
+| RP_26420465 | Würschhauser Mühle 2 / Wallhalbe |
+| RP_26420487 | Oberauerbach / Auerbach |
+| RP_26420603 | Althornbach 2 / Hornbach |
+| RP_26420705 | Eichelsbacher Mühle / Felsalbe |
+| RP_26420807 | Walshausen / Felsalbe |
+| RP_26420909 | Hornbach / Schwalb |
+| RP_26420920 | Bickenalbe / Bickenalb |
+| RP_26490609 | Saarburg 2 / Leuk |
+| RP_26500100 | Trier / Mosel |
+| RP_2650012 | Grevenmacher / Mosel |
+| RP_26500150 | Ruwer / Mosel |
+| RP_26560103 | Hentern / Ruwer |
+| RP_26560307 | Kasel 3 / Ruwer |
+| RP_26560500 | Zerf / Großbach |
+| RP_26600106 | Kronenburg UP / Kyll |
+| RP_26600128 | Kronenburger See / Kyll |
+| RP_26600208 | Steinebrück / Kyll |
+| RP_26600300 | Jünkerath / Kyll |
+| RP_26600503 | Gerolstein / Kyll |
+| RP_26600707 | Densborn 2 / Kyll |
+| RP_26600900 | Kordel / Kyll |
+| RP_26620806 | Hallschlag / Taubkyll |
+| RP_26640202 | Duppach 2 / Oosbach |
+| RP_26640406 | Müllenborn / Oosbach |
+| RP_26700200 | Detzem UP / Mosel |
+| RP_26700400 | Wintrich / Mosel |
+| RP_26700600 | Zeltingen / Mosel |
+| RP_26720505 | Fastrau / Etgesbach |
+| RP_26740273 | Oberkail / Lohsalm |
+| RP_26740284 | Meisburg-Deudesfeld / Salm |
+| RP_26740309 | Eisenschmitt / Salm |
+| RP_26740455 | Großlittgen / Salm |
+| RP_26740604 | Dreis 2 / Salm |
+| RP_26760306 | Papiermühle / Dhron |
+| RP_26760601 | Dhron-Talsperre / Kleine Dhron |
+| RP_26770707 | Veldenz / Veldenzerbach |
+| RP_26780201 | Daun / Lieser |
+| RP_26780450 | Plein / Lieser |
+| RP_26780609 | Platten 2 / Lieser |
+| RP_26790205 | Traben-Trarbach / Kautenbach |
+| RP_26800207 | Saxler Mühle / Alf |
+| RP_26820500 | Hasborner Mühle / Sammetbach |
+| RP_26830605 | Bengel / Alf |
+| RP_26840507 | Peltzerhaus / Ueßbach |
+| RP_26900400 | Cochem / Mosel |
+| RP_26920402 | Cochem 2 / Endertbach |
+| RP_26940501 | Kloster Engelport / Flaumbach |
+| RP_26960906 | Elztal / Elzbach |
+| RP_26980404 | Thörlingen / Baybach |
+| RP_26980700 | Burgen 2 / Baybach |
+| RP_27100370 | Neuwied Stadt / Rhein |
+| RP_27100400 | Andernach / Rhein |
+| RP_27100700 | Oberwinter / Rhein |
+| RP_2710080 | Bonn / Rhein |
+| RP_27120503 | Isenburg / Saynbach |
+| RP_27140205 | Wernerseck / Nette |
+| RP_27140500 | Nettegut / Nette |
+| RP_27160053 | Borod / Wied |
+| RP_27160100 | Seelbach / Wied |
+| RP_27160406 | Friedrichsthal / Wied |
+| RP_27160508 | Brückrachdorf / Holzbach |
+| RP_27160553 | Dierdorf-Behelfspegel / Holzbach |
+| RP_27160600 | Seifen / Holzbach |
+| RP_27160803 | Kloster Ehrenstein / Mehrbach |
+| RP_27160905 | Oberbieber / Aubach |
+| RP_27170909 | Zerwasmühle / Brohlbach |
+| RP_27180094 | Müsch 2 / Ahr |
+| RP_27180403 | Altenahr / Ahr |
+| RP_27180505 | Kirmutscheid / Trierbach |
+| RP_27180607 | Bad Bodendorf / Ahr |
+| RP_27180709 | Denn / Staffelerbach |
+| RP_27180855 | Niederadenau / Adenauerbach |
+| RP_27180902 | Kreuzberg / Sahrbach |
+| RP_2718193000100 | Neuhof / Ahr |
+| RP_27200500 | Betzdorf / Sieg |
+| RP_2721090000 | Niederschelden / Sieg |
+| RP_2721390000100 | Weidenau / Sieg |
+| RP_2721459000100 | Kreuztal / Ferndorfbach |
+| RP_2721490000100 | Weidenau2 / Ferndorfbach |
+| RP_27220508 | Alsdorf / Heller |
+| RP_27230501 | Fahren / Wipperbach |
+| RP_27240301 | Heimborn / Nister |
+| RP_27240709 | Lützelauer Mühle / Kleine Nister |
+| RP_27250906 | Etzbach / Sieg |
+| RP_2725090700 | Eitorf / Sieg |
+| RP_2728893000100 | Hoffnungsthal / Sülz |
+| RP_2729100000100 | Menden1 / Sieg |
+| RP_2730010 | Köln / Rhein |
+| RP_27367900002 | Opladen / Wupper |
+| RP_27479000002 | Neubrück / Erft |
+| RP_2750010 | Düsseldorf / Rhein |
+| RP_2769510000100 | Hattingen / Ruhr |
+| RP_2770010 | Duisburg-Ruhrort / Rhein |
+| RP_2770040 | Wesel / Rhein |
+| RP_2789770000100 | Schermbeck 1 / Lippe |
+| RP_2790010 | Rees / Rhein |
+| RP_2790020 | Emmerich / Rhein |
+| RP_3501010 | Drusenheim / Moder |
+| RP_39284000 | Overath / Agger |
+| RP_39284100 | Lohmar / Agger |
+| RP_42 | Ettelbruck-Alzette / Alzette |
+| RP_4250640 | Epinal / Mosel |
+| RP_5730610 | Toul / Mosel |
+| RP_6051020 | Saint-Die / Meurthe |
+| RP_6271010 | Damelevieres / Meurthe |
+| RP_7 | Mersch / Alzette |
+| RP_7010610 | Custines / Mosel |
+| RP_9021010 | Sarrebourg / Saar |
+| RP_9091050 | Keskastel / Saar |
+| RP_9091060 | Diedendorf / Saar |
+| RP_9301010 | Wittringen / Saar |
 | SH_110005 | Wyk Foehr / Nordsee |
 | SH_110006 | Hooge-Anleger / Nordsee |
 | SH_110007 | Schlüttsiel AP / Nordsee |
