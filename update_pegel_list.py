@@ -73,6 +73,39 @@ def get_he_stations():
             stations.append((ident, name))
     return stations
 
+def get_mv_stations():
+    stations = []
+    data = fetch_soup("https://pegelportal-mv.de/pegel_list.html")
+    table = data.find("table", id="pegeltab")
+    tbody = table.find("tbody")
+    trs = tbody.find_all("tr")
+    for tr in trs:
+        tds = tr.find_all("td")
+        ident = None
+        name = None
+        cnt = 0
+        for td in tds:
+            if cnt == 0:
+                name = td.getText().strip()
+            elif cnt == 1:
+                name += " / "+td.getText().strip()
+                link = td.find_next("a")
+                href = link['href']
+                if href.find("pegelnummer=") != -1:
+                    ident = href[href.find("pegelnummer=")+12:]
+                    ident = "MV_"+ident[:ident.find("&")]
+                elif href.find("pdf/pegelsteckbrief_") != -1:
+                    ident = href[href.find("pdf/pegelsteckbrief_")+20:]
+                    ident = "MV_"+ident[:ident.find(".pdf")]
+                else:
+                    ident = "MV_"+href[:href.rfind(".")]
+                    if ident.find("-q") != -1:
+                        ident = ident[:ident.find("-q")]
+                break
+            cnt += 1
+        stations.append((ident, name))
+    return stations
+
 def get_ni_stations():
     stations = []
     data = fetch_json("https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten/stationen/All?key=9dc05f4e3b4a43a9988d747825b39f43")
@@ -117,6 +150,7 @@ def get_sh_stations():
         for dd in d_list:
             if dd.name == 'dd' and dd.attrs['class'][0] == 'tooltip-content__gewaesser':
                 name += " / "+dd.getText().strip()
+                break
         stations.append((ident, name))
     return stations
 
@@ -159,6 +193,7 @@ def get_th_stations():
                 name = td.getText().strip()
             elif cnt == 3:
                 name += " / "+td.getText().strip()
+                break
             cnt += 1
         stations.append((ident, name))
     return stations
@@ -171,6 +206,8 @@ print("Fetching BY")
 all_stations.extend(get_by_stations())
 print("Fetching HE")
 all_stations.extend(get_he_stations())
+print("Fetching MV")
+all_stations.extend(get_mv_stations())
 print("Fetching NI")
 all_stations.extend(get_ni_stations())
 print("Fetching NW")

@@ -1292,7 +1292,6 @@
 | HE_42881100 | Gungelshausen / Antreff |
 | HE_42881325 | Riebelsdorf / Grenff |
 | HE_42881552 | Treysa / Schwalm |
-| HE_42882226 | Gilsa / Gilsa |
 | HE_42882806 | Uttershausen / Schwalm |
 | HE_42883558 | Hebel / Efze |
 | HE_42900100 | Guntershausen / Fulda |
@@ -1312,6 +1311,200 @@
 | HE_44850108 | Hümme / Esse |
 | HE_44950055 | Helmarshausen / Diemel |
 | HE_45100100 | Bad_Karlshafen / Weser |
+| MV_03127.0 | Bodstedt / Bodstedter Bodden |
+| MV_03128.0 | Zingst / Zingster Strom |
+| MV_03156.0 | Ralswiek / Gr. Jasmunder Bodden |
+| MV_03182.1 | Pudagla / Achterwasser |
+| MV_04341.1 | Börzow / Stepenitz |
+| MV_04360.0 | Eulenkrug / Tarnewitzer Bach |
+| MV_04370.0 | Rothentor / Wallensteingraben |
+| MV_04373.0 | Hohen Viecheln / Wallensteingraben |
+| MV_04380.0 | Schwerin Medewege / Medeweger See |
+| MV_04388.0 | Farpen / Talsperre |
+| MV_04390.1 | Teßmannsdorf / Hellbach |
+| MV_04390.2 | Teßmannsdorf / Hellbach |
+| MV_04391.2 | Jörnstorf / Hellbach |
+| MV_04392.0 | Neubukow / Panzower Bach |
+| MV_04394.6 | Bad Doberan Ost / Stege |
+| MV_04402.2 | Rostock-Geinitzbrücke / Warnow |
+| MV_04405.1 | Bützow gesamt / Warnow |
+| MV_04406.0 | Bützow UP / Warnow |
+| MV_04408.1 | Groß Görnow / Warnow |
+| MV_04412.0 | Langen Brütz / Warnow |
+| MV_04413.0 | Rönkenhof / Warnow |
+| MV_04414.0 | Barnin / Barniner See |
+| MV_04421.0 | Rostock Schmarl / Schmarler Bach |
+| MV_04422.0 | Mönchhagen / Peezer Bach |
+| MV_04423.2 | Kessin / Kösterbeck |
+| MV_04424.0 | Reez / Zarnow |
+| MV_04425.0 | Bröbberow / Beke |
+| MV_04425.3 | Schwaan / Beke |
+| MV_04429.0 | Wolken / Nebel |
+| MV_04437.0 | Güstrow / Nebel |
+| MV_04438.0 | Güstrow Tiergarten / Nebel |
+| MV_04440.0 | Ahrenshagen / Nebel |
+| MV_04441.0 | Krakow / Krakower See |
+| MV_04443.1 | Dobbin / Nebel |
+| MV_04445.0 | Lüssow N / Hohensprenzer Mühlbach |
+| MV_04450.1 | Güstrow-Südost / Inselsee |
+| MV_04453.0 | Kirch Rosin / Teuchelbach |
+| MV_04455.2 | Liessow / Augraben |
+| MV_04455.5 | Dehmen / Augraben |
+| MV_04456.0 | Dolgen / Dolgener See |
+| MV_04460.1 | Klueß / Lößnitz |
+| MV_04465.0 | Sternberger Burg / Mildenitz |
+| MV_04473.0 | Dobbertin / Dobbertiner See |
+| MV_04478.0 | Goldberg / Mildenitz |
+| MV_04479.0 | Goldberg / Goldberger See |
+| MV_04490.0 | Sülten / Brüeler Bach |
+| MV_04495.0 | Warin / Wariner See |
+| MV_04504.0 | Marlow / Recknitz |
+| MV_04513.0 | Tessin / Recknitz |
+| MV_04531.2 | Willershagen / Wallbach |
+| MV_04542.2 | Tessin / Reppeliner Bach |
+| MV_04543.1 | Liessow unterh. Entnahme / Korleputer Bach |
+| MV_04554.2 | Redebas / Barthe |
+| MV_04571.0 | Prohn SW. / Speicherbecken |
+| MV_04584.0 | Lüssow / Borgwallsee |
+| MV_04587.2 | Krummenhagen / Krummenhagener See |
+| MV_04610.0 | Bergen / Nonnensee |
+| MV_04611.1 | Kluis / Duvenbach |
+| MV_04620.0 | Buschvitz / Kl. Jasmunder Bodden |
+| MV_04621.0 | Binz / Schmachter See |
+| MV_04651.1 | Greifswald Steinbecker Brücke / Ryck |
+| MV_04661.4 | Hanshagen B109 / Brandmühlengraben |
+| MV_04664.1 | Lodmannshagen Kleinbahn / Mühlgraben |
+| MV_04666.0 | Wehrland / Brebowbach |
+| MV_04672.1 | Neuhof Süd / Gothensee |
+| MV_04675.0 | Korswandt / Wolgastsee |
+| MV_04678.0 | Kamminke / Torfkanal |
+| MV_04701.5 | Libnow / Libnower Mühlbach |
+| MV_04702.3 | Anklam Straßenbrücke / Peene |
+| MV_04707.4 | Demmin - Meyenkrebsbrücke / Peene |
+| MV_04710.1 | Neukalen / Teterower Peene |
+| MV_04713.0 | Teterow / Teterower See |
+| MV_04716.5 | Malchin / Dahmer Kanal |
+| MV_04718.0 | Dahmen / Malchiner See |
+| MV_04719.4 | Ziddorf / Westpeene |
+| MV_04722.1 | Gielow Süd / Ostpeene |
+| MV_04725.1 | Groß Gievitz / Ostpeene |
+| MV_04730.2 | Kittendorf / Kittendorfer Peene |
+| MV_04731.9 | Varchentin / Varchentiner See |
+| MV_04733.0 | Deven / Devener Bach |
+| MV_04735.2 | Padderow / Großer Abzugsgraben |
+| MV_04740.2 | Gützkow Hasenberg / Swinow |
+| MV_04745.3 | Schwinge / Schwinge |
+| MV_04751.0 | Volksdorf / Trebel |
+| MV_04753.0 | Bassendorf / Trebel |
+| MV_04754.0 | Tribsees Süd / Trebel |
+| MV_04756.2 | Kirch-Baggendorf / Trebel |
+| MV_04757.0 | Grimmen / Poggendorfer Trebel |
+| MV_04758.0 | Grimmen / Kronhorster Trebel |
+| MV_04759.5 | Franzburg / Richtenberger See |
+| MV_04761.1 | Gnoien / Warbel |
+| MV_04803.5 | Klempenow Straßenbrücke / Tollense |
+| MV_04808.9 | Neubrandenburg / Tollensesee (Bogenbr.) |
+| MV_04812.2 | Gehmkow / Augraben |
+| MV_04835.1 | Zirzow / Malliner Wasser |
+| MV_04841.2 | Burg Stargard / Lindebach |
+| MV_04849.0 | Rödlin / Rödliner See |
+| MV_04850.1 | Grambin / Zarow |
+| MV_04860.1 | Heinrichswalde Nord / Weißer Graben |
+| MV_04861.0 | Heinrichswalde / Galenbecker See |
+| MV_04863.9 | Brohm OP Kleinbahnbrücke / Golmer Mühlbach |
+| MV_04867.1 | Groß Miltzow / Miltzower Bach |
+| MV_04870.1 | Friedland / Datze |
+| MV_04872.0 | Putzar / Putzarer See |
+| MV_04880.0 | Bugewitz / Anklamer Mühlengraben |
+| MV_04901.2 | Ueckermünde Klappbrücke / Uecker |
+| MV_04904.1 | Torgelow OP / Uecker |
+| MV_04907.1 | Pasewalk Bollwerk / Uecker |
+| MV_04920.0 | Eggesin / Randow |
+| MV_04925.0 | Koblentz / Großer Koblentzer See |
+| MV_04927.0 | Löcknitz Eisenbahnbrücke / Randow |
+| MV_04927.3 | Löcknitz Nord / Plöwenscher Abzugsgraben |
+| MV_04927.4 | Boock / Regowbach |
+| MV_04928.2 | Penkun West / Schloßsee |
+| MV_04928.3 | Penkun Ost / Bürgersee |
+| MV_04931.0 | Hintersee / Mützelburger See |
+| MV_04933.0 | Ludwigshof / Teufelsgraben |
+| MV_04934.0 | Gottesheide / Schloßsee |
+| MV_04941.2 | Strasburg / Strasburger Stadtsee |
+| MV_503050 | Wittenberge / Elbe |
+| MV_503120 | Lenzen / Elbe |
+| MV_58002.0 | WESENBERG OP / Obere Havel-Wasserstrasse |
+| MV_58003.0 | WESENBERG UP / Obere Havel-Wasserstrasse |
+| MV_58003.5 | Steinförde Straßenbrücke / Obere-Havel-Wasserstraße |
+| MV_580060 | Fürstenberg OP / Obere Havel-Wasserstrasse |
+| MV_580070 | Fürstenberg UP / Obere Havel-Wasserstrasse |
+| MV_580080 | Bredereiche OP / Obere Havel-Wasserstrasse |
+| MV_580090 | Bredereiche UP / Obere Havel-Wasserstrasse |
+| MV_58036.0 | Zwenzow Straßenbrücke / Havel |
+| MV_58100.0 | Mirow OP / Müritz-Havel-Wasserstrasse |
+| MV_581000 | Mirow OP / Müritz-Havel-Wasserstrasse |
+| MV_581010 | Mirow UP / Müritz-Havel-Wasserstrasse |
+| MV_58102.0 | Diemitz Schleuse OP / Müritz-Havel-Wasserstraße |
+| MV_58110.0 | Bolt OP / Bolter Kanal |
+| MV_589000 | Wolfsbruch OP / Rheinsberger Gewässer |
+| MV_589010 | Wolfsbruch UP / Rheinsberger Gewässer |
+| MV_5910025 | Dömitz / Elbe |
+| MV_5910030 | Damnatz / Elbe |
+| MV_5920010 | Hitzacker / Elbe |
+| MV_5930010 | Neu Darchau / Elbe |
+| MV_5930020 | Bleckede / Elbe |
+| MV_5930033 | Boizenburg / Elbe |
+| MV_5930040 | Hohnstorf / Elbe |
+| MV_59599.0 | Buchholz / Elde |
+| MV_59601.2 | Röbel / Dambecker Graben |
+| MV_596030 | Waren / Müritz-Elde-Wasserstrasse |
+| MV_596080 | Plau OP / Müritz-Elde-Wasserstrasse |
+| MV_596090 | Plau UP / Müritz-Elde-Wasserstrasse |
+| MV_59618.0 | Kronskamp / Müritz-Elde-Wasserstraße |
+| MV_596250 | Lewitz OP / Müritz-Elde-Wasserstrasse |
+| MV_596330 | Grabow OP / Müritz-Elde-Wasserstrasse |
+| MV_596370 | Eldena OP / Müritz-Elde-Wasserstrasse |
+| MV_596390 | Malliss OP / Müritz-Elde-Wasserstrasse |
+| MV_59641.0 | Drewitz / Drewitzer See |
+| MV_596410 | Findshier OP / Müritz-Elde-Wasserstrasse |
+| MV_59655.0 | Klinken / Klinker Kanal |
+| MV_596900 | Schwerin Werderbrücke / Stör-Wasserstrasse |
+| MV_596920 | Banzkow OP / Stör-Wasserstrasse |
+| MV_596930 | Banzkow UP / Stör-Wasserstrasse |
+| MV_59805.1 | Radelübbe / Sude |
+| MV_59810.0 | Garlitz / Sude |
+| MV_59831.0 | Laave / Rögnitz |
+| MV_59845.0 | Zarrentin / Schaalsee |
+| MV_59848.0 | Klein Bengerstorf / Schaale |
+| MV_59859.0 | Camin / Schilde |
+| MV_59905.0 | Schwartow / Boize |
+| MV_9610085 | Travemünde / Trave |
+| MV_9640002 | Rostock Mühlendamm OW / Warnow |
+| MV_9640015 | Warnemünde / Ostsee |
+| MV_9640018 | Rostock Mühlendamm UW / Warnow |
+| MV_9650024 | Althagen / Ostsee |
+| MV_9650030 | Barth / Ostsee |
+| MV_9650040 | Barhöft / Ostsee |
+| MV_9650043 | Stralsund / Ostsee |
+| MV_9650070 | Stahlbrode / Ostsee |
+| MV_9650073 | Greifswald Wiek / Ostsee |
+| MV_9650080 | Wolgast / Ostsee |
+| MV_9660001 | Anklam / Peene |
+| MV_9660005 | Jarmen / Peene |
+| MV_9660007 | Demmin / Peene |
+| MV_9660009 | Aalbude / Peene |
+| MV_9670030 | Wismar-Baumhaus-Alt / Ostsee |
+| MV_9670046 | Neuendorf Hafen / Ostsee |
+| MV_9670050 | Kloster / Ostsee |
+| MV_9670055 | Wittower Fähre / Ostsee |
+| MV_9670063 | Lauterbach / Ostsee |
+| MV_9670065 | Sassnitz / Ostsee |
+| MV_9670067 | Thiessow / Ostsee |
+| MV_9670070 | Timmendorf Poel / Ostsee |
+| MV_9690078 | Greifswald OIE / Ostsee |
+| MV_9690084 | Karnin / Kleines Haff |
+| MV_9690085 | Karlshagen / Ostsee |
+| MV_9690088 | Ueckermünde / Kleines Haff |
+| MV_9690093 | Koserow / Ostsee |
 | NI_10110 | Salzderhelden / Leine |
 | NI_133 | Schwinge Sperrwerk / Schwinge |
 | NI_181 | Gandersum / Ems |

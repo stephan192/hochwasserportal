@@ -7,6 +7,7 @@ import requests
 import bs4
 import traceback
 import json
+import re
 
 
 class HochwasserPortalAPI:
@@ -396,11 +397,86 @@ class HochwasserPortalAPI:
 
     def parse_init_MV(self):
         """Parse data for Mecklenburg-Vorpommern."""
-        pass
+        try:
+            # Get data
+            soup = self.fetch_soup("https://pegelportal-mv.de/pegel_list.html")
+            table = soup.find("table", id="pegeltab")
+            tbody = table.find("tbody")
+            search_string = re.compile(self.ident[3:])
+            link = tbody.find_next("a", href=search_string)
+            tr = link.parent.parent
+            tds = tr.find_all("td")
+            # Parse data
+            cnt = 0
+            for td in tds:
+                if cnt == 0:
+                    self.name = td.getText().strip()
+                elif cnt == 1:
+                    self.name += " / " + td.getText().strip()
+                    break
+                cnt += 1
+            if self.ident.find(".") != -1:
+                self.url = "https://pegelportal-mv.de/" + self.ident[3:] + ".html"
+            else:
+                self.url = link["href"]
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching init data for %s: %s", self.ident, e
+            )
 
     def parse_MV(self):
         """Parse data for Mecklenburg-Vorpommern."""
-        pass
+        try:
+            # Get data
+            soup = self.fetch_soup("https://pegelportal-mv.de/pegel_list.html")
+            table = soup.find("table", id="pegeltab")
+            tbody = table.find("tbody")
+            search_string = re.compile(self.ident[3:])
+            link = tbody.find_next("a", href=search_string)
+            tr = link.parent.parent
+            tds = tr.find_all("td")
+            # Parse data
+            cnt = 0
+            for td in tds:
+                if cnt == 2:
+                    try:
+                        self.last_update = datetime.datetime.strptime(
+                            td.getText().strip(), "%d.%m.%Y %H:%M"
+                        )
+                    except:
+                        self.last_update = None
+                elif cnt == 3:
+                    try:
+                        self.level = float(td.getText().strip())
+                    except:
+                        self.level = None
+                elif cnt == 4:
+                    try:
+                        self.flow = float(td.getText().strip())
+                    except:
+                        self.flow = None
+                    img = td.find_next("img")
+                    try:
+                        splits = img["title"].strip().split()
+                        if splits[0] == "Pegel-Stufe":
+                            self.stage = int(splits[1]) - 4
+                            if self.stage < 0:
+                                self.stage = 0
+                        else:
+                            self.stage = None
+                    except:
+                        self.stage = None
+                    break
+                cnt += 1
+            if self.last_update is not None:
+                self.data_valid = True
+            else:
+                self.data_valid = False
+        except Exception as e:
+            self.data_valid = False
+            LOGGER.error(
+                "An error occured while fetching data for %s: %s", self.ident, e
+            )
 
     def parse_init_NI(self):
         """Parse data for Niedersachsen."""
@@ -1002,7 +1078,7 @@ class HochwasserPortalAPI:
             self.parse_init_HE()
         elif self.ident[0:3] == "HH_":
             self.parse_init_HH()
-        elif self.ident[0:3] == "MW_":
+        elif self.ident[0:3] == "MV_":
             self.parse_init_MV()
         elif self.ident[0:3] == "NI_":
             self.parse_init_NI()
@@ -1038,7 +1114,7 @@ class HochwasserPortalAPI:
             self.parse_HE()
         elif self.ident[0:3] == "HH_":
             self.parse_HH()
-        elif self.ident[0:3] == "MW_":
+        elif self.ident[0:3] == "MV_":
             self.parse_MV()
         elif self.ident[0:3] == "NI_":
             self.parse_NI()
