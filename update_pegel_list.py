@@ -154,6 +154,21 @@ def get_sh_stations():
         stations.append((ident, name))
     return stations
 
+def get_sl_stations():
+    stations = []
+    data = fetch_text("https://iframe01.saarland.de/extern/wasser/Daten.js")
+    lines = data.split("\r\n")
+    for line in lines:
+        if line.find("Pegel(") != -1:
+            content = line[line.find("Pegel(")+6:line.find(");")]
+            content = content.replace("'", "")
+            elements = content.split(",")
+            if len(elements) == 9:
+                ident = "SL_" + elements[2].strip()
+                name = elements[4].strip() + " / " + elements[5].strip()
+                stations.append((ident, name))
+    return stations
+
 def get_sn_stations():
     stations = []
     data = fetch_soup("https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/wasserstand-uebersicht")
@@ -216,6 +231,8 @@ print("Fetching RP")
 all_stations.extend(get_rp_stations())
 print("Fetching SH")
 all_stations.extend(get_sh_stations())
+print("Fetching SL")
+all_stations.extend(get_sl_stations())
 print("Fetching SN")
 all_stations.extend(get_sn_stations())
 print("Fetching ST")

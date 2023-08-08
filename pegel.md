@@ -2204,6 +2204,63 @@
 | SH_9610080 | Neustadt / Ostsee |
 | SH_9620085 | Travemünde / Trave |
 | SH_9620090 | Lübeck-Bauhof / Trave |
+| SL_1011120 | Oberthal / Blies |
+| SL_1013120 | Alsfassen / Blies |
+| SL_1014120 | Urweiler / Todbach |
+| SL_1022120 | Ottweiler / Blies |
+| SL_1031120 | Bebelsheim / Mandelbach |
+| SL_1041120 | Neunkirchen / Blies |
+| SL_1051110 | Blieskastel / Blies |
+| SL_1062220 | Reinheim / Blies |
+| SL_1071120 | Nonnweiler IV / Prims |
+| SL_1081120 | Wolfersweiler / Freisbach |
+| SL_1092220 | Nalbach / Prims |
+| SL_1102220 | Niedaltdorf / Nied |
+| SL_1113120 | Überherrn / Bist |
+| SL_1122120 | Geislautern / Rossel |
+| SL_1131120 | Merzig / Seffersbach |
+| SL_1142120 | Perl / Mosel |
+| SL_1151120 | Roden / Ellbach |
+| SL_1162120 | Völklingen / Köllerbach |
+| SL_1171120 | Rußhütte / Fischbach |
+| SL_1181120 | Jägersfreude / Sulzbach |
+| SL_1191120 | Schafbrücke / Rohrbach |
+| SL_1201120 | Fechingen / Saarbach |
+| SL_1211120 | Lautzkirchen / Würzbach |
+| SL_1221120 | Walsheim / Hetschenbach |
+| SL_1231120 | Nohfelden / Nahe |
+| SL_1241120 | Eckelhausen / Bos |
+| SL_1251120 | Gonnesweiler / Bos |
+| SL_1261120 | Dagstuhl / Löster |
+| SL_1271120 | Schieferstollen / Wadrill |
+| SL_1281120 | Wadern / Wadrill |
+| SL_1291120 | Rappweiler / Hölzbach |
+| SL_1301120 | Niederlosheim / Hölzbach |
+| SL_1311120 | Althornbach / Hornbach |
+| SL_1312220 | Contwig / Schwarzbach |
+| SL_1321120 | Losheim I / Losheimer Bach |
+| SL_1332220 | Lebach / Theel |
+| SL_1341120 | Eppelborn / Ill |
+| SL_1351120 | Nunkirchen / Losheimer Bach |
+| SL_1362120 | Hangard / Oster |
+| SL_1373130 | Einöd / Schwarzbach |
+| SL_1381120 | Weiler / Kohlenbrucher Bach |
+| SL_1391120 | Nonnweiler I / Prims |
+| SL_1401120 | Nonnweiler II / Altbach |
+| SL_1411120 | Weiskirchen / Holzbach |
+| SL_1421120 | Oberleuken / Leuk |
+| SL_1433120 | Losheim III / Losheimer Bach |
+| SL_1451120 | Buttnich / Prims |
+| SL_1451130 | Michelbach / Prims |
+| SL_1462230 | Fremersdorf / Saar |
+| SL_1463130 | St. Arnual / Saar |
+| SL_1464130 | Wittringen / Saar |
+| SL_1472120 | Hanweiler / Saar |
+| SL_1482120 | Lisdorf / Saar |
+| SL_1494120 | Rehlingen / Saar |
+| SL_1502120 | Mettlach / Saar |
+| SL_1631120 | Beeden / Erbach |
+| SL_1641120 | Ihn / Ihner Bach |
 | SN_1000000 | Hohberg / Rosenbach |
 | SN_1000001 | Burgneudorf / Kleine Spree |
 | SN_10000020 | Hagenwerder 3 / Lausitzer Neiße |

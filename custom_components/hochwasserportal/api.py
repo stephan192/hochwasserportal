@@ -473,6 +473,10 @@ class HochwasserPortalAPI:
             else:
                 self.data_valid = False
         except Exception as e:
+            self.level = None
+            self.flow = None
+            self.stage = None
+            self.last_update = None
             self.data_valid = False
             LOGGER.error(
                 "An error occured while fetching data for %s: %s", self.ident, e
@@ -801,11 +805,86 @@ class HochwasserPortalAPI:
 
     def parse_init_SL(self):
         """Parse data for Saarland."""
-        pass
+        try:
+            # Get data
+            page = self.fetch_text(
+                "https://iframe01.saarland.de/extern/wasser/Daten.js"
+            )
+            lines = page.split("\r\n")
+            # Parse data
+            for line in lines:
+                if (line.find("Pegel(") != -1) and (line.find(self.ident[3:]) != -1):
+                    content = line[line.find("Pegel(") + 6 : line.find(");")]
+                    content = content.replace("'", "")
+                    elements = content.split(",")
+                    if len(elements) == 9:
+                        self.name = elements[4].strip() + " / " + elements[5].strip()
+                        self.url = (
+                            "https://iframe01.saarland.de/extern/wasser/L"
+                            + self.ident[3:]
+                            + ".htm"
+                        )
+                        break
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching init data for %s: %s", self.ident, e
+            )
 
     def parse_SL(self):
         """Parse data for Saarland."""
-        pass
+        try:
+            # Get data
+            page = self.fetch_text(
+                "https://iframe01.saarland.de/extern/wasser/Daten.js"
+            )
+            lines = page.split("\r\n")
+            # Parse data
+            for line in lines:
+                if (line.find("Pegel(") != -1) and (line.find(self.ident[3:]) != -1):
+                    content = line[line.find("Pegel(") + 6 : line.find(");")]
+                    content = content.replace("'", "")
+                    elements = content.split(",")
+                    if len(elements) == 9:
+                        try:
+                            # 1 = kein Hochwasser => stage = 0
+                            # 2 = kleines Hochwasser => stage = 1
+                            # 3 = mittleres Hochwasser => stage = 2
+                            # 4 = großes Hochwasser => stage = 3
+                            # 5 = Weiterer Pegel => stage = None
+                            # 6 = Kein Kennwert => stage = None
+                            # 7 = sehr großes Hochwasser => stage = 4
+                            stage_int = int(elements[3].strip())
+                            if stage_int == 7:
+                                self.stage = 4
+                            elif (stage_int > 0) and (stage_int < 5):
+                                self.stage = stage_int - 1
+                            else:
+                                self.stage = None
+                        except:
+                            self.stage = None
+                        try:
+                            self.level = float(elements[6].strip())
+                        except:
+                            self.level = None
+                        try:
+                            self.last_update = datetime.datetime.strptime(
+                                elements[7].strip() + "+0100", "%d.%m.%Y %H:%M%z"
+                            )
+                        except:
+                            self.last_update = None
+                        break
+            if self.last_update is not None:
+                self.data_valid = True
+            else:
+                self.data_valid = False
+        except Exception as e:
+            self.level = None
+            self.stage = None
+            self.last_update = None
+            self.data_valid = False
+            LOGGER.error(
+                "An error occured while fetching data for %s: %s", self.ident, e
+            )
 
     def parse_init_SN(self):
         """Parse data for Sachsen."""
