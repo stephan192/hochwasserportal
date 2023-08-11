@@ -8,7 +8,6 @@ from .api import HochwasserPortalAPI
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigFlow
-from homeassistant.const import CONF_NAME
 from homeassistant.data_entry_flow import FlowResult
 import homeassistant.helpers.config_validation as cv
 
@@ -40,7 +39,7 @@ class HochwasserPortalConfigFlow(ConfigFlow, domain=DOMAIN):
 
             if not errors:
                 # Set the unique ID for this config entry.
-                await self.async_set_unique_id(pegel_identifier)
+                await self.async_set_unique_id(f"{DOMAIN}_{pegel_identifier.lower()}")
                 self._abort_if_unique_id_configured()
 
                 return self.async_create_entry(title=pegel_title, data=user_input)
@@ -63,18 +62,20 @@ class HochwasserPortalConfigFlow(ConfigFlow, domain=DOMAIN):
 
         # Extract the necessary data for the setup.
         pegel_identifier = import_config[CONF_PEGEL]
-        name = import_config.get(CONF_NAME, pegel_identifier)
-
-        # Set the unique ID for this imported entry.
-        await self.async_set_unique_id(pegel_identifier)
-        self._abort_if_unique_id_configured()
 
         # Validate pegel identifier using the API
-        if not await self.hass.async_add_executor_job(
-            HochwasserPortalAPI, pegel_identifier
-        ):
+        pegel_title = repr(
+            await self.hass.async_add_executor_job(
+                HochwasserPortalAPI, pegel_identifier
+            )
+        )
+        if pegel_title == pegel_identifier:
             return self.async_abort(reason="invalid_identifier")
 
+        # Set the unique ID for this imported entry.
+        await self.async_set_unique_id(f"{DOMAIN}_{pegel_identifier.lower()}")
+        self._abort_if_unique_id_configured()
+
         return self.async_create_entry(
-            title=name, data={CONF_PEGEL_IDENTIFIER: pegel_identifier}
+            title=pegel_title, data={CONF_PEGEL_IDENTIFIER: pegel_identifier}
         )

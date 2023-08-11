@@ -15,6 +15,7 @@ from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import UnitOfLength
 from homeassistant.core import HomeAssistant
 import homeassistant.helpers.config_validation as cv
+from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.issue_registry import IssueSeverity, async_create_issue
 from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
@@ -110,6 +111,7 @@ class HochwasserPortalSensor(
 ):
     """Sensor representation."""
 
+    _attr_has_entity_name = True
     _attr_attribution = ATTRIBUTION
 
     def __init__(
@@ -126,8 +128,11 @@ class HochwasserPortalSensor(
         self._attr_state_class = SensorStateClass.MEASUREMENT
         self._attr_native_unit_of_measurement = description.native_unit_of_measurement
         self._attr_icon = description.icon
-        self._attr_name = f"{self.api.name} {description.key.capitalize()}"
-        self._attr_unique_id = f"{DOMAIN}_{self.api.ident.lower()}_{description.key}"
+        self._attr_name = f"{description.key.capitalize()}"
+        self._attr_unique_id = f"{entry.unique_id}_{description.key}"
+        self._attr_device_info = DeviceInfo(
+            identifiers={(DOMAIN, entry.entry_id)}, name=f"{entry.title}"
+        )
         LOGGER.debug("Setting up sensor: %s", self._attr_name)
         LOGGER.debug("Unique id: %s", self._attr_unique_id)
 
