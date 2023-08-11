@@ -1,0 +1,38 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "Um den Pegel zu identifizieren, ist die Pegel-ID erforderlich.",
+        "data": {
+          "pegel_identifier": "Pegel ID"
+        }
+      }
+    },
+    "error": {
+      "invalid_identifier": "Der angegebene Pegel ist ungültig."
+    },
+    "abort": {
+      "already_configured": "Pegel bereits konfiguriert.",
+      "invalid_identifier": "[%key:component::hochwasserportal::config::error::invalid_identifier%]"
+    }
+  },
+  "issues": {
+    "deprecated_yaml": {
+      "title": "Die länderübergreifendes Hochwasser Portal (LHP) YAML Konfiguration wird entfernt",
+      "description": "Die Konfiguration des länderübergreifenden Hochwasser Portals (LHP) mittels YAML wird entfernt.\n\nDeine bestehende YAML-Konfiguration wurde automatisch in die Benutzeroberfläche importiert.\n\nEntferne die länderübergreifende Hochwasser Portal (LHP) YAML-Konfiguration aus der Datei configuration.yaml und starte Home Assistant neu, um dieses Problem zu beheben."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "level": {
+        "name": "Pegelstand"
+      },
+      "stage": {
+        "name": "Warnstufe"
+      },
+      "flow": {
+        "name": "Abfluss"
+      }
+    }
+  }
+}

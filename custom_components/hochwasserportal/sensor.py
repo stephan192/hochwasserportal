@@ -51,18 +51,27 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 SENSOR_TYPES: tuple[SensorEntityDescription, ...] = (
     SensorEntityDescription(
         key=LEVEL_SENSOR,
+        translation_key=LEVEL_SENSOR,
         icon="mdi:waves",
         native_unit_of_measurement=UnitOfLength.CENTIMETERS,
+        device_class=None,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key=STAGE_SENSOR,
+        translation_key=STAGE_SENSOR,
         icon="mdi:waves-arrow-up",
         native_unit_of_measurement=None,
+        device_class=None,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key=FLOW_SENSOR,
+        translation_key=FLOW_SENSOR,
         icon="mdi:waves-arrow-right",
         native_unit_of_measurement="m³/s",
+        device_class=None,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
 )
 
@@ -124,17 +133,11 @@ class HochwasserPortalSensor(
         super().__init__(coordinator)
         self.api = coordinator.api
         self.entity_description = description
-        self._attr_device_class = None
-        self._attr_state_class = SensorStateClass.MEASUREMENT
-        self._attr_native_unit_of_measurement = description.native_unit_of_measurement
-        self._attr_icon = description.icon
-        self._attr_name = f"{description.key.capitalize()}"
         self._attr_unique_id = f"{entry.unique_id}_{description.key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, entry.entry_id)}, name=f"{entry.title}"
         )
-        LOGGER.debug("Setting up sensor: %s", self._attr_name)
-        LOGGER.debug("Unique id: %s", self._attr_unique_id)
+        LOGGER.debug("Setting up sensor: %s", self._attr_unique_id)
 
     @property
     def native_value(self):
