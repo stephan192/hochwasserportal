@@ -1,6 +1,6 @@
 # hochwasserportal
 
-# This integration is currently only working for BW, BY, HE, MV, NI, NW, RP, SH, SL, SN, ST and TH pegel because the formerly used API has been locked from public usage! I'll try to repair the other pegel also.
+# This integration is currently only working for BB, BW, BY, HE, MV, NI, NW, RP, SH, SL, SN, ST and TH pegel because the formerly used API has been locked from public usage! I'll try to repair the other pegel also.
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration)
 [![Validate with hassfest](https://github.com/stephan192/hochwasserportal/actions/workflows/hassfest.yml/badge.svg)](https://github.com/stephan192/hochwasserportal/actions/workflows/hassfest.yml)

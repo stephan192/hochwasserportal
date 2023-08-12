@@ -39,6 +39,74 @@ def fetch_text(url):
     except requests.exceptions.RequestException as e:
         return None
 
+def fix_bb_encoding(input):
+    replace = False
+    cnt = 0
+    output = ""
+    for c in input:
+        num = ord(c)
+        # Find '\'
+        if num == 92:
+            replace = True
+            cnt = 0
+            continue
+        if replace:
+            if cnt == 0:
+                # Find '\u'
+                if num == 117:
+                    cnt += 1
+                else:
+                    output = output + chr(92)
+                    output = output + chr(num)
+                    replace = False
+                    continue
+            else:
+                if 47 < num < 58:
+                    num = num - 48
+                elif 64 < num < 71:
+                    num = num - 55
+                if cnt == 1:
+                    new_num = num * 4096
+                    cnt += 1
+                elif cnt == 2:
+                    new_num = new_num + (num * 256)
+                    cnt += 1
+                elif cnt == 3:
+                    new_num = new_num + (num * 16)
+                    cnt += 1
+                elif cnt == 4:
+                    new_num = new_num + num
+                    output = output + chr(new_num)
+                    replace = False
+        else:
+            output = output + chr(num)
+    return output
+
+def get_bb_stations():
+    stations = []
+    page = fetch_text("https://pegelportal.brandenburg.de/start.php")
+    lines = page.split("\r\n")
+    start_found = False
+    for line in lines:
+        line = line.strip()
+        if (line == "var layer_bb_alarm_ws = new ol.layer.Vector({") or (line == "var layer_bb_ws = new ol.layer.Vector({"):
+            start_found = True
+            continue
+        if start_found:
+            if line == "})":
+                start_found = False
+            if line.count("'") == 2:
+                key = line[:line.find(":")]
+                value = line.split("'")[1]
+                if key == "pkz":
+                    ident = "BB_" + str(value)
+                elif key == "name":
+                    name = fix_bb_encoding(str(value))
+                elif key == "gewaesser":
+                    name = name + " / " + fix_bb_encoding(str(value))
+                    stations.append((ident, name))
+    return stations
+
 def get_bw_stations():
     stations = []
     page = fetch_text("https://www.hvz.baden-wuerttemberg.de/js/hvz_peg_stmn.js")
@@ -215,6 +283,8 @@ def get_th_stations():
 
 # Fetch and sort all available stations
 all_stations = []
+print("Fetching BB")
+all_stations.extend(get_bb_stations())
 print("Fetching BW")
 all_stations.extend(get_bw_stations())
 print("Fetching BY")

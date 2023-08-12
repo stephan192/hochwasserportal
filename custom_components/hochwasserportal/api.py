@@ -82,6 +82,50 @@ class HochwasserPortalAPI:
             # Don't care about errors because in some cases the requested page doesn't exist
             return None
 
+    def fix_bb_encoding(self, input):
+        """Fix utf-8 encoding for BB"""
+        replace = False
+        cnt = 0
+        output = ""
+        for c in input:
+            num = ord(c)
+            # Find '\'
+            if num == 92:
+                replace = True
+                cnt = 0
+                continue
+            if replace:
+                if cnt == 0:
+                    # Find '\u'
+                    if num == 117:
+                        cnt += 1
+                    else:
+                        output = output + chr(92)
+                        output = output + chr(num)
+                        replace = False
+                        continue
+                else:
+                    if 47 < num < 58:
+                        num = num - 48
+                    elif 64 < num < 71:
+                        num = num - 55
+                    if cnt == 1:
+                        new_num = num * 4096
+                        cnt += 1
+                    elif cnt == 2:
+                        new_num = new_num + (num * 256)
+                        cnt += 1
+                    elif cnt == 3:
+                        new_num = new_num + (num * 16)
+                        cnt += 1
+                    elif cnt == 4:
+                        new_num = new_num + num
+                        output = output + chr(new_num)
+                        replace = False
+            else:
+                output = output + chr(num)
+        return output
+
     def calc_stage(self):
         """Calc stage from level and stage levels."""
         if all(sl is None for sl in self.stage_levels):
@@ -108,11 +152,106 @@ class HochwasserPortalAPI:
 
     def parse_init_BB(self):
         """Parse data for Brandenburg."""
-        pass
+        try:
+            # Get data
+            page = self.fetch_text("https://pegelportal.brandenburg.de/start.php")
+            lines = page.split("\r\n")
+            # Parse data
+            start_found = False
+            for line in lines:
+                line = line.strip()
+                if line == "pkz: '" + self.ident[3:] + "',":
+                    start_found = True
+                    continue
+                if start_found:
+                    if line == "}),":
+                        break
+                    if line.count("'") == 2:
+                        key = line[: line.find(":")]
+                        value = line.split("'")[1]
+                        if key == "name":
+                            self.name = self.fix_bb_encoding(str(value))
+                        elif key == "gewaesser":
+                            self.name = (
+                                self.name + " / " + self.fix_bb_encoding(str(value))
+                            )
+                        elif key == "fgid":
+                            self.url = (
+                                "https://pegelportal.brandenburg.de/messstelle.php?fgid="
+                                + str(value)
+                                + "&pkz="
+                                + self.ident[3:]
+                            )
+                            break
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching init data for %s: %s", self.ident, e
+            )
 
     def parse_BB(self):
         """Parse data for Brandenburg."""
-        pass
+        try:
+            # Get data
+            page = self.fetch_text("https://pegelportal.brandenburg.de/start.php")
+            lines = page.split("\r\n")
+            # Parse data
+            start_found = False
+            prev_line = None
+            for line in lines:
+                line = line.strip()
+                if line == "pkz: '" + self.ident[3:] + "',":
+                    start_found = True
+                    stage_valid = bool(prev_line == "pegel: 'bbalarm',")
+                    continue
+                if start_found:
+                    if line == "}),":
+                        break
+                    if line.count("'") == 2:
+                        key = line[: line.find(":")]
+                        value = line.split("'")[1]
+                    if key == "alarmklasse":
+                        # key is always available but content is not always valid
+                        if stage_valid:
+                            try:
+                                self.stage = int(value)
+                            except:
+                                self.stage = None
+                        else:
+                            self.stage = None
+                    elif key == "datum":
+                        timestamp = str(value)
+                    elif key == "zeit":
+                        timestamp = timestamp + " " + str(value)
+                        try:
+                            self.last_update = datetime.datetime.strptime(
+                                timestamp, "%d.%m.%Y %H:%M"
+                            )
+                        except:
+                            self.last_update = None
+                    elif key == "wert":
+                        try:
+                            self.level = float(value.replace(",", "."))
+                        except:
+                            self.level = None
+                    elif key == "qwert":
+                        try:
+                            self.flow = float(value.replace(",", "."))
+                        except:
+                            self.flow = None
+                        break
+                prev_line = line
+            if self.last_update is not None:
+                self.data_valid = True
+            else:
+                self.data_valid = False
+        except Exception as e:
+            self.level = None
+            self.stage = None
+            self.last_update = None
+            self.data_valid = False
+            LOGGER.error(
+                "An error occured while fetching data for %s: %s", self.ident, e
+            )
 
     def parse_init_BE(self):
         """Parse data for Berlin."""
