@@ -447,6 +447,9 @@ class HochwasserPortalAPI:
                         + "/"
                         + station["station_no"]
                     )
+                    self.hint = station["INTERNET_BEMERKUNG"].strip()
+                    if len(self.hint) == 0:
+                        self.hint = None
                     break
         except Exception as e:
             LOGGER.error(
@@ -636,6 +639,10 @@ class HochwasserPortalAPI:
                     self.name = entry["Name"] + " / " + entry["GewaesserName"]
                     self.ni_sta_id = str(entry["STA_ID"])
                     self.url += "/Pegel/Karte/Binnenpegel/ID/" + self.ni_sta_id
+                    if entry["Internetbeschreibung"] != "Keine Daten":
+                        self.hint = entry["Internetbeschreibung"]
+                    else:
+                        self.hint = None
                     break
         except Exception as e:
             LOGGER.error(
@@ -1128,6 +1135,13 @@ class HochwasserPortalAPI:
                         + "/"
                         + self.ident[3:]
                     )
+                    self.hint = (
+                        station["web_anmerkung"].strip()
+                        + " "
+                        + station["web_wichtigerhinweis"].strip()
+                    ).strip()
+                    if len(self.hint) == 0:
+                        self.hint = None
                     break
         except Exception as e:
             LOGGER.error(
