@@ -1624,6 +1624,48 @@
 | HE_44850108 | Hümme / Esse |
 | HE_44950055 | Helmarshausen / Diemel |
 | HE_45100100 | Bad_Karlshafen / Weser |
+| HH_80000001 | Hintzenort / Alte Süderelbe |
+| HH_99003 | Brügkamp / Ammersbek |
+| HH_99004 | Lottbektal / Lottbek |
+| HH_99006 | Herrenhausallee / Ammersbek |
+| HH_99007 | Vogt-Kölln-Straße / Kollau |
+| HH_99014 | Wohldorfer Damm / Bredenbek |
+| HH_99019 | Poppenbütteler Hauptstraße / Mellingbek |
+| HH_99020 | Bergstedter Chaussee / Saselbek |
+| HH_99021 | Schleuse Poppenbüttel / Alster |
+| HH_99023 | Teetzparkweg / Susebek |
+| HH_99024 | Hafen Bergedorf / Schleusengraben |
+| HH_99045 | Klövensteenweg / Wedeler Au |
+| HH_99077 | Rahlstedter Straße / Stellau |
+| HH_99079 | Wilhelm-Grimm-Straße / Wandse |
+| HH_99083 | Krugkoppelbrücke / Alster |
+| HH_99091 | Mantiusstraße / Bille |
+| HH_99121 | Fünfhausener Landweg / Fünfhausener Landwegwettern |
+| HH_99136 | Olloweg / Mühlenau |
+| HH_99137 | Billstedter Hauptstraße / Schleemer Bach |
+| HH_99154 | Niendorfer Weg / Tarpenbek |
+| HH_99182 | Pollhof / Alte Brookwetterung |
+| HH_99256 | Rahmoor / Tarpenbek |
+| HH_99328 | Torfhuder Stieg / Ammersbek |
+| HH_99329 | Berner Heerweg / Berner Au |
+| HH_99341 | Wandsbeker Allee / Wandse |
+| HH_99342 | Haselknick / Alster |
+| HH_99344 | Niendorfer Straße / Kollau |
+| HH_99345 | Kellerbleek / Tarpenbek |
+| HH_99346 | Möörkenweg / Bille |
+| HH_99347 | Schmuggelstieg / Tarpenbek |
+| HH_99352 | Am Hohen Hause / Wandse |
+| HH_99353 | Bäckerbrücke / Alster |
+| HH_99387 | Neuenfelder Hinterdeich / Moorwettern |
+| HH_99410 | Am Osdorfer Born / Düpenau |
+| HH_99428 | Grellkamp / Bornbach |
+| HH_99486 | Lohe / Diekbek |
+| HH_99487 | Horster Damm / Brookwetterung |
+| HH_99562 | Wagenwerkweg / Seeve-Kanal |
+| HH_99605 | Außenmühlenweg / Engelbach |
+| HH_99636 | RHB Brügkamp / Ammersbek |
+| HH_99643 | Allerm. Deich, Sportzentrum / Dove-Elbe |
+| HH_99652 | Möllers Kamp / Schulenbrooksbek |
 | MV_03127.0 | Bodstedt / Bodstedter Bodden |
 | MV_03128.0 | Zingst / Zingster Strom |
 | MV_03156.0 | Ralswiek / Gr. Jasmunder Bodden |

@@ -141,6 +141,21 @@ def get_he_stations():
             stations.append((ident, name))
     return stations
 
+def get_hh_stations():
+    stations = []
+    data = fetch_soup("https://www.wabiha.de/karte.html")
+    tooltipwrapper = data.find("div", id="tooltipwrapper")
+    divs = tooltipwrapper.find_all("div", class_='tooltip-content')
+    for div in divs:
+        spans = div.find_all("span")
+        if len(spans) == 8:
+            ident = "HH_" + div['id'].split("-")[-1]
+            text = div.getText()
+            name = text[:text.find("Gewässer:")].strip()
+            name = name + " / " + text[text.find("Gewässer:")+9:text.find("Niederschlagsvorhersage")].strip()
+            stations.append((ident, name))
+    return stations
+
 def get_mv_stations():
     stations = []
     data = fetch_soup("https://pegelportal-mv.de/pegel_list.html")
@@ -291,6 +306,8 @@ print("Fetching BY")
 all_stations.extend(get_by_stations())
 print("Fetching HE")
 all_stations.extend(get_he_stations())
+print("Fetching HH")
+all_stations.extend(get_hh_stations())
 print("Fetching MV")
 all_stations.extend(get_mv_stations())
 print("Fetching NI")

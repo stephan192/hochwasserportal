@@ -531,11 +531,89 @@ class HochwasserPortalAPI:
 
     def parse_init_HH(self):
         """Parse data for Hamburg."""
-        pass
+        try:
+            # Get data
+            soup = self.fetch_soup("https://www.wabiha.de/karte.html")
+            tooltipwrapper = soup.find("div", id="tooltipwrapper")
+            div = tooltipwrapper.find_next(
+                "div", id="tooltip-content-" + self.ident[3:]
+            )
+            spans = div.find_all("span")
+            # Parse data
+            if len(spans) == 8:
+                text = div.getText()
+                self.name = text[: text.find("Gewässer:")].strip()
+                self.name = (
+                    self.name
+                    + " / "
+                    + text[
+                        text.find("Gewässer:")
+                        + 9 : text.find("Niederschlagsvorhersage")
+                    ].strip()
+                )
+                self.url = "https://www.wabiha.de/grafik-" + self.ident[3:] + ".html"
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching init data for %s: %s", self.ident, e
+            )
 
     def parse_HH(self):
         """Parse data for Hamburg."""
-        pass
+        try:
+            # Get data
+            soup = self.fetch_soup("https://www.wabiha.de/karte.html")
+            tooltipwrapper = soup.find("div", id="tooltipwrapper")
+            div = tooltipwrapper.find_next(
+                "div", id="tooltip-content-" + self.ident[3:]
+            )
+            spans = div.find_all("span")
+            # Parse data
+            self.last_update = None
+            if len(spans) == 8:
+                text = div.getText()
+                try:
+                    self.level = float(
+                        text[
+                            text.find("Wasserstand")
+                            + 11 : text.find("[NHN\u00A0+/-\u00A0cm]")
+                        ]
+                        .replace(".", "")
+                        .strip()
+                    )
+                except:
+                    self.level = None
+                try:
+                    self.last_update = datetime.datetime.strptime(
+                        text[
+                            text.find("\u00A0\u00A0\u00A0 um") + 6 : text.find("Trend")
+                        ].strip(),
+                        "%d.%m.%Y %H:%M",
+                    )
+                except:
+                    self.last_update = None
+                try:
+                    stage_in = int(spans[7].attrs["class"][-1].split("_")[-1])
+                    if stage_in == 0:
+                        self.stage = 0
+                    elif stage_in == 1:
+                        self.stage = 1
+                    elif stage_in == 2:
+                        self.stage = 3
+                    else:
+                        self.stage = None
+                except:
+                    self.stage = None
+            if self.last_update is not None:
+                self.data_valid = True
+            else:
+                self.data_valid = False
+        except Exception as e:
+            self.level = None
+            self.stage = None
+            self.last_update = None
+            LOGGER.error(
+                "An error occured while fetching data for %s: %s", self.ident, e
+            )
 
     def parse_init_MV(self):
         """Parse data for Mecklenburg-Vorpommern."""

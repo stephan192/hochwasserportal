@@ -18,7 +18,7 @@ This Home Assistant integration started as integration for the [Länderübergrei
 | BY    | Bayern                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwassernachrichtendienst Bayern](https://www.hnd.bayern.de) |
 | HB    | Bremen                 | :x:                | :x:                | :x:                | [Pegelstände Bremen](https://geoportale.dp.dsecurecloud.de/pegelbremen) |
 | HE    | Hessen                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwasserportal Hessen](https://www.hochwasser-hessen.de) |
-| HH    | Hamburg                | :x:                | :x:                | :x:                | [Warndienst Binnenhochwasser Hamburg](https://www.wabiha.de/karte.html) |
+| HH    | Hamburg                | :heavy_check_mark: | :heavy_check_mark: | :x:                | [Warndienst Binnenhochwasser Hamburg](https://www.wabiha.de/karte.html) |
 | MV    | Mecklenburg-Vorpommern | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Pegelportal Mecklenburg-Vorpommern](https://pegelportal-mv.de) |
 | NI    | Niedersachsen          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [NLWKN Pegelonline](https://www.pegelonline.nlwkn.niedersachsen.de) |
 | NW    | Nordrhein-Westfalen    | :heavy_check_mark: | :heavy_check_mark: | :x:                | [Hochwassermeldedienst NRW](https://www.hochwasserportal.nrw.de)|
