@@ -26,7 +26,7 @@ from .const import (
     CONF_LEVEL,
     CONF_STAGE,
     CONF_FLOW,
-    ATTRIBUTION,
+    ATTR_DATA_PROVIDERS,
     ATTR_LAST_UPDATE,
     ATTR_URL,
     ATTR_INFO,
@@ -121,7 +121,6 @@ class HochwasserPortalSensor(
     """Sensor representation."""
 
     _attr_has_entity_name = True
-    _attr_attribution = ATTRIBUTION
 
     def __init__(
         self,
@@ -136,6 +135,9 @@ class HochwasserPortalSensor(
         self._attr_unique_id = f"{entry.unique_id}_{description.key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, entry.entry_id)}, name=f"{entry.title}"
+        )
+        self._attr_attribution = (
+            f"Data provided by {ATTR_DATA_PROVIDERS[self.api.ident[:2]]}"
         )
         LOGGER.debug("Setting up sensor: %s", self._attr_unique_id)
 

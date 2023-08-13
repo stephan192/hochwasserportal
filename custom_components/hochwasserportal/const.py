@@ -18,7 +18,24 @@ CONF_LEVEL = "level"
 CONF_STAGE = "stage"
 CONF_FLOW = "flow"
 
-ATTRIBUTION: Final = "Data provided by https://www.hochwasserzentralen.de"
+ATTR_DATA_PROVIDERS: Final[dict[str, str]] = {
+    "BB": "https://pegelportal.brandenburg.de",
+    "BE": "https://wasserportal.berlin.de",
+    "BW": "https://www.hvz.baden-wuerttemberg.de",
+    "BY": "https://www.hnd.bayern.de",
+    "HB": "https://geoportale.dp.dsecurecloud.de/pegelbremen",
+    "HE": "https://www.hochwasser-hessen.de",
+    "HH": "https://www.wabiha.de/karte.html",
+    "MV": "https://pegelportal-mv.de",
+    "NI": "https://www.pegelonline.nlwkn.niedersachsen.de",
+    "NW": "https://www.hochwasserportal.nrw.de",
+    "RP": "https://hochwasser.rlp.de",
+    "SH": "https://hsi-sh.de",
+    "SL": "https://www.saarland.de/mukmav/DE/portale/wasser/informationen/hochwassermeldedienst/wasserstaende_warnlage/wasserstaende_warnlage_node.html",
+    "SN": "https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/wasserstand-uebersicht",
+    "ST": "https://hochwasservorhersage.sachsen-anhalt.de",
+    "TH": "https://hnz.thueringen.de/hw-portal",
+}
 ATTR_LAST_UPDATE: Final = "last_update"
 ATTR_URL: Final = "url"
 ATTR_INFO: Final = "info"
