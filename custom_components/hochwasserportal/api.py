@@ -70,12 +70,15 @@ class HochwasserPortalAPI:
             # Don't care about errors because in some cases the requested page doesn't exist
             return None
 
-    def fetch_text(self, url):
+    def fetch_text(self, url, forced_encoding=None):
         """Fetch data via text."""
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
-            # Override encoding by real educated guess (required for BW)
-            response.encoding = response.apparent_encoding
+            if forced_encoding is not None:
+                response.encoding = forced_encoding
+            else:
+                # Override encoding by real educated guess (required for BW)
+                response.encoding = response.apparent_encoding
             response.raise_for_status()
             return response.text
         except:
@@ -414,11 +417,95 @@ class HochwasserPortalAPI:
 
     def parse_init_HB(self):
         """Parse data for Bremen."""
-        pass
+        try:
+            # Get data from Pegelstände Bremen
+            pb_page = self.fetch_text(
+                "https://geoportale.dp.dsecurecloud.de/pegelbremen/src.2c9c6cd7.js",
+                forced_encoding="utf-8",
+            )
+            # Get data from PegelOnline
+            pe_stations = self.fetch_json(
+                "https://www.pegelonline.wsv.de/webservices/rest-api/v2/stations.json"
+            )
+            # Parse data - Get list of stations
+            stations_string = pb_page[
+                pb_page.find("pegelonlineStations:[") + 21 :
+            ].strip()
+            stations_string = stations_string[: stations_string.find("],")].strip()
+            stations = stations_string.split(",")
+            stations_names = [station.replace('"', "") for station in stations]
+            stations_names_upper = [station.upper() for station in stations_names]
+            # Parse data - Collect data from PegelOnlie
+            for pe in pe_stations:
+                if pe["number"] == self.ident[3:]:
+                    station_name = stations_names[
+                        stations_names_upper.index(pe["longname"])
+                    ]
+                    self.name = (
+                        station_name + " / " + pe["water"]["longname"].capitalize()
+                    )
+                    self.internal_url = (
+                        "https://www.pegelonline.wsv.de/webservices/rest-api/v2/stations/"
+                        + pe["uuid"]
+                        + "/W/measurements.json?start=P1D"
+                    )
+                    self.url = (
+                        "https://pegelonline.wsv.de/webservices/zeitreihe/visualisierung?pegeluuid="
+                        + pe["uuid"]
+                    )
+                    break
+            # Parse data - Collect stage levels from Pegelstände Bremen
+            prop_string = pb_page[pb_page.find("Stations:{") + 10 :].strip()
+            prop_string = prop_string[prop_string.find("properties:[") + 12 :].strip()
+            prop_string = prop_string[: prop_string.find(")]}")].strip()
+            prop_string = prop_string[prop_string.find(station_name) - 1 :].strip()
+            prop_string = prop_string[: prop_string.find(")")].strip()
+            if prop_string.find("[") != -1:
+                sl_string = prop_string[
+                    prop_string.find("[") + 1 : prop_string.find("]")
+                ]
+                self.stage_levels = sl_string.split(",")
+                self.stage_levels = [float(sl) for sl in self.stage_levels]
+                while len(self.stage_levels) < 4:
+                    self.stage_levels.append(None)
+            LOGGER.debug("Stage levels : %s", self.stage_levels)
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching init data for %s: %s", self.ident, e
+            )
 
     def parse_HB(self):
         """Parse data for Bremen."""
-        pass
+        try:
+            # Get data
+            data = self.fetch_json(self.internal_url)
+            # Parse data
+            if len(data) > 0:
+                try:
+                    self.level = float(data[-1]["value"])
+                except:
+                    self.level = None
+                self.calc_stage()
+                try:
+                    self.last_update = datetime.datetime.fromisoformat(
+                        data[-1]["timestamp"]
+                    )
+                except:
+                    self.last_update = None
+                self.data_valid = True
+            else:
+                self.level = None
+                self.stage = None
+                self.last_update = None
+                self.data_valid = False
+        except Exception as e:
+            self.level = None
+            self.stage = None
+            self.last_update = None
+            self.data_valid = False
+            LOGGER.error(
+                "An error occured while fetching data for %s: %s", self.ident, e
+            )
 
     def parse_init_HE(self):
         """Parse data for Hessen."""
@@ -611,6 +698,7 @@ class HochwasserPortalAPI:
             self.level = None
             self.stage = None
             self.last_update = None
+            self.data_valid = False
             LOGGER.error(
                 "An error occured while fetching data for %s: %s", self.ident, e
             )

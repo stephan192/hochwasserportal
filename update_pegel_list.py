@@ -29,11 +29,14 @@ def fetch_soup(url):
     except XMLSyntaxError as e:
         return None
 
-def fetch_text(url):
+def fetch_text(url, forced_encoding=None):
     try:
         response = requests.get(url, timeout=API_TIMEOUT)
         # Override encoding by real educated guess (required for BW)
-        response.encoding = response.apparent_encoding
+        if forced_encoding is not None:
+            response.encoding = forced_encoding
+        else:
+            response.encoding = response.apparent_encoding
         response.raise_for_status()
         return response.text
     except requests.exceptions.RequestException as e:
@@ -129,6 +132,22 @@ def get_by_stations():
         ident  = "BY_"+str(bobbl.get('id'))[1:]
         name = str(bobbl.get('data-name')).strip()+" / "+str(bobbl.get('data-zeile2')).strip()
         stations.append((ident, name))
+    return stations
+
+def get_hb_stations():
+    stations = []
+    data = fetch_text("https://geoportale.dp.dsecurecloud.de/pegelbremen/src.2c9c6cd7.js", forced_encoding="utf-8")
+    stations_string = data[data.find("pegelonlineStations:[")+21:].strip()
+    stations_string = stations_string[:stations_string.find("],")].strip()
+    stations_names = stations_string.split(",")
+    stations_names = [station.replace('"', '') for station in stations_names]
+    stations_names_upper = [station.upper() for station in stations_names]
+    pe_stations = fetch_json("https://www.pegelonline.wsv.de/webservices/rest-api/v2/stations.json")
+    for pe in pe_stations:
+        if pe["longname"] in stations_names_upper:
+            ident = "HB_" + pe["number"]
+            name = stations_names[stations_names_upper.index(pe["longname"])] + " / " + pe["water"]["longname"].capitalize()
+            stations.append((ident, name))
     return stations
 
 def get_he_stations():
@@ -304,6 +323,8 @@ print("Fetching BW")
 all_stations.extend(get_bw_stations())
 print("Fetching BY")
 all_stations.extend(get_by_stations())
+print("Fetching HB")
+all_stations.extend(get_hb_stations())
 print("Fetching HE")
 all_stations.extend(get_he_stations())
 print("Fetching HH")

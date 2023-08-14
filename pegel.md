@@ -1437,6 +1437,29 @@
 | BY_56161509 | Hölle / Selbitz |
 | BY_81617935 | Flecker Wehr / Isar-Seitenkanal |
 | BY_81842200 | 8_WWA Traunstein Projektpegel / Mobil |
+| HB_47300100 | Petershagen / Weser |
+| HB_47900118 | Nienburg / Weser |
+| HB_47900129 | Hoya / Weser |
+| HB_47900209 | Dörverden / Weser |
+| HB_48900204 | Rethem / Aller |
+| HB_48900237 | Eitze / Aller |
+| HB_49100101 | Intschede / Weser |
+| HB_4910030 | Weserwehr OW / Weser |
+| HB_4910040 | Weserwehr UW / Weser |
+| HB_4910050 | Große Weserbrücke / Weser |
+| HB_4910060 | Oslebshausen / Weser |
+| HB_4930010 | Wasserhorst / Lesum |
+| HB_4940010 | Borgfeld / Wümme |
+| HB_4940020 | Niederblockland / Wümme |
+| HB_4940030 | Ritterhude / Hamme |
+| HB_4950010 | Vegesack / Weser |
+| HB_4950020 | Farge / Weser |
+| HB_4970010 | Elsfleth / Weser |
+| HB_4970020 | Brake / Weser |
+| HB_4970030 | Rechtenfleth / Weser |
+| HB_4970040 | Nordenham / Weser |
+| HB_4990010 | BHV Alter Leuchtturm / Weser |
+| HB_9460040 | Leuchtturm Alte Weser / Weser |
 | HE_115 | WT_Ginsheim / Schwarzbach |
 | HE_131 | WT_Bischofsh_links / Main |
 | HE_133 | WT_Nied_Main / Main |
@@ -1729,10 +1752,15 @@
 | MV_04571.0 | Prohn SW. / Speicherbecken |
 | MV_04584.0 | Lüssow / Borgwallsee |
 | MV_04587.2 | Krummenhagen / Krummenhagener See |
+| MV_04602.0 | Stönkvitz / Sehrower Bach |
 | MV_04610.0 | Bergen / Nonnensee |
 | MV_04611.1 | Kluis / Duvenbach |
+| MV_04615.0 | Dolgemost / Karower Bach |
+| MV_04616.1 | Sagard Vorwerk / Sagarder Bach |
 | MV_04620.0 | Buschvitz / Kl. Jasmunder Bodden |
 | MV_04621.0 | Binz / Schmachter See |
+| MV_04623.0 | Rosengarten / Rosengartener Beek |
+| MV_04640.1 | Groß Miltzow / Miltzower Mühlbach |
 | MV_04651.1 | Greifswald Steinbecker Brücke / Ryck |
 | MV_04661.4 | Hanshagen B109 / Brandmühlengraben |
 | MV_04664.1 | Lodmannshagen Kleinbahn / Mühlgraben |
@@ -1762,8 +1790,10 @@
 | MV_04756.2 | Kirch-Baggendorf / Trebel |
 | MV_04757.0 | Grimmen / Poggendorfer Trebel |
 | MV_04758.0 | Grimmen / Kronhorster Trebel |
+| MV_04759.0 | Drechow / Blinde Trebel |
 | MV_04759.5 | Franzburg / Richtenberger See |
 | MV_04761.1 | Gnoien / Warbel |
+| MV_04770.0 | Tangrim / Tangrimer Bach |
 | MV_04803.5 | Klempenow Straßenbrücke / Tollense |
 | MV_04808.9 | Neubrandenburg / Tollensesee (Bogenbr.) |
 | MV_04812.2 | Gehmkow / Augraben |
