@@ -55,14 +55,21 @@ class HochwasserPortalAPI:
             # Don't care about errors because in some cases the requested page doesn't exist
             return None
 
-    def fetch_soup(self, url):
+    def fetch_soup(self, url, remove_xml=False):
         """Fetch data via soup."""
         try:
             response = requests.get(url, timeout=API_TIMEOUT)
             # Override encoding by real educated guess (required for SH)
             response.encoding = response.apparent_encoding
             response.raise_for_status()
-            soup = bs4.BeautifulSoup(response.text, "lxml")
+            if remove_xml and (
+                (response.text.find('<?xml version="1.0" encoding="ISO-8859-15" ?>'))
+                == 0
+            ):
+                text = response.text[response.text.find("<!DOCTYPE html>") :]
+                soup = bs4.BeautifulSoup(text, "lxml")
+            else:
+                soup = bs4.BeautifulSoup(response.text, "lxml")
             return soup
         except:
             # Don't care about errors because in some cases the requested page doesn't exist
@@ -256,11 +263,94 @@ class HochwasserPortalAPI:
 
     def parse_init_BE(self):
         """Parse data for Berlin."""
-        pass
+        try:
+            # Get data
+            page = self.fetch_soup(
+                "https://wasserportal.berlin.de/start.php?anzeige=tabelle_ow&messanzeige=ms_ow_berlin",
+                remove_xml=True,
+            )
+            # Parse data
+            table = page.find("table", id="pegeltab")
+            tbody = table.find("tbody")
+            trs = tbody.find_all("tr")
+            for tr in trs:
+                tds = tr.find_all("td")
+                if len(tds) == 10:
+                    if (tds[0].getText().strip() == self.ident[3:]) and (
+                        tds[0].find_next("a")["href"][:12] == "station.php?"
+                    ):
+                        self.url = (
+                            "https://wasserportal.berlin.de/"
+                            + tds[0].find_next("a")["href"]
+                        )
+                        self.name = (
+                            tds[1].getText().strip() + " / " + tds[4].getText().strip()
+                        )
+                        break
+        except Exception as e:
+            LOGGER.error(
+                "An error occured while fetching init data for %s: %s", self.ident, e
+            )
 
     def parse_BE(self):
         """Parse data for Berlin."""
-        pass
+        try:
+            # Get data and parse level data
+            yesterday = datetime.date.today() - datetime.timedelta(days=1)
+            query = (
+                self.url + "&sreihe=ew&smode=c&sdatum=" + yesterday.strftime("%d.%m.%Y")
+            )
+            data = self.fetch_text(query)
+            lines = data.split("\n")
+            lines.reverse()
+            self.level = None
+            self.last_update = None
+            for line in lines:
+                if len(line) > 0:
+                    values = line.split(";")
+                    if len(values) == 2:
+                        try:
+                            self.level = float(values[1].replace(",", "."))
+                            if int(self.level) != -777:
+                                self.last_update = datetime.datetime.strptime(
+                                    values[0], '"%d.%m.%Y %H:%M"'
+                                )
+                                break
+                        except:
+                            continue
+            # Get data and parse flow data
+            query = query.replace("thema=ows", "thema=odf")
+            query = query.replace("thema=wws", "thema=wdf")
+            data = self.fetch_text(query)
+            lines = data.split("\n")
+            lines.reverse()
+            self.flow = None
+            for line in lines:
+                if len(line) > 0:
+                    values = line.split(";")
+                    if len(values) == 2:
+                        try:
+                            self.flow = float(values[1].replace(",", "."))
+                            if int(self.flow) != -777:
+                                if self.last_update is None:
+                                    self.last_update = datetime.datetime.strptime(
+                                        values[0], '"%d.%m.%Y %H:%M"'
+                                    )
+                                break
+                        except:
+                            continue
+            if self.last_update is not None:
+                self.data_valid = True
+            else:
+                self.data_valid = False
+        except Exception as e:
+            self.level = None
+            self.flow = None
+            self.last_update = None
+            self.data_valid = False
+            LOGGER.error(
+                "An error occured while fetching data for %s: %s", self.ident, e
+            )
 
     def parse_init_BW(self):
         """Parse data for Baden-Württemberg."""

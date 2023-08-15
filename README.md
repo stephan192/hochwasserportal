@@ -7,13 +7,13 @@
 This Home Assistant integration started as integration for the [Länderübergreifendes Hochwasser Portal (LHP)](https://www.hochwasserzentralen.de), but due to the fact that the LHP locked their formerly open API in July 2023 this integration was rewritten the query the 16 state portals to get all information. The positive side effect, now more pegel are available, because the different state portals didn't report all their pegel to the LHP. The negativ side effect, some of the state portals need to be queried by web scraping and therefore need to be adjusted if the portal's design changes.
 
 ## List of supported values
-* :heavy_check_mark: Value mostly available. Check individual state portal because not all pegel report all values.
+* :heavy_check_mark: Value mostly available. Check individual state portal because not all stream gauges report all values.
 * :x: Value generally yet not available.
 
 | Ident | State                  | Level              | Stage              | Flow               | Portal |
 |-------|------------------------|--------------------|--------------------|--------------------|--------|
 | BB    | Brandenburg            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Pegelportal Brandenburg](https://pegelportal.brandenburg.de) |
-| BE    | Berlin                 | :x:                | :x:                | :x:                | [Wasserportal Berlin](https://wasserportal.berlin.de) |
+| BE    | Berlin                 | :heavy_check_mark: | :x:                | :heavy_check_mark: | [Wasserportal Berlin](https://wasserportal.berlin.de) |
 | BW    | Baden-Württemberg      | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwasservorhersagezentrale Baden-Württemberg](https://www.hvz.baden-wuerttemberg.de) |
 | BY    | Bayern                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwassernachrichtendienst Bayern](https://www.hnd.bayern.de) |
 | HB    | Bremen                 | :heavy_check_mark: | :heavy_check_mark: | :x:                | [Pegelstände Bremen](https://geoportale.dp.dsecurecloud.de/pegelbremen) |

@@ -16,13 +16,17 @@ def fetch_json(url):
     except ValueError as e:
         return None
 
-def fetch_soup(url):
+def fetch_soup(url, remove_xml=False):
     try:
         response = requests.get(url, timeout=API_TIMEOUT)
         # Override encoding by real educated guess (required for SH)
         response.encoding = response.apparent_encoding
         response.raise_for_status()
-        soup = bs4.BeautifulSoup(response.text, "lxml")
+        if remove_xml and ((response.text.find('<?xml version="1.0" encoding="ISO-8859-15" ?>')) == 0):
+            text = response.text[response.text.find("<!DOCTYPE html>") :]
+            soup = bs4.BeautifulSoup(text, "lxml")
+        else:
+            soup = bs4.BeautifulSoup(response.text, "lxml")
         return soup
     except requests.exceptions.RequestException as e:
         return None
@@ -108,6 +112,21 @@ def get_bb_stations():
                 elif key == "gewaesser":
                     name = name + " / " + fix_bb_encoding(str(value))
                     stations.append((ident, name))
+    return stations
+
+def get_be_stations():
+    stations = []
+    page = fetch_soup("https://wasserportal.berlin.de/start.php?anzeige=tabelle_ow&messanzeige=ms_ow_berlin", remove_xml=True)
+    table = page.find("table", id="pegeltab")
+    tbody = table.find("tbody")
+    trs = tbody.find_all("tr")
+    for tr in trs:
+        tds = tr.find_all("td")
+        if len(tds) == 10:
+            if (tds[3].getText().find("Wasserstand") != -1) and (tds[0].find_next("a")["href"][:12] == "station.php?"):
+                ident = "BE_"+tds[0].getText().strip()
+                name = tds[1].getText().strip() + " / " + tds[4].getText().strip()
+                stations.append((ident, name))
     return stations
 
 def get_bw_stations():
@@ -319,6 +338,8 @@ def get_th_stations():
 all_stations = []
 print("Fetching BB")
 all_stations.extend(get_bb_stations())
+print("Fetching BE")
+all_stations.extend(get_be_stations())
 print("Fetching BW")
 all_stations.extend(get_bw_stations())
 print("Fetching BY")
