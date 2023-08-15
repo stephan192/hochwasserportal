@@ -24,7 +24,6 @@ class HochwasserPortalAPI:
         self.url = None
         self.hint = None
         self.info = None
-        self.ni_sta_id = None
         self.stage_levels = [None] * 4
         self.last_update = None
         self.data_valid = False
@@ -798,13 +797,18 @@ class HochwasserPortalAPI:
                 "https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten/stationen/All?key=9dc05f4e3b4a43a9988d747825b39f43"
             )
             # Parse data
-            self.ni_sta_id = None
-            self.url = "https://www.pegelonline.nlwkn.niedersachsen.de"
             for entry in data["getStammdatenResult"]:
                 if entry["STA_Nummer"] == self.ident[3:]:
                     self.name = entry["Name"] + " / " + entry["GewaesserName"]
-                    self.ni_sta_id = str(entry["STA_ID"])
-                    self.url += "/Pegel/Karte/Binnenpegel/ID/" + self.ni_sta_id
+                    self.internal_url = (
+                        "https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten/stationen/"
+                        + str(entry["STA_ID"])
+                        + "?key=9dc05f4e3b4a43a9988d747825b39f43"
+                    )
+                    self.url = (
+                        "https://www.pegelonline.nlwkn.niedersachsen.de/Pegel/Karte/Binnenpegel/ID/"
+                        + str(entry["STA_ID"])
+                    )
                     if entry["Internetbeschreibung"] != "Keine Daten":
                         self.hint = entry["Internetbeschreibung"]
                     else:
@@ -817,16 +821,12 @@ class HochwasserPortalAPI:
 
     def parse_NI(self):
         """Parse data for Niedersachsen."""
-        if self.ni_sta_id is None:
+        if self.internal_url is None:
             return
 
         try:
             # Get data
-            data = self.fetch_json(
-                "https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten/stationen/"
-                + self.ni_sta_id
-                + "?key=9dc05f4e3b4a43a9988d747825b39f43"
-            )
+            data = self.fetch_json(self.internal_url)
             # Parse data
             try:
                 self.stage = int(
