@@ -38,7 +38,6 @@ ATTR_DATA_PROVIDERS: Final[dict[str, str]] = {
 }
 ATTR_LAST_UPDATE: Final = "last_update"
 ATTR_URL: Final = "url"
-ATTR_INFO: Final = "info"
 ATTR_HINT: Final = "hint"
 
 LEVEL_SENSOR: Final = "level"

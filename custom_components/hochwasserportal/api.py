@@ -23,7 +23,6 @@ class HochwasserPortalAPI:
         self.internal_url = None
         self.url = None
         self.hint = None
-        self.info = None
         self.stage_levels = [None] * 4
         self.last_update = None
         self.data_valid = False

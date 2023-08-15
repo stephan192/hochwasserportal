@@ -29,7 +29,6 @@ from .const import (
     ATTR_DATA_PROVIDERS,
     ATTR_LAST_UPDATE,
     ATTR_URL,
-    ATTR_INFO,
     ATTR_HINT,
     LEVEL_SENSOR,
     STAGE_SENSOR,
@@ -158,8 +157,6 @@ class HochwasserPortalSensor(
             data[ATTR_LAST_UPDATE] = self.api.last_update
         if self.api.url is not None:
             data[ATTR_URL] = self.api.url
-        if self.api.info is not None:
-            data[ATTR_INFO] = self.api.info
         if self.api.hint is not None:
             data[ATTR_HINT] = self.api.hint
         return data
