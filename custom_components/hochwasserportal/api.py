@@ -373,14 +373,20 @@ class HochwasserPortalAPI:
                         "https://hvz.baden-wuerttemberg.de/pegel.html?id="
                         + self.ident[3:]
                     )
+                    if float(data[24]) > 0.0:
+                        self.stage_levels[0] = round(float(data[24]) * 100.0, 0)
                     if data[30] > 0:
-                        self.stage_levels[0] = float(data[30])
+                        if (self.stage_levels[0] is None) or (
+                            float(data[30]) < self.stage_levels[0]
+                        ):
+                            self.stage_levels[0] = float(data[30])
                     if data[31] > 0:
                         self.stage_levels[1] = float(data[31])
                     if data[32] > 0:
                         self.stage_levels[2] = float(data[32])
                     if data[33] > 0:
                         self.stage_levels[3] = float(data[33])
+                    LOGGER.debug("Stage levels : %s", self.stage_levels)
                     break
         except Exception as e:
             LOGGER.error(
