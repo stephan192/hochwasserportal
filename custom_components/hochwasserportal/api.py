@@ -163,7 +163,7 @@ class HochwasserPortalAPI:
         try:
             # Get data
             page = self.fetch_text("https://pegelportal.brandenburg.de/start.php")
-            lines = page.split("\r\n")
+            lines = page.split("\n")
             # Parse data
             start_found = False
             for line in lines:
@@ -201,7 +201,7 @@ class HochwasserPortalAPI:
         try:
             # Get data
             page = self.fetch_text("https://pegelportal.brandenburg.de/start.php")
-            lines = page.split("\r\n")
+            lines = page.split("\n")
             # Parse data
             start_found = False
             prev_line = None
