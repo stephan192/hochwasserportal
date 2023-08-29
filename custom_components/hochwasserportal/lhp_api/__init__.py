@@ -633,7 +633,7 @@ class HochwasserPortalAPI:
         if self.level is not None:
             self.data_valid = True
             self.last_update = datetime.datetime.fromisoformat(last_update_str_w)
-        elif self.level is not None:
+        elif self.flow is not None:
             self.data_valid = True
             self.last_update = datetime.datetime.fromisoformat(last_update_str_q)
         else:
