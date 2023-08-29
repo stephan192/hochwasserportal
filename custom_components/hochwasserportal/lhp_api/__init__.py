@@ -506,9 +506,10 @@ class HochwasserPortalAPI:
             if len(data) > 0:
                 try:
                     self.level = float(data[-1]["value"])
+                    self.stage = calc_stage(self.level, self.stage_levels)
                 except:
                     self.level = None
-                    self.stage = calc_stage(self.level, self.stage_levels)
+                    self.stage = None
                 try:
                     self.last_update = datetime.datetime.fromisoformat(
                         data[-1]["timestamp"]
