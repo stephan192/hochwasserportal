@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from .api import HochwasserPortalAPI
+from .lhp_api import HochwasserPortalAPI
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigFlow

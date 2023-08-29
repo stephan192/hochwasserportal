@@ -5,7 +5,7 @@ from __future__ import annotations
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from .api import HochwasserPortalAPI
+from .lhp_api import HochwasserPortalAPI
 from .const import CONF_PEGEL_IDENTIFIER, DOMAIN, PLATFORMS
 from .coordinator import HochwasserPortalCoordinator
 

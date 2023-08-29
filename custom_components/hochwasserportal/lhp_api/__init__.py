@@ -1,10 +1,9 @@
 """The Länderübergreifendes Hochwasser Portal API."""
 
 from __future__ import annotations
-from .const import API_TIMEOUT, LOGGER
+from ..const import LOGGER
+from .api_utils import fetch_json, fetch_soup, fetch_text, calc_stage
 import datetime
-import requests
-import bs4
 import traceback
 import json
 import re
@@ -43,52 +42,6 @@ class HochwasserPortalAPI:
         if self.name is not None:
             return f"{self.name} ({self.ident})"
         return self.ident
-
-    def fetch_json(self, url):
-        """Fetch data via json."""
-        try:
-            response = requests.get(url, timeout=API_TIMEOUT)
-            response.raise_for_status()
-            json_data = response.json()
-            return json_data
-        except:
-            # Don't care about errors because in some cases the requested page doesn't exist
-            return None
-
-    def fetch_soup(self, url, remove_xml=False):
-        """Fetch data via soup."""
-        try:
-            response = requests.get(url, timeout=API_TIMEOUT)
-            # Override encoding by real educated guess (required for SH)
-            response.encoding = response.apparent_encoding
-            response.raise_for_status()
-            if remove_xml and (
-                (response.text.find('<?xml version="1.0" encoding="ISO-8859-15" ?>'))
-                == 0
-            ):
-                text = response.text[response.text.find("<!DOCTYPE html>") :]
-                soup = bs4.BeautifulSoup(text, "lxml")
-            else:
-                soup = bs4.BeautifulSoup(response.text, "lxml")
-            return soup
-        except:
-            # Don't care about errors because in some cases the requested page doesn't exist
-            return None
-
-    def fetch_text(self, url, forced_encoding=None):
-        """Fetch data via text."""
-        try:
-            response = requests.get(url, timeout=API_TIMEOUT)
-            if forced_encoding is not None:
-                response.encoding = forced_encoding
-            else:
-                # Override encoding by real educated guess (required for BW)
-                response.encoding = response.apparent_encoding
-            response.raise_for_status()
-            return response.text
-        except:
-            # Don't care about errors because in some cases the requested page doesn't exist
-            return None
 
     def fix_bb_encoding(self, input):
         """Fix utf-8 encoding for BB"""
@@ -134,35 +87,11 @@ class HochwasserPortalAPI:
                 output = output + chr(num)
         return output
 
-    def calc_stage(self):
-        """Calc stage from level and stage levels."""
-        if all(sl is None for sl in self.stage_levels):
-            self.stage = None
-        else:
-            if (self.stage_levels[3] is not None) and (
-                self.level > self.stage_levels[3]
-            ):
-                self.stage = 4
-            elif (self.stage_levels[2] is not None) and (
-                self.level > self.stage_levels[2]
-            ):
-                self.stage = 3
-            elif (self.stage_levels[1] is not None) and (
-                self.level > self.stage_levels[1]
-            ):
-                self.stage = 2
-            elif (self.stage_levels[0] is not None) and (
-                self.level > self.stage_levels[0]
-            ):
-                self.stage = 1
-            else:
-                self.stage = 0
-
     def parse_init_BB(self):
         """Parse data for Brandenburg."""
         try:
             # Get data
-            page = self.fetch_text("https://pegelportal.brandenburg.de/start.php")
+            page = fetch_text("https://pegelportal.brandenburg.de/start.php")
             lines = page.split("\n")
             # Parse data
             start_found = False
@@ -200,7 +129,7 @@ class HochwasserPortalAPI:
         """Parse data for Brandenburg."""
         try:
             # Get data
-            page = self.fetch_text("https://pegelportal.brandenburg.de/start.php")
+            page = fetch_text("https://pegelportal.brandenburg.de/start.php")
             lines = page.split("\n")
             # Parse data
             start_found = False
@@ -265,7 +194,7 @@ class HochwasserPortalAPI:
         """Parse data for Berlin."""
         try:
             # Get data
-            page = self.fetch_soup(
+            page = fetch_soup(
                 "https://wasserportal.berlin.de/start.php?anzeige=tabelle_ow&messanzeige=ms_ow_berlin",
                 remove_xml=True,
             )
@@ -300,7 +229,7 @@ class HochwasserPortalAPI:
             query = (
                 self.url + "&sreihe=ew&smode=c&sdatum=" + yesterday.strftime("%d.%m.%Y")
             )
-            data = self.fetch_text(query)
+            data = fetch_text(query)
             lines = data.split("\n")
             lines.reverse()
             self.level = None
@@ -321,7 +250,7 @@ class HochwasserPortalAPI:
             # Get data and parse flow data
             query = query.replace("thema=ows", "thema=odf")
             query = query.replace("thema=wws", "thema=wdf")
-            data = self.fetch_text(query)
+            data = fetch_text(query)
             lines = data.split("\n")
             lines.reverse()
             self.flow = None
@@ -356,7 +285,7 @@ class HochwasserPortalAPI:
         """Parse data for Baden-Württemberg."""
         try:
             # Get data
-            page = self.fetch_text(
+            page = fetch_text(
                 "https://www.hvz.baden-wuerttemberg.de/js/hvz_peg_stmn.js"
             )
             lines = page.split("\r\n")[6:-4]
@@ -397,7 +326,7 @@ class HochwasserPortalAPI:
         """Parse data for Baden-Württemberg."""
         try:
             # Get data
-            page = self.fetch_text(
+            page = fetch_text(
                 "https://www.hvz.baden-wuerttemberg.de/js/hvz_peg_stmn.js"
             )
             lines = page.split("\r\n")[6:-4]
@@ -413,7 +342,7 @@ class HochwasserPortalAPI:
                     try:
                         if data[5] == "cm":
                             self.level = float(data[4])
-                            self.calc_stage()
+                            self.stage = calc_stage(self.level, self.stage_levels)
                             try:
                                 dt = data[6].split()
                                 self.last_update = datetime.datetime.strptime(
@@ -454,7 +383,7 @@ class HochwasserPortalAPI:
         """Parse data for Bayern."""
         try:
             # Get data
-            soup = self.fetch_soup("https://www.hnd.bayern.de/pegel")
+            soup = fetch_soup("https://www.hnd.bayern.de/pegel")
             img_id = "p" + self.ident[3:]
             imgs = soup.find_all("img", id=img_id)
             data = imgs[0]
@@ -475,7 +404,7 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            soup = self.fetch_soup("https://www.hnd.bayern.de/pegel")
+            soup = fetch_soup("https://www.hnd.bayern.de/pegel")
             img_id = "p" + self.ident[3:]
             imgs = soup.find_all("img", id=img_id)
             data = imgs[0]
@@ -513,12 +442,12 @@ class HochwasserPortalAPI:
         """Parse data for Bremen."""
         try:
             # Get data from Pegelstände Bremen
-            pb_page = self.fetch_text(
+            pb_page = fetch_text(
                 "https://geoportale.dp.dsecurecloud.de/pegelbremen/src.2c9c6cd7.js",
                 forced_encoding="utf-8",
             )
             # Get data from PegelOnline
-            pe_stations = self.fetch_json(
+            pe_stations = fetch_json(
                 "https://www.pegelonline.wsv.de/webservices/rest-api/v2/stations.json"
             )
             # Parse data - Get list of stations
@@ -572,14 +501,14 @@ class HochwasserPortalAPI:
         """Parse data for Bremen."""
         try:
             # Get data
-            data = self.fetch_json(self.internal_url)
+            data = fetch_json(self.internal_url)
             # Parse data
             if len(data) > 0:
                 try:
                     self.level = float(data[-1]["value"])
                 except:
                     self.level = None
-                self.calc_stage()
+                    self.stage = calc_stage(self.level, self.stage_levels)
                 try:
                     self.last_update = datetime.datetime.fromisoformat(
                         data[-1]["timestamp"]
@@ -605,7 +534,7 @@ class HochwasserPortalAPI:
         """Parse data for Hessen."""
         try:
             # Get Stations Data
-            he_stations = self.fetch_json(
+            he_stations = fetch_json(
                 "https://www.hlnug.de/static/pegel/wiskiweb3/data/internet/stations/stations.json"
             )
             for station in he_stations:
@@ -640,7 +569,7 @@ class HochwasserPortalAPI:
         try:
             # Get stage levels
             if self.internal_url is not None:
-                alarmlevels = self.fetch_json(self.internal_url + "/W/alarmlevel.json")
+                alarmlevels = fetch_json(self.internal_url + "/W/alarmlevel.json")
                 for station_data in alarmlevels:
                     if (
                         "ts_name" in station_data
@@ -673,13 +602,13 @@ class HochwasserPortalAPI:
         last_update_str_w = None
         try:
             # Get data
-            data = self.fetch_json(self.internal_url + "/W/week.json")
+            data = fetch_json(self.internal_url + "/W/week.json")
             # Parse data
             for dataset in data:
                 if dataset["ts_name"] == "15.P":
                     last_update_str_w = dataset["data"][-1][0]
                     self.level = float(dataset["data"][-1][1])
-                    self.calc_stage()
+                    self.stage = calc_stage(self.level, self.stage_levels)
                     break
         except:
             self.level = None
@@ -689,7 +618,7 @@ class HochwasserPortalAPI:
         last_update_str_q = None
         try:
             # Get data
-            data = self.fetch_json(self.internal_url + "/Q/week.json")
+            data = fetch_json(self.internal_url + "/Q/week.json")
             # Parse data
             for dataset in data:
                 if dataset["ts_name"] == "15.P":
@@ -714,7 +643,7 @@ class HochwasserPortalAPI:
         """Parse data for Hamburg."""
         try:
             # Get data
-            soup = self.fetch_soup("https://www.wabiha.de/karte.html")
+            soup = fetch_soup("https://www.wabiha.de/karte.html")
             tooltipwrapper = soup.find("div", id="tooltipwrapper")
             div = tooltipwrapper.find_next(
                 "div", id="tooltip-content-" + self.ident[3:]
@@ -742,7 +671,7 @@ class HochwasserPortalAPI:
         """Parse data for Hamburg."""
         try:
             # Get data
-            soup = self.fetch_soup("https://www.wabiha.de/karte.html")
+            soup = fetch_soup("https://www.wabiha.de/karte.html")
             tooltipwrapper = soup.find("div", id="tooltipwrapper")
             div = tooltipwrapper.find_next(
                 "div", id="tooltip-content-" + self.ident[3:]
@@ -801,7 +730,7 @@ class HochwasserPortalAPI:
         """Parse data for Mecklenburg-Vorpommern."""
         try:
             # Get data
-            soup = self.fetch_soup("https://pegelportal-mv.de/pegel_list.html")
+            soup = fetch_soup("https://pegelportal-mv.de/pegel_list.html")
             table = soup.find("table", id="pegeltab")
             tbody = table.find("tbody")
             search_string = re.compile(self.ident[3:])
@@ -830,7 +759,7 @@ class HochwasserPortalAPI:
         """Parse data for Mecklenburg-Vorpommern."""
         try:
             # Get data
-            soup = self.fetch_soup("https://pegelportal-mv.de/pegel_list.html")
+            soup = fetch_soup("https://pegelportal-mv.de/pegel_list.html")
             table = soup.find("table", id="pegeltab")
             tbody = table.find("tbody")
             search_string = re.compile(self.ident[3:])
@@ -888,7 +817,7 @@ class HochwasserPortalAPI:
         """Parse data for Niedersachsen."""
         try:
             # Get data
-            data = self.fetch_json(
+            data = fetch_json(
                 "https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten/stationen/All?key=9dc05f4e3b4a43a9988d747825b39f43"
             )
             # Parse data
@@ -921,7 +850,7 @@ class HochwasserPortalAPI:
 
         try:
             # Get data
-            data = self.fetch_json(self.internal_url)
+            data = fetch_json(self.internal_url)
             # Parse data
             try:
                 self.stage = int(
@@ -974,7 +903,7 @@ class HochwasserPortalAPI:
         """Parse data for Nordrhein-Westfalen."""
         try:
             # Get Stations Data
-            nw_stations = self.fetch_json(
+            nw_stations = fetch_json(
                 "https://hochwasserportal.nrw/lanuv/data/internet/stations/stations.json"
             )
             for station in nw_stations:
@@ -995,7 +924,7 @@ class HochwasserPortalAPI:
                     break
             # Get stage levels
             if self.internal_url is not None:
-                nw_stages = self.fetch_json(self.internal_url + "/S/alarmlevel.json")
+                nw_stages = fetch_json(self.internal_url + "/S/alarmlevel.json")
                 for station_data in nw_stages:
                     # Unfortunately the source data seems quite incomplete.
                     # So we check if the required keys are present in the station_data dictionary:
@@ -1029,10 +958,10 @@ class HochwasserPortalAPI:
 
         try:
             # Get data
-            data = self.fetch_json(self.internal_url + "/S/week.json")
+            data = fetch_json(self.internal_url + "/S/week.json")
             # Parse data
             self.level = float(data[0]["data"][-1][1])
-            self.calc_stage()
+            self.stage = calc_stage(self.level, self.stage_levels)
             self.hint = None
             if len(data[0]["AdminStatus"].strip()) > 0:
                 self.hint = data[0]["AdminStatus"].strip()
@@ -1062,7 +991,7 @@ class HochwasserPortalAPI:
         """Parse data for Rheinland-Pfalz."""
         try:
             # Get data
-            data = self.fetch_json("https://hochwasser.rlp.de/api/v1/config")
+            data = fetch_json("https://hochwasser.rlp.de/api/v1/config")
             measurementsites = data["measurementsite"]
             rivers = data["rivers"]
             riverareas = data["riverareas"]
@@ -1103,14 +1032,14 @@ class HochwasserPortalAPI:
         """Parse data for Rheinland-Pfalz."""
         try:
             # Get data
-            data = self.fetch_json(
+            data = fetch_json(
                 "https://hochwasser.rlp.de/api/v1/measurement-site/" + self.ident[3:]
             )
             # Parse data
             last_update_str = None
             try:
                 self.level = float(data["W"]["yLast"])
-                self.calc_stage()
+                self.stage = calc_stage(self.level, self.stage_levels)
                 last_update_str = data["W"]["xLast"][:-1] + "+00:00"
             except:
                 self.level = None
@@ -1136,7 +1065,7 @@ class HochwasserPortalAPI:
         """Parse data for Schleswig-Holstein."""
         try:
             # Get data
-            soup = self.fetch_soup("https://hsi-sh.de")
+            soup = fetch_soup("https://hsi-sh.de")
             search_string = "dialogheader-" + self.ident[3:]
             headings = soup.find_all("h1", id=search_string)
             # Parse data
@@ -1169,7 +1098,7 @@ class HochwasserPortalAPI:
         self.last_update = None
         try:
             # Get data
-            soup = self.fetch_soup("https://hsi-sh.de")
+            soup = fetch_soup("https://hsi-sh.de")
             search_string = "dialogheader-" + self.ident[3:]
             headings = soup.find_all("h1", id=search_string)
             # Parse data
@@ -1214,9 +1143,7 @@ class HochwasserPortalAPI:
         """Parse data for Saarland."""
         try:
             # Get data
-            page = self.fetch_text(
-                "https://iframe01.saarland.de/extern/wasser/Daten.js"
-            )
+            page = fetch_text("https://iframe01.saarland.de/extern/wasser/Daten.js")
             lines = page.split("\r\n")
             # Parse data
             for line in lines:
@@ -1241,9 +1168,7 @@ class HochwasserPortalAPI:
         """Parse data for Saarland."""
         try:
             # Get data
-            page = self.fetch_text(
-                "https://iframe01.saarland.de/extern/wasser/Daten.js"
-            )
+            page = fetch_text("https://iframe01.saarland.de/extern/wasser/Daten.js")
             lines = page.split("\r\n")
             # Parse data
             for line in lines:
@@ -1297,7 +1222,7 @@ class HochwasserPortalAPI:
         """Parse data for Sachsen."""
         try:
             # Get data
-            soup = self.fetch_soup(
+            soup = fetch_soup(
                 "https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/wasserstand-uebersicht"
             )
             karte = soup.find_all("div", class_="karteWrapper")[0]
@@ -1319,7 +1244,7 @@ class HochwasserPortalAPI:
         """Parse data for Sachsen."""
         try:
             # Get data
-            soup = self.fetch_soup(
+            soup = fetch_soup(
                 "https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/wasserstand-uebersicht"
             )
             karte = soup.find_all("div", class_="karteWrapper")[0]
@@ -1379,7 +1304,7 @@ class HochwasserPortalAPI:
         """Parse data for Sachsen-Anhalt."""
         try:
             # Get Stations Data
-            st_stations = self.fetch_json(
+            st_stations = fetch_json(
                 "https://hvz.lsaurl.de/fileadmin/Bibliothek/Politik_und_Verwaltung/MLU/HVZ/KISTERS/data/internet/stations/stations.json"
             )
             for station in st_stations:
@@ -1412,7 +1337,7 @@ class HochwasserPortalAPI:
         try:
             # Get stage levels
             if self.internal_url is not None:
-                alarmlevels = self.fetch_json(self.internal_url + "/W/alarmlevel.json")
+                alarmlevels = fetch_json(self.internal_url + "/W/alarmlevel.json")
                 for station_data in alarmlevels:
                     if (
                         "ts_name" in station_data
@@ -1446,11 +1371,11 @@ class HochwasserPortalAPI:
         last_update_str_w = None
         try:
             # Get data
-            data = self.fetch_json(self.internal_url + "/W/week.json")
+            data = fetch_json(self.internal_url + "/W/week.json")
             # Parse data
             last_update_str_w = data[0]["data"][-1][0]
             self.level = float(data[0]["data"][-1][1])
-            self.calc_stage()
+            self.stage = calc_stage(self.level, self.stage_levels)
         except:
             self.level = None
             self.stage = None
@@ -1459,7 +1384,7 @@ class HochwasserPortalAPI:
         last_update_str_q = None
         try:
             # Get data
-            data = self.fetch_json(self.internal_url + "/Q/week.json")
+            data = fetch_json(self.internal_url + "/Q/week.json")
             # Parse data
             last_update_str_q = data[0]["data"][-1][0]
             self.flow = float(data[0]["data"][-1][1])
@@ -1481,9 +1406,7 @@ class HochwasserPortalAPI:
         """Parse data for Thüringen."""
         try:
             # Get data
-            soup = self.fetch_soup(
-                "https://hnz.thueringen.de/hw-portal/thueringen.html"
-            )
+            soup = fetch_soup("https://hnz.thueringen.de/hw-portal/thueringen.html")
             table = soup.find_all("table", id="pegelTabelle")[0]
             tbody = table.find_all("tbody")[0]
             trs = tbody.find_all("tr")
@@ -1517,9 +1440,7 @@ class HochwasserPortalAPI:
         self.stage = None
         try:
             # Get data
-            soup = self.fetch_soup(
-                "https://hnz.thueringen.de/hw-portal/thueringen.html"
-            )
+            soup = fetch_soup("https://hnz.thueringen.de/hw-portal/thueringen.html")
             table = soup.find_all("table", id="pegelTabelle")[0]
             tbody = table.find_all("tbody")[0]
             trs = tbody.find_all("tr")

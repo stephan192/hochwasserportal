@@ -5,7 +5,7 @@ from __future__ import annotations
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .api import HochwasserPortalAPI
+from .lhp_api import HochwasserPortalAPI
 from .const import DEFAULT_SCAN_INTERVAL, DOMAIN, LOGGER
 
 

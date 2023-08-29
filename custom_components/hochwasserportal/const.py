@@ -14,9 +14,9 @@ DOMAIN: Final = "hochwasserportal"
 
 CONF_PEGEL_IDENTIFIER: Final = "pegel_identifier"
 CONF_PEGEL: Final = "pegel"
-CONF_LEVEL = "level"
-CONF_STAGE = "stage"
-CONF_FLOW = "flow"
+CONF_LEVEL: Final = "level"
+CONF_STAGE: Final = "stage"
+CONF_FLOW: Final = "flow"
 
 ATTR_DATA_PROVIDERS: Final[dict[str, str]] = {
     "BB": "https://pegelportal.brandenburg.de",
@@ -44,7 +44,6 @@ LEVEL_SENSOR: Final = "level"
 STAGE_SENSOR: Final = "stage"
 FLOW_SENSOR: Final = "flow"
 
-API_TIMEOUT: Final = 10
 DEFAULT_SCAN_INTERVAL: Final = timedelta(minutes=15)
 
 PLATFORMS: Final[list[Platform]] = [Platform.SENSOR]
