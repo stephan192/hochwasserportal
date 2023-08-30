@@ -109,8 +109,7 @@ async def async_setup_entry(
         [
             HochwasserPortalSensor(coordinator, entry, description)
             for description in SENSOR_TYPES
-        ],
-        True,
+        ]
     )
 
 
