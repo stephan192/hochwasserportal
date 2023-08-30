@@ -60,10 +60,6 @@ def init_NW(ident):
 
 def parse_NW(internal_url, stage_levels):
     """Parse data for Nordrhein-Westfalen."""
-    if internal_url is None:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata("No internal url set!")
-
     try:
         # Get data
         data = fetch_json(internal_url + "/S/week.json")

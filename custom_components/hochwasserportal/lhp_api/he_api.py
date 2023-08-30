@@ -70,10 +70,6 @@ def init_HE(ident):
 
 def parse_HE(internal_url, stage_levels):
     """Parse data for Hessen."""
-    if internal_url is None:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata("No internal url set!")
-
     last_update_str_w = None
     try:
         # Get data

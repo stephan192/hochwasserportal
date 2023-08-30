@@ -40,10 +40,6 @@ def init_NI(ident):
 
 def parse_NI(internal_url):
     """Parse data for Niedersachsen."""
-    if internal_url is None:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata("No internal url set!")
-
     try:
         # Get data
         data = fetch_json(internal_url)

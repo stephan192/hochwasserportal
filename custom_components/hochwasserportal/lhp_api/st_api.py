@@ -69,10 +69,6 @@ def init_ST(ident):
 
 def parse_ST(internal_url, stage_levels):
     """Parse data for Sachsen-Anhalt."""
-    if internal_url is None:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata("No internal url set!")
-
     last_update_str_w = None
     try:
         # Get data

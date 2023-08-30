@@ -34,11 +34,13 @@ class HochwasserPortalAPI:
         self.hint = None
         self.stage_levels = [None] * 4
         self.last_update = None
-        self.err_msg = None
         if len(ident) > 3:
+            self.err_msg = None
             self.parse_init()
-        if self.err_msg is None:
-            self.update()
+            if self.err_msg is None:
+                self.update()
+        else:
+            self.err_msg = "Invalid ident given!"
 
     def __repr__(self):
         """Return the representation."""
