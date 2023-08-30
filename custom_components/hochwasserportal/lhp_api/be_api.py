@@ -32,12 +32,12 @@ def init_BE(ident):
                     break
         Initdata = namedtuple("Initdata", ["name", "url"])
         return Initdata(name, url)
-    except Exception as e:
+    except Exception as err_msg:
         Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(f"An error occured while fetching init data for {ident}: {e}")
+        return Initdata(err_msg)
 
 
-def parse_BE(ident, url):
+def parse_BE(url):
     """Parse data for Berlin."""
     try:
         # Get data and parse level data
@@ -84,6 +84,6 @@ def parse_BE(ident, url):
                         continue
         Cyclicdata = namedtuple("Cyclicdata", ["level", "flow", "last_update"])
         return Cyclicdata(level, flow, last_update)
-    except Exception as e:
+    except Exception as err_msg:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(f"An error occured while fetching data for {ident}: {e}")
+        return Cyclicdata(err_msg)

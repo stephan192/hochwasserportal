@@ -19,9 +19,41 @@ class HochwasserPortalCoordinator(DataUpdateCoordinator[None]):
         )
 
         self.api = api
-        LOGGER.debug("HochwasserPortalCoordinator init")
+        LOGGER.debug(
+            "%s (%s): stage_levels=%s",
+            self.api.ident,
+            self.api.name,
+            self.api.stage_levels,
+        )
+        LOGGER.debug("%s (%s): url=%s", self.api.ident, self.api.name, self.api.url)
+        LOGGER.debug(
+            "%s (%s): internal_url=%s",
+            self.api.ident,
+            self.api.name,
+            self.api.internal_url,
+        )
+        if self.api.err_msg is not None:
+            LOGGER.error("%s (%s): %s", self.api.ident, self.api.name, self.api.err_msg)
+        if self.api.data_valid:
+            LOGGER.debug("%s (%s): Init done!", self.api.ident, self.api.name)
+        else:
+            LOGGER.error("%s (%s): Init failed!", self.api.ident, self.api.name)
 
     async def _async_update_data(self) -> None:
         """Get the latest data from the hochwasserportal API."""
         await self.hass.async_add_executor_job(self.api.update)
-        LOGGER.debug("HochwasserPortalCoordinator async_update_data")
+        LOGGER.debug(
+            "%s (%s): level=%s, stage=%s, flow=%s, last_update=%s",
+            self.api.ident,
+            self.api.name,
+            self.api.level,
+            self.api.stage,
+            self.api.flow,
+            self.api.last_update,
+        )
+        if self.api.err_msg is not None:
+            LOGGER.error("%s (%s): %s", self.api.ident, self.api.name, self.api.err_msg)
+        if self.api.data_valid:
+            LOGGER.debug("%s (%s): Update done!", self.api.ident, self.api.name)
+        else:
+            LOGGER.error("%s (%s): Update failed!", self.api.ident, self.api.name)

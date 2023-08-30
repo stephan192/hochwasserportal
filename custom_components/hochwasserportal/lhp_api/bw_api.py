@@ -35,13 +35,12 @@ def init_BW(ident):
                     stage_levels[2] = float(data[32])
                 if data[33] > 0:
                     stage_levels[3] = float(data[33])
-                dbg_msg = f"Stage levels : {stage_levels}"
                 break
-        Initdata = namedtuple("Initdata", ["name", "url", "stage_levels", "dbg_msg"])
-        return Initdata(name, url, stage_levels, dbg_msg)
-    except Exception as e:
+        Initdata = namedtuple("Initdata", ["name", "url", "stage_levels"])
+        return Initdata(name, url, stage_levels)
+    except Exception as err_msg:
         Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(f"An error occured while fetching init data for {ident}: {e}")
+        return Initdata(err_msg)
 
 
 def parse_BW(ident, stage_levels):
@@ -94,6 +93,6 @@ def parse_BW(ident, stage_levels):
                 break
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
-    except Exception as e:
+    except Exception as err_msg:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(f"An error occured while fetching data for {ident}: {e}")
+        return Cyclicdata(err_msg)

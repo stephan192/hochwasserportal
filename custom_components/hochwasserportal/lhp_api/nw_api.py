@@ -31,7 +31,6 @@ def init_NW(ident):
                 break
         # Get stage levels
         stage_levels = [None] * 4
-        dbg_msg = None
         if internal_url is not None:
             nw_stages = fetch_json(internal_url + "/S/alarmlevel.json")
             for station_data in nw_stages:
@@ -50,21 +49,20 @@ def init_NW(ident):
                         stage_levels[1] = float(station_data["data"][-1][1])
                     elif station_data["ts_name"] == "W.Informationswert_3":
                         stage_levels[2] = float(station_data["data"][-1][1])
-            dbg_msg = f"Stage levels : {stage_levels}"
         Initdata = namedtuple(
-            "Initdata", ["name", "url", "internal_url", "stage_levels", "dbg_msg"]
+            "Initdata", ["name", "url", "internal_url", "stage_levels"]
         )
-        return Initdata(name, url, internal_url, stage_levels, dbg_msg)
-    except Exception as e:
+        return Initdata(name, url, internal_url, stage_levels)
+    except Exception as err_msg:
         Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(f"An error occured while fetching init data for {ident}: {e}")
+        return Initdata(err_msg)
 
 
-def parse_NW(ident, internal_url, stage_levels):
+def parse_NW(internal_url, stage_levels):
     """Parse data for Nordrhein-Westfalen."""
     if internal_url is None:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(f"Internal url not set for {ident}")
+        return Cyclicdata("No internal url set!")
 
     try:
         # Get data
@@ -86,6 +84,6 @@ def parse_NW(ident, internal_url, stage_levels):
         last_update = datetime.datetime.fromisoformat(last_update_str)
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update", "hint"])
         return Cyclicdata(level, stage, last_update, hint)
-    except Exception as e:
+    except Exception as err_msg:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(f"An error occured while fetching data for {ident}: {e}")
+        return Cyclicdata(err_msg)

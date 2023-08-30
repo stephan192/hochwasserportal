@@ -53,17 +53,16 @@ def init_HB(ident):
             stage_levels = [float(sl) for sl in stage_levels]
             while len(stage_levels) < 4:
                 stage_levels.append(None)
-        dbg_msg = f"Stage levels : {stage_levels}"
         Initdata = namedtuple(
-            "Initdata", ["name", "url", "internal_url", "stage_levels", "dbg_msg"]
+            "Initdata", ["name", "url", "internal_url", "stage_levels"]
         )
-        return Initdata(name, url, internal_url, stage_levels, dbg_msg)
-    except Exception as e:
+        return Initdata(name, url, internal_url, stage_levels)
+    except Exception as err_msg:
         Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(f"An error occured while fetching init data for {ident}: {e}")
+        return Initdata(err_msg)
 
 
-def parse_HB(ident, internal_url, stage_levels):
+def parse_HB(internal_url, stage_levels):
     """Parse data for Bremen."""
     try:
         # Get data
@@ -82,6 +81,6 @@ def parse_HB(ident, internal_url, stage_levels):
                 last_update = None
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
         return Cyclicdata(level, stage, last_update)
-    except Exception as e:
+    except Exception as err_msg:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(f"An error occured while fetching data for {ident}: {e}")
+        return Cyclicdata(err_msg)

@@ -35,9 +35,9 @@ def init_ST(ident):
                 if len(hint) == 0:
                     hint = None
                 break
-    except Exception as e:
+    except Exception as err_msg:
         Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(f"An error occured while fetching init data for {ident}: {e}")
+        return Initdata(err_msg)
     try:
         # Get stage levels
         stage_levels = [None] * 4
@@ -59,23 +59,20 @@ def init_ST(ident):
                         stage_levels[2] = float(station_data["data"][-1][1])
                     elif station_data["ts_name"] == "Alarmstufe 4":
                         stage_levels[3] = float(station_data["data"][-1][1])
-            dbg_msg = f"Stage levels : {stage_levels}"
     except:
         stage_levels = [None] * 4
-        dbg_msg = f"{ident}: No stage levels available"
     Initdata = namedtuple(
-        "Initdata", ["name", "url", "internal_url", "hint", "stage_levels", "dbg_msg"]
+        "Initdata", ["name", "url", "internal_url", "hint", "stage_levels"]
     )
-    return Initdata(name, url, internal_url, hint, stage_levels, dbg_msg)
+    return Initdata(name, url, internal_url, hint, stage_levels)
 
 
-def parse_ST(ident, internal_url, stage_levels):
+def parse_ST(internal_url, stage_levels):
     """Parse data for Sachsen-Anhalt."""
     if internal_url is None:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(f"Internal url not set for {ident}")
+        return Cyclicdata("No internal url set!")
 
-    dbg_msg = None
     last_update_str_w = None
     try:
         # Get data
@@ -87,7 +84,6 @@ def parse_ST(ident, internal_url, stage_levels):
     except:
         level = None
         stage = None
-        dbg_msg = f"{ident}: No level data available"
 
     last_update_str_q = None
     try:
@@ -98,10 +94,6 @@ def parse_ST(ident, internal_url, stage_levels):
         flow = float(data[0]["data"][-1][1])
     except:
         flow = None
-        if dbg_msg is None:
-            dbg_msg = f"{ident}: No flow data available"
-        else:
-            dbg_msg = dbg_msg + ", No flow data available"
 
     if level is not None:
         last_update = datetime.datetime.fromisoformat(last_update_str_w)
@@ -111,4 +103,4 @@ def parse_ST(ident, internal_url, stage_levels):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
     Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-    return Cyclicdata(f"An error occured while fetching data for {ident}")
+    return Cyclicdata("An error occured while fetching data!")

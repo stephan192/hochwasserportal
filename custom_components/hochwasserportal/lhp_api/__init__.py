@@ -1,7 +1,6 @@
 """The Länderübergreifendes Hochwasser Portal API."""
 
 from __future__ import annotations
-from ..const import LOGGER
 from .bb_api import init_BB, parse_BB
 from .be_api import init_BE, parse_BE
 from .bw_api import init_BW, parse_BW
@@ -36,13 +35,11 @@ class HochwasserPortalAPI:
         self.stage_levels = [None] * 4
         self.last_update = None
         self.data_valid = False
+        self.err_msg = None
         if len(ident) > 3:
             self.parse_init()
+        if self.err_msg is None:
             self.update()
-        if self.data_valid:
-            LOGGER.debug("Init API - %s (%s) - Done!", self.ident, self.name)
-        else:
-            LOGGER.error("Init API - %s - Failed!", self.ident)
 
     def __bool__(self):
         """Return the data_valid attribute."""
@@ -56,7 +53,6 @@ class HochwasserPortalAPI:
 
     def parse_init(self):
         """Init data."""
-        LOGGER.debug("Init API - %s", self.ident)
         init_data = None
         if self.ident[0:3] == "BB_":
             init_data = init_BB(self.ident)
@@ -92,43 +88,38 @@ class HochwasserPortalAPI:
             init_data = init_TH(self.ident)
 
         if init_data is not None:
-            dbg_msg = getattr(init_data, "dbg_msg", None)
-            if dbg_msg is not None:
-                LOGGER.debug(dbg_msg)
-            err_msg = getattr(init_data, "err_msg", None)
-            if err_msg is not None:
-                LOGGER.error(err_msg)
-                return
+            self.err_msg = getattr(init_data, "err_msg", None)
             self.name = getattr(init_data, "name", None)
             self.url = getattr(init_data, "url", None)
             self.internal_url = getattr(init_data, "internal_url", None)
             self.hint = getattr(init_data, "hint", None)
             self.stage_levels = getattr(init_data, "stage_levels", [None] * 4)
+        else:
+            self.err_msg = "Invalid ident given!"
 
     def update(self):
         """Update data."""
-        LOGGER.debug("Update API - %s", self.ident)
         cyclic_data = None
         if self.ident[0:3] == "BB_":
             cyclic_data = parse_BB(self.ident)
         elif self.ident[0:3] == "BE_":
-            cyclic_data = parse_BE(self.ident, self.url)
+            cyclic_data = parse_BE(self.url)
         elif self.ident[0:3] == "BW_":
             cyclic_data = parse_BW(self.ident, self.stage_levels)
         elif self.ident[0:3] == "BY_":
             cyclic_data = parse_BY(self.ident)
         elif self.ident[0:3] == "HB_":
-            cyclic_data = parse_HB(self.ident, self.internal_url, self.stage_levels)
+            cyclic_data = parse_HB(self.internal_url, self.stage_levels)
         elif self.ident[0:3] == "HE_":
-            cyclic_data = parse_HE(self.ident, self.internal_url, self.stage_levels)
+            cyclic_data = parse_HE(self.internal_url, self.stage_levels)
         elif self.ident[0:3] == "HH_":
             cyclic_data = parse_HH(self.ident)
         elif self.ident[0:3] == "MV_":
             cyclic_data = parse_MV(self.ident)
         elif self.ident[0:3] == "NI_":
-            cyclic_data = parse_NI(self.ident, self.internal_url)
+            cyclic_data = parse_NI(self.internal_url)
         elif self.ident[0:3] == "NW_":
-            cyclic_data = parse_NW(self.ident, self.internal_url, self.stage_levels)
+            cyclic_data = parse_NW(self.internal_url, self.stage_levels)
         elif self.ident[0:3] == "RP_":
             cyclic_data = parse_RP(self.ident, self.stage_levels)
         elif self.ident[0:3] == "SH_":
@@ -138,27 +129,23 @@ class HochwasserPortalAPI:
         elif self.ident[0:3] == "SN_":
             cyclic_data = parse_SN(self.ident)
         elif self.ident[0:3] == "ST_":
-            cyclic_data = parse_ST(self.ident, self.internal_url, self.stage_levels)
+            cyclic_data = parse_ST(self.internal_url, self.stage_levels)
         elif self.ident[0:3] == "TH_":
             cyclic_data = parse_TH(self.ident)
 
         if cyclic_data is not None:
-            dbg_msg = getattr(cyclic_data, "dbg_msg", None)
-            if dbg_msg is not None:
-                LOGGER.debug(dbg_msg)
-            err_msg = getattr(cyclic_data, "err_msg", None)
-            if err_msg is not None:
-                self.data_valid = False
-                LOGGER.error(err_msg)
-                return
+            self.err_msg = getattr(cyclic_data, "err_msg", None)
             self.last_update = getattr(cyclic_data, "last_update", None)
-            if self.last_update is not None:
-                self.level = getattr(cyclic_data, "level", None)
-                self.stage = getattr(cyclic_data, "stage", None)
-                self.flow = getattr(cyclic_data, "flow", None)
-                if getattr(cyclic_data, "hint", None) is not None:
-                    # Do not overwrite inital values like for BW
-                    self.hint = getattr(cyclic_data, "hint", None)
+            self.level = getattr(cyclic_data, "level", None)
+            self.stage = getattr(cyclic_data, "stage", None)
+            self.flow = getattr(cyclic_data, "flow", None)
+            if getattr(cyclic_data, "hint", None) is not None:
+                # Do not overwrite inital values like for BW
+                self.hint = getattr(cyclic_data, "hint", None)
+            # No error and a valid timestamp -> data valid
+            if (self.err_msg is None) and (self.last_update is not None):
                 self.data_valid = True
             else:
                 self.data_valid = False
+        else:
+            self.err_msg = "Invalid ident given!"

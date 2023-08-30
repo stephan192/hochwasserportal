@@ -41,13 +41,12 @@ def init_RP(ident):
                     stage_levels[3] = thresholds[key]["W"]["19"]
                 except:
                     stage_levels = [None] * 4
-                dbg_msg = f"Stage levels : {stage_levels}"
                 break
-        Initdata = namedtuple("Initdata", ["name", "url", "stage_levels", "dbg_msg"])
-        return Initdata(name, url, stage_levels, dbg_msg)
-    except Exception as e:
+        Initdata = namedtuple("Initdata", ["name", "url", "stage_levels"])
+        return Initdata(name, url, stage_levels)
+    except Exception as err_msg:
         Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(f"An error occured while fetching init data for {ident}: {e}")
+        return Initdata(err_msg)
 
 
 def parse_RP(ident, stage_levels):
@@ -78,6 +77,6 @@ def parse_RP(ident, stage_levels):
             last_update = None
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
-    except Exception as e:
+    except Exception as err_msg:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(f"An error occured while fetching data for {ident}: {e}")
+        return Cyclicdata(err_msg)

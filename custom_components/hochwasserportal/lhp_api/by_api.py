@@ -21,9 +21,9 @@ def init_BY(ident):
         url = data.parent.attrs["href"]
         Initdata = namedtuple("Initdata", ["name", "url"])
         return Initdata(name, url)
-    except Exception as e:
+    except Exception as err_msg:
         Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(f"An error occured while fetching init data for {ident}: {e}")
+        return Initdata(err_msg)
 
 
 def parse_BY(ident):
@@ -61,6 +61,6 @@ def parse_BY(ident):
             "Cyclicdata", ["level", "stage", "flow", "last_update", "hint"]
         )
         return Cyclicdata(level, stage, flow, last_update, hint)
-    except Exception as e:
+    except Exception as err_msg:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(f"An error occured while fetching data for {ident}: {e}")
+        return Cyclicdata(err_msg)

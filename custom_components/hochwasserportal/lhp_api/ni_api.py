@@ -33,16 +33,16 @@ def init_NI(ident):
                 break
         Initdata = namedtuple("Initdata", ["name", "url", "internal_url", "hint"])
         return Initdata(name, url, internal_url, hint)
-    except Exception as e:
+    except Exception as err_msg:
         Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(f"An error occured while fetching init data for {ident}: {e}")
+        return Initdata(err_msg)
 
 
-def parse_NI(ident, internal_url):
+def parse_NI(internal_url):
     """Parse data for Niedersachsen."""
     if internal_url is None:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(f"Internal url not set for {ident}")
+        return Cyclicdata("No internal url set!")
 
     try:
         # Get data
@@ -88,6 +88,6 @@ def parse_NI(ident, internal_url):
             last_update = None
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
-    except Exception as e:
+    except Exception as err_msg:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(f"An error occured while fetching data for {ident}: {e}")
+        return Cyclicdata(err_msg)
