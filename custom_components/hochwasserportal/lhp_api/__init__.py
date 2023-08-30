@@ -1282,7 +1282,7 @@ class HochwasserPortalAPI:
             try:
                 self.flow = float(data.getText().split()[0].replace(",", "."))
             except:
-                flow = None
+                self.flow = None
             head = link.find_next("span", string="Datum:")
             data = head.find_next("span", class_="popUpValue")
             try:
