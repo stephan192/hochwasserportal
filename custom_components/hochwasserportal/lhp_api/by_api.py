@@ -19,8 +19,9 @@ def init_BY(ident):
         if len(data.get("data-zeile2")) > 0:
             name += " / " + data.get("data-zeile2")
         url = data.parent.attrs["href"]
-        Initdata = namedtuple("Initdata", ["name", "url"])
-        return Initdata(name, url)
+        hint = data.get("data-stoerung")
+        Initdata = namedtuple("Initdata", ["name", "url", "hint"])
+        return Initdata(name, url, hint)
     except Exception as err_msg:
         Initdata = namedtuple("Initdata", ["err_msg"])
         return Initdata(err_msg)
@@ -47,7 +48,6 @@ def parse_BY(ident):
             stage = int(data.get("data-ms"))
         else:
             stage = None
-        hint = data.get("data-stoerung")
         if len(data.get("data-datum")) > 0:
             try:
                 last_update = datetime.datetime.strptime(
@@ -57,10 +57,8 @@ def parse_BY(ident):
                 last_update = None
         else:
             last_update = None
-        Cyclicdata = namedtuple(
-            "Cyclicdata", ["level", "stage", "flow", "last_update", "hint"]
-        )
-        return Cyclicdata(level, stage, flow, last_update, hint)
+        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
+        return Cyclicdata(level, stage, flow, last_update)
     except Exception as err_msg:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
         return Cyclicdata(err_msg)

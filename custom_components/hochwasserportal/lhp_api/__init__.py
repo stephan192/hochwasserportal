@@ -136,8 +136,5 @@ class HochwasserPortalAPI:
             self.level = getattr(cyclic_data, "level", None)
             self.stage = getattr(cyclic_data, "stage", None)
             self.flow = getattr(cyclic_data, "flow", None)
-            if getattr(cyclic_data, "hint", None) is not None:
-                # Do not overwrite inital values like for BW
-                self.hint = getattr(cyclic_data, "hint", None)
         else:
             self.err_msg = "Invalid ident given!"

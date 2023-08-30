@@ -9,7 +9,7 @@ import datetime
 def init_NW(ident):
     """Init data for Nordrhein-Westfalen."""
     try:
-        # Get Stations Data
+        # Get stations data
         nw_stations = fetch_json(
             "https://hochwasserportal.nrw/lanuv/data/internet/stations/stations.json"
         )
@@ -29,9 +29,10 @@ def init_NW(ident):
                     + station["station_name"]
                 )
                 break
-        # Get stage levels
+        # Get stage levels and hint
         stage_levels = [None] * 4
         if internal_url is not None:
+            # Get stage levels
             nw_stages = fetch_json(internal_url + "/S/alarmlevel.json")
             for station_data in nw_stages:
                 # Unfortunately the source data seems quite incomplete.
@@ -49,10 +50,20 @@ def init_NW(ident):
                         stage_levels[1] = float(station_data["data"][-1][1])
                     elif station_data["ts_name"] == "W.Informationswert_3":
                         stage_levels[2] = float(station_data["data"][-1][1])
+            # Get hint
+            data = fetch_json(internal_url + "/S/week.json")
+            hint = None
+            if len(data[0]["AdminStatus"].strip()) > 0:
+                hint = data[0]["AdminStatus"].strip()
+            if len(data[0]["AdminBemerkung"].strip()) > 0:
+                if len(hint) > 0:
+                    hint += " / " + data[0]["AdminBemerkung"].strip()
+                else:
+                    hint = data[0]["AdminBemerkung"].strip()
         Initdata = namedtuple(
-            "Initdata", ["name", "url", "internal_url", "stage_levels"]
+            "Initdata", ["name", "url", "internal_url", "hint", "stage_levels"]
         )
-        return Initdata(name, url, internal_url, stage_levels)
+        return Initdata(name, url, internal_url, hint, stage_levels)
     except Exception as err_msg:
         Initdata = namedtuple("Initdata", ["err_msg"])
         return Initdata(err_msg)
@@ -66,20 +77,12 @@ def parse_NW(internal_url, stage_levels):
         # Parse data
         level = float(data[0]["data"][-1][1])
         stage = calc_stage(level, stage_levels)
-        hint = None
-        if len(data[0]["AdminStatus"].strip()) > 0:
-            hint = data[0]["AdminStatus"].strip()
-        if len(data[0]["AdminBemerkung"].strip()) > 0:
-            if len(hint) > 0:
-                hint += " / " + data[0]["AdminBemerkung"].strip()
-            else:
-                hint = data[0]["AdminBemerkung"].strip()
         # Extract the last update timestamp from the JSON data
         last_update_str = data[0]["data"][-1][0]
         # Convert the string timestamp to a datetime object
         last_update = datetime.datetime.fromisoformat(last_update_str)
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update", "hint"])
-        return Cyclicdata(level, stage, last_update, hint)
+        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
+        return Cyclicdata(level, stage, last_update)
     except Exception as err_msg:
         Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
         return Cyclicdata(err_msg)

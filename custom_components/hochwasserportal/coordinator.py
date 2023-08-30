@@ -32,6 +32,7 @@ class HochwasserPortalCoordinator(DataUpdateCoordinator[None]):
             self.api.name,
             self.api.internal_url,
         )
+        LOGGER.debug("%s (%s): hint=%s", self.api.ident, self.api.name, self.api.hint)
         if self.api.err_msg is not None:
             LOGGER.error("%s (%s): %s", self.api.ident, self.api.name, self.api.err_msg)
             LOGGER.error("%s (%s): Init failed!", self.api.ident, self.api.name)
