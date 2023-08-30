@@ -34,7 +34,7 @@ def init_TH(ident):
                 break
         Initdata = namedtuple("Initdata", ["name", "url"])
         return Initdata(name, url)
-    except Exception as err_msge:
+    except Exception as err_msg:
         Initdata = namedtuple("Initdata", ["err_msg"])
         return Initdata(err_msg)
 

@@ -40,7 +40,7 @@ class HochwasserPortalAPI:
             if self.err_msg is None:
                 self.update()
         else:
-            self.err_msg = "Invalid ident given!"
+            self.err_msg = "Invalid ident given (ident too short)!"
 
     def parse_init(self):
         """Init data."""
@@ -85,8 +85,10 @@ class HochwasserPortalAPI:
             self.internal_url = getattr(init_data, "internal_url", None)
             self.hint = getattr(init_data, "hint", None)
             self.stage_levels = getattr(init_data, "stage_levels", [None] * 4)
+            if (self.name is None) and (self.err_msg is None):
+                self.err_msg = "Invalid ident given (nothing found)!"
         else:
-            self.err_msg = "Invalid ident given!"
+            self.err_msg = "Invalid ident given (wrong first letters)!"
 
     def update(self):
         """Update data."""
@@ -131,4 +133,4 @@ class HochwasserPortalAPI:
             self.stage = getattr(cyclic_data, "stage", None)
             self.flow = getattr(cyclic_data, "flow", None)
         else:
-            self.err_msg = "Invalid ident given!"
+            self.err_msg = "Invalid ident given (wrong first letters)!"

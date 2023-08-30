@@ -9,6 +9,10 @@ import datetime
 def init_ST(ident):
     """Init data for Sachsen-Anhalt."""
     try:
+        name = None
+        url = None
+        internal_url = None
+        hint = None
         # Get Stations Data
         st_stations = fetch_json(
             "https://hvz.lsaurl.de/fileadmin/Bibliothek/Politik_und_Verwaltung/MLU/HVZ/KISTERS/data/internet/stations/stations.json"
@@ -91,6 +95,7 @@ def parse_ST(internal_url, stage_levels):
     except:
         flow = None
 
+    last_update = None
     if level is not None:
         last_update = datetime.datetime.fromisoformat(last_update_str_w)
     elif flow is not None:

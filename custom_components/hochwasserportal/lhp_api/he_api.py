@@ -9,6 +9,10 @@ import datetime
 def init_HE(ident):
     """Init data for Hessen."""
     try:
+        name = None
+        url = None
+        internal_url = None
+        hint = None
         # Get Stations Data
         he_stations = fetch_json(
             "https://www.hlnug.de/static/pegel/wiskiweb3/data/internet/stations/stations.json"
@@ -98,6 +102,7 @@ def parse_HE(internal_url, stage_levels):
     except:
         flow = None
 
+    last_update = None
     if level is not None:
         last_update = datetime.datetime.fromisoformat(last_update_str_w)
     elif flow is not None:
