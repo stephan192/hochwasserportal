@@ -42,12 +42,6 @@ class HochwasserPortalAPI:
         else:
             self.err_msg = "Invalid ident given!"
 
-    def __repr__(self):
-        """Return the representation."""
-        if self.name is not None:
-            return f"{self.name} ({self.ident})"
-        return self.ident
-
     def parse_init(self):
         """Init data."""
         init_data = None

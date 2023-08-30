@@ -29,20 +29,31 @@ class HochwasserPortalConfigFlow(ConfigFlow, domain=DOMAIN):
             pegel_identifier = user_input[CONF_PEGEL_IDENTIFIER]
 
             # Validate pegel identifier using the API
-            pegel_title = repr(
-                await self.hass.async_add_executor_job(
-                    HochwasserPortalAPI, pegel_identifier
-                )
+            api = await self.hass.async_add_executor_job(
+                HochwasserPortalAPI, pegel_identifier
             )
-            if pegel_title == pegel_identifier:
+            if api.err_msg is not None:
+                LOGGER.error(
+                    "%s (%s): err_msg=%s",
+                    api.ident,
+                    api.name,
+                    api.err_msg,
+                )
                 errors["base"] = "invalid_identifier"
-
+            else:
+                LOGGER.debug(
+                    "%s (%s): Successfully added!",
+                    api.ident,
+                    api.name,
+                )
             if not errors:
                 # Set the unique ID for this config entry.
                 await self.async_set_unique_id(f"{DOMAIN}_{pegel_identifier.lower()}")
                 self._abort_if_unique_id_configured()
 
-                return self.async_create_entry(title=pegel_title, data=user_input)
+                return self.async_create_entry(
+                    title=f"{api.name} ({api.ident})", data=user_input
+                )
 
         return self.async_show_form(
             step_id="user",
@@ -64,18 +75,29 @@ class HochwasserPortalConfigFlow(ConfigFlow, domain=DOMAIN):
         pegel_identifier = import_config[CONF_PEGEL]
 
         # Validate pegel identifier using the API
-        pegel_title = repr(
-            await self.hass.async_add_executor_job(
-                HochwasserPortalAPI, pegel_identifier
-            )
+        api = await self.hass.async_add_executor_job(
+            HochwasserPortalAPI, pegel_identifier
         )
-        if pegel_title == pegel_identifier:
+        if api.err_msg is not None:
+            LOGGER.error(
+                "%s (%s): err_msg=%s",
+                api.ident,
+                api.name,
+                api.err_msg,
+            )
             return self.async_abort(reason="invalid_identifier")
+        else:
+            LOGGER.debug(
+                "%s (%s): Successfully imported!",
+                api.ident,
+                api.name,
+            )
 
         # Set the unique ID for this imported entry.
         await self.async_set_unique_id(f"{DOMAIN}_{pegel_identifier.lower()}")
         self._abort_if_unique_id_configured()
 
         return self.async_create_entry(
-            title=pegel_title, data={CONF_PEGEL_IDENTIFIER: pegel_identifier}
+            title=f"{api.name} ({api.ident})",
+            data={CONF_PEGEL_IDENTIFIER: pegel_identifier},
         )
