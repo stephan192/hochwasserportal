@@ -34,10 +34,9 @@ class HochwasserPortalCoordinator(DataUpdateCoordinator[None]):
         )
         if self.api.err_msg is not None:
             LOGGER.error("%s (%s): %s", self.api.ident, self.api.name, self.api.err_msg)
-        if self.api.data_valid:
-            LOGGER.debug("%s (%s): Init done!", self.api.ident, self.api.name)
-        else:
             LOGGER.error("%s (%s): Init failed!", self.api.ident, self.api.name)
+        else:
+            LOGGER.debug("%s (%s): Init done!", self.api.ident, self.api.name)
 
     async def _async_update_data(self) -> None:
         """Get the latest data from the hochwasserportal API."""
@@ -53,7 +52,6 @@ class HochwasserPortalCoordinator(DataUpdateCoordinator[None]):
         )
         if self.api.err_msg is not None:
             LOGGER.error("%s (%s): %s", self.api.ident, self.api.name, self.api.err_msg)
-        if self.api.data_valid:
-            LOGGER.debug("%s (%s): Update done!", self.api.ident, self.api.name)
-        else:
             LOGGER.error("%s (%s): Update failed!", self.api.ident, self.api.name)
+        else:
+            LOGGER.debug("%s (%s): Update done!", self.api.ident, self.api.name)

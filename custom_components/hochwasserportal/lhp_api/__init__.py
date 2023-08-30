@@ -34,16 +34,11 @@ class HochwasserPortalAPI:
         self.hint = None
         self.stage_levels = [None] * 4
         self.last_update = None
-        self.data_valid = False
         self.err_msg = None
         if len(ident) > 3:
             self.parse_init()
         if self.err_msg is None:
             self.update()
-
-    def __bool__(self):
-        """Return the data_valid attribute."""
-        return self.data_valid
 
     def __repr__(self):
         """Return the representation."""
@@ -142,10 +137,5 @@ class HochwasserPortalAPI:
             if getattr(cyclic_data, "hint", None) is not None:
                 # Do not overwrite inital values like for BW
                 self.hint = getattr(cyclic_data, "hint", None)
-            # No error and a valid timestamp -> data valid
-            if (self.err_msg is None) and (self.last_update is not None):
-                self.data_valid = True
-            else:
-                self.data_valid = False
         else:
             self.err_msg = "Invalid ident given!"
