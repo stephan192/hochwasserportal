@@ -18,7 +18,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     api = await hass.async_add_executor_job(HochwasserPortalAPI, pegel_identifier)
     coordinator = HochwasserPortalCoordinator(hass, api)
 
-    await coordinator.async_config_entry_first_refresh()
+    # No need to refresh via the following line because api runs
+    # update during init automatically
+    # await coordinator.async_config_entry_first_refresh()
 
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = coordinator
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
