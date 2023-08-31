@@ -74,12 +74,21 @@ def parse_NW(internal_url, stage_levels):
         # Get data
         data = fetch_json(internal_url + "/S/week.json")
         # Parse data
-        level = float(data[0]["data"][-1][1])
-        stage = calc_stage(level, stage_levels)
-        # Extract the last update timestamp from the JSON data
-        last_update_str = data[0]["data"][-1][0]
-        # Convert the string timestamp to a datetime object
-        last_update = datetime.datetime.fromisoformat(last_update_str)
+        if (
+            "data" in data[0]
+            and isinstance(data[0]["data"], list)
+            and len(data[0]["data"]) > 0
+        ):
+            level = float(data[0]["data"][-1][1])
+            stage = calc_stage(level, stage_levels)
+            # Extract the last update timestamp from the JSON data
+            last_update_str = data[0]["data"][-1][0]
+            # Convert the string timestamp to a datetime object
+            last_update = datetime.datetime.fromisoformat(last_update_str)
+        else:
+            level = None
+            stage = None
+            last_update = None
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
         return Cyclicdata(level, stage, last_update)
     except Exception as err:
