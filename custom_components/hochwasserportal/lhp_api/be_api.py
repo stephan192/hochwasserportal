@@ -36,8 +36,8 @@ def init_BE(ident):
         raise LHPError(err, "be_api.py: init_BE()") from err
 
 
-def parse_BE(url):
-    """Parse data for Berlin."""
+def update_BE(url):
+    """Update data for Berlin."""
     try:
         # Get data and parse level data
         yesterday = datetime.date.today() - datetime.timedelta(days=1)
@@ -84,4 +84,4 @@ def parse_BE(url):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "flow", "last_update"])
         return Cyclicdata(level, flow, last_update)
     except Exception as err:
-        raise LHPError(err, "be_api.py: parse_BE()") from err
+        raise LHPError(err, "be_api.py: update_BE()") from err

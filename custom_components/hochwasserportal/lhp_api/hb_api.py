@@ -61,8 +61,8 @@ def init_HB(ident):
         raise LHPError(err, "hb_api.py: init_HB()") from err
 
 
-def parse_HB(internal_url, stage_levels):
-    """Parse data for Bremen."""
+def update_HB(internal_url, stage_levels):
+    """Update data for Bremen."""
     try:
         # Get data
         data = fetch_json(internal_url)
@@ -81,4 +81,4 @@ def parse_HB(internal_url, stage_levels):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
         return Cyclicdata(level, stage, last_update)
     except Exception as err:
-        raise LHPError(err, "hb_api.py: parse_HB()") from err
+        raise LHPError(err, "hb_api.py: update_HB()") from err

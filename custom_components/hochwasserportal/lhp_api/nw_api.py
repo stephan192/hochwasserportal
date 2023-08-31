@@ -68,8 +68,8 @@ def init_NW(ident):
         raise LHPError(err, "nw_api.py: init_NW()") from err
 
 
-def parse_NW(internal_url, stage_levels):
-    """Parse data for Nordrhein-Westfalen."""
+def update_NW(internal_url, stage_levels):
+    """Update data for Nordrhein-Westfalen."""
     try:
         # Get data
         data = fetch_json(internal_url + "/S/week.json")
@@ -92,4 +92,4 @@ def parse_NW(internal_url, stage_levels):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
         return Cyclicdata(level, stage, last_update)
     except Exception as err:
-        raise LHPError(err, "nw_api.py: parse_NW()") from err
+        raise LHPError(err, "nw_api.py: update_NW()") from err

@@ -42,8 +42,8 @@ def init_BW(ident):
         raise LHPError(err, "bw_api.py: init_BW()") from err
 
 
-def parse_BW(ident, stage_levels):
-    """Parse data for Baden-Württemberg."""
+def update_BW(ident, stage_levels):
+    """Update data for Baden-Württemberg."""
     try:
         # Get data
         page = fetch_text("https://www.hvz.baden-wuerttemberg.de/js/hvz_peg_stmn.js")
@@ -93,4 +93,4 @@ def parse_BW(ident, stage_levels):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
     except Exception as err:
-        raise LHPError(err, "bw_api.py: parse_BW()") from err
+        raise LHPError(err, "bw_api.py: update_BW()") from err

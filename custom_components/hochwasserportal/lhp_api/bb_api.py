@@ -88,8 +88,8 @@ def init_BB(ident):
         raise LHPError(err, "bb_api.py: init_BB()") from err
 
 
-def parse_BB(ident):
-    """Parse data for Brandenburg."""
+def update_BB(ident):
+    """Update data for Brandenburg."""
     try:
         # Get data
         page = fetch_text("https://pegelportal.brandenburg.de/start.php")
@@ -143,4 +143,4 @@ def parse_BB(ident):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
     except Exception as err:
-        raise LHPError(err, "bb_api.py: parse_BB()") from err
+        raise LHPError(err, "bb_api.py: update_BB()") from err

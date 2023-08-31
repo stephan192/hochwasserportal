@@ -37,8 +37,8 @@ def init_NI(ident):
         raise LHPError(err, "ni_api.py: init_NI()") from err
 
 
-def parse_NI(internal_url):
-    """Parse data for Niedersachsen."""
+def update_NI(internal_url):
+    """Update data for Niedersachsen."""
     try:
         # Get data
         data = fetch_json(internal_url)
@@ -84,4 +84,4 @@ def parse_NI(internal_url):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
     except Exception as err:
-        raise LHPError(err, "ni_api.py: parse_NI()") from err
+        raise LHPError(err, "ni_api.py: update_NI()") from err

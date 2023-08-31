@@ -38,8 +38,8 @@ def init_TH(ident):
         raise LHPError(err, "th_api.py: init_TH()") from err
 
 
-def parse_TH(ident):
-    """Parse data for Thüringen."""
+def update_TH(ident):
+    """Update data for Thüringen."""
     level = None
     flow = None
     try:
@@ -73,4 +73,4 @@ def parse_TH(ident):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "flow", "last_update"])
         return Cyclicdata(level, flow, last_update)
     except Exception as err:
-        raise LHPError(err, "th_api.py: parse_TH()") from err
+        raise LHPError(err, "th_api.py: update_TH()") from err

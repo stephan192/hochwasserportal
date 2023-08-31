@@ -71,8 +71,8 @@ def init_HE(ident):
     return Initdata(name, url, internal_url, hint, stage_levels)
 
 
-def parse_HE(internal_url, stage_levels):
-    """Parse data for Hessen."""
+def update_HE(internal_url, stage_levels):
+    """Update data for Hessen."""
     last_update_str_w = None
     try:
         # Get data
@@ -109,4 +109,4 @@ def parse_HE(internal_url, stage_levels):
     if last_update is not None:
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
-    raise LHPError("An error occured while fetching data!", "he_api.py: parse_HE()")
+    raise LHPError("An error occured while fetching data!", "he_api.py: update_HE()")

@@ -27,8 +27,8 @@ def init_SN(ident):
         raise LHPError(err, "sn_api.py: init_SN()") from err
 
 
-def parse_SN(ident):
-    """Parse data for Sachsen."""
+def update_SN(ident):
+    """Update data for Sachsen."""
     try:
         # Get data
         soup = fetch_soup(
@@ -80,4 +80,4 @@ def parse_SN(ident):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
     except Exception as err:
-        raise LHPError(err, "sn_api.py: parse_SN()") from err
+        raise LHPError(err, "sn_api.py: update_SN()") from err

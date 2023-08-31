@@ -37,8 +37,8 @@ def init_MV(ident):
         raise LHPError(err, "mv_api.py: init_MV()") from err
 
 
-def parse_MV(ident):
-    """Parse data for Mecklenburg-Vorpommern."""
+def update_MV(ident):
+    """Update data for Mecklenburg-Vorpommern."""
     try:
         # Get data
         soup = fetch_soup("https://pegelportal-mv.de/pegel_list.html")
@@ -83,4 +83,4 @@ def parse_MV(ident):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
     except Exception as err:
-        raise LHPError(err, "mv_api.py: parse_MV()") from err
+        raise LHPError(err, "mv_api.py: update_MV()") from err

@@ -32,8 +32,8 @@ def init_HH(ident):
         raise LHPError(err, "hh_api.py: init_HH()") from err
 
 
-def parse_HH(ident):
-    """Parse data for Hamburg."""
+def update_HH(ident):
+    """Update data for Hamburg."""
     try:
         # Get data
         soup = fetch_soup("https://www.wabiha.de/karte.html")
@@ -79,4 +79,4 @@ def parse_HH(ident):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
         return Cyclicdata(level, stage, last_update)
     except Exception as err:
-        raise LHPError(err, "hh_api.py: parse_HH()") from err
+        raise LHPError(err, "hh_api.py: update_HH()") from err

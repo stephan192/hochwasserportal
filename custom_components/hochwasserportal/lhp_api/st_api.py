@@ -70,8 +70,8 @@ def init_ST(ident):
     return Initdata(name, url, internal_url, hint, stage_levels)
 
 
-def parse_ST(internal_url, stage_levels):
-    """Parse data for Sachsen-Anhalt."""
+def update_ST(internal_url, stage_levels):
+    """Update data for Sachsen-Anhalt."""
     last_update_str_w = None
     try:
         # Get data
@@ -102,4 +102,4 @@ def parse_ST(internal_url, stage_levels):
     if last_update is not None:
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
-    raise LHPError("An error occured while fetching data!", "st_api.py: parse_ST()")
+    raise LHPError("An error occured while fetching data!", "st_api.py: update_ST()")

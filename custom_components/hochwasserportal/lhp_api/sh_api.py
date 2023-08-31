@@ -36,8 +36,8 @@ def init_SH(ident):
         raise LHPError(err, "sh_api.py: init_SH()") from err
 
 
-def parse_SH(ident):
-    """Parse data for Schleswig-Holstein."""
+def update_SH(ident):
+    """Update data for Schleswig-Holstein."""
     level = None
     flow = None
     stage = None
@@ -80,4 +80,4 @@ def parse_SH(ident):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
     except Exception as err:
-        raise LHPError(err, "sh_api.py: parse_SH()") from err
+        raise LHPError(err, "sh_api.py: update_SH()") from err

@@ -26,8 +26,8 @@ def init_BY(ident):
         raise LHPError(err, "by_api.py: init_BY()") from err
 
 
-def parse_BY(ident):
-    """Parse data for Bayern."""
+def update_BY(ident):
+    """Update data for Bayern."""
     try:
         # Get data
         soup = fetch_soup("https://www.hnd.bayern.de/pegel")
@@ -59,4 +59,4 @@ def parse_BY(ident):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
     except Exception as err:
-        raise LHPError(err, "by_api.py: parse_BY()") from err
+        raise LHPError(err, "by_api.py: update_BY()") from err

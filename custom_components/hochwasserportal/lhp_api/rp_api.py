@@ -48,8 +48,8 @@ def init_RP(ident):
         raise LHPError(err, "rp_api.py: init_RP()") from err
 
 
-def parse_RP(ident, stage_levels):
-    """Parse data for Rheinland-Pfalz."""
+def update_RP(ident, stage_levels):
+    """Update data for Rheinland-Pfalz."""
     try:
         # Get data
         data = fetch_json(
@@ -77,4 +77,4 @@ def parse_RP(ident, stage_levels):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
     except Exception as err:
-        raise LHPError(err, "rp_api.py: parse_RP()") from err
+        raise LHPError(err, "rp_api.py: update_RP()") from err

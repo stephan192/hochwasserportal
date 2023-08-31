@@ -32,8 +32,8 @@ def init_SL(ident):
         raise LHPError(err, "sl_api.py: init_SL()") from err
 
 
-def parse_SL(ident):
-    """Parse data for Saarland."""
+def update_SL(ident):
+    """Update data for Saarland."""
     try:
         # Get data
         page = fetch_text("https://iframe01.saarland.de/extern/wasser/Daten.js")
@@ -76,4 +76,4 @@ def parse_SL(ident):
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
         return Cyclicdata(level, stage, last_update)
     except Exception as err:
-        raise LHPError(err, "sl_api.py: parse_SL()") from err
+        raise LHPError(err, "sl_api.py: update_SL()") from err
