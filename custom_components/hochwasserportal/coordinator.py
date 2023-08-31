@@ -5,7 +5,7 @@ from __future__ import annotations
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .lhp_api import HochwasserPortalAPI
+from .lhp_api import HochwasserPortalAPI, LHPError
 from .const import DEFAULT_SCAN_INTERVAL, DOMAIN, LOGGER
 
 
@@ -42,26 +42,20 @@ class HochwasserPortalCoordinator(DataUpdateCoordinator[None]):
             self.api.flow,
             self.api.last_update,
         )
-        if self.api.err_msg is not None:
-            LOGGER.error("%s (%s): %s", self.api.ident, self.api.name, self.api.err_msg)
-            LOGGER.error("%s (%s): Init failed!", self.api.ident, self.api.name)
-        else:
-            LOGGER.debug("%s (%s): Init done!", self.api.ident, self.api.name)
 
     async def _async_update_data(self) -> None:
         """Get the latest data from the hochwasserportal API."""
-        await self.hass.async_add_executor_job(self.api.update)
-        LOGGER.debug(
-            "%s (%s): level=%s, stage=%s, flow=%s, last_update=%s",
-            self.api.ident,
-            self.api.name,
-            self.api.level,
-            self.api.stage,
-            self.api.flow,
-            self.api.last_update,
-        )
-        if self.api.err_msg is not None:
-            LOGGER.error("%s (%s): %s", self.api.ident, self.api.name, self.api.err_msg)
-            LOGGER.error("%s (%s): Update failed!", self.api.ident, self.api.name)
-        else:
-            LOGGER.debug("%s (%s): Update done!", self.api.ident, self.api.name)
+        try:
+            await self.hass.async_add_executor_job(self.api.update)
+            LOGGER.debug(
+                "%s (%s): level=%s, stage=%s, flow=%s, last_update=%s",
+                self.api.ident,
+                self.api.name,
+                self.api.level,
+                self.api.stage,
+                self.api.flow,
+                self.api.last_update,
+            )
+        except LHPError as err:
+            LOGGER.exception("Update of %s failed: %s", self.api.ident, err)
+            return False

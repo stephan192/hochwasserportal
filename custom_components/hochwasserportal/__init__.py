@@ -5,8 +5,8 @@ from __future__ import annotations
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from .lhp_api import HochwasserPortalAPI
-from .const import CONF_PEGEL_IDENTIFIER, DOMAIN, PLATFORMS
+from .lhp_api import HochwasserPortalAPI, LHPError
+from .const import CONF_PEGEL_IDENTIFIER, DOMAIN, PLATFORMS, LOGGER
 from .coordinator import HochwasserPortalCoordinator
 
 
@@ -15,8 +15,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     pegel_identifier: str = entry.data[CONF_PEGEL_IDENTIFIER]
 
     # Initialize the API and coordinator.
-    api = await hass.async_add_executor_job(HochwasserPortalAPI, pegel_identifier)
-    coordinator = HochwasserPortalCoordinator(hass, api)
+    try:
+        api = await hass.async_add_executor_job(HochwasserPortalAPI, pegel_identifier)
+        coordinator = HochwasserPortalCoordinator(hass, api)
+    except LHPError as err:
+        LOGGER.exception("Setup of %s failed: %s", pegel_identifier, err)
+        return False
 
     # No need to refresh via the following line because api runs
     # update during init automatically

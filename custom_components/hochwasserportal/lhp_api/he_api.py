@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from collections import namedtuple
-from .api_utils import fetch_json, calc_stage
+from .api_utils import LHPError, fetch_json, calc_stage
 import datetime
 
 
@@ -41,9 +41,8 @@ def init_HE(ident):
                 if len(hint) == 0:
                     hint = None
                 break
-    except Exception as err_msg:
-        Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "he_api.py: init_HE()") from err
     try:
         # Get stage levels
         stage_levels = [None] * 4
@@ -110,5 +109,4 @@ def parse_HE(internal_url, stage_levels):
     if last_update is not None:
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
-    Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-    return Cyclicdata("An error occured while fetching data!")
+    raise LHPError("An error occured while fetching data!", "he_api.py: parse_HE()")

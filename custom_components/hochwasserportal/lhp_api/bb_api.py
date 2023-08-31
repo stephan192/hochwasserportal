@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from collections import namedtuple
-from .api_utils import fetch_text
+from .api_utils import LHPError, fetch_text
 import datetime
 
 
@@ -84,9 +84,8 @@ def init_BB(ident):
                         break
         Initdata = namedtuple("Initdata", ["name", "url"])
         return Initdata(name, url)
-    except Exception as err_msg:
-        Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "bb_api.py: init_BB()") from err
 
 
 def parse_BB(ident):
@@ -143,6 +142,5 @@ def parse_BB(ident):
             prev_line = line
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
-    except Exception as err_msg:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "bb_api.py: parse_BB()") from err

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from .lhp_api import HochwasserPortalAPI
+from .lhp_api import HochwasserPortalAPI, LHPError
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigFlow
@@ -29,23 +29,19 @@ class HochwasserPortalConfigFlow(ConfigFlow, domain=DOMAIN):
             pegel_identifier = user_input[CONF_PEGEL_IDENTIFIER]
 
             # Validate pegel identifier using the API
-            api = await self.hass.async_add_executor_job(
-                HochwasserPortalAPI, pegel_identifier
-            )
-            if api.err_msg is not None:
-                LOGGER.error(
-                    "%s (%s): err_msg=%s",
-                    api.ident,
-                    api.name,
-                    api.err_msg,
+            try:
+                api = await self.hass.async_add_executor_job(
+                    HochwasserPortalAPI, pegel_identifier
                 )
-                errors["base"] = "invalid_identifier"
-            else:
                 LOGGER.debug(
                     "%s (%s): Successfully added!",
                     api.ident,
                     api.name,
                 )
+            except LHPError as err:
+                LOGGER.exception("Setup of %s failed: %s", pegel_identifier, err)
+                errors["base"] = "invalid_identifier"
+
             if not errors:
                 # Set the unique ID for this config entry.
                 await self.async_set_unique_id(f"{DOMAIN}_{pegel_identifier.lower()}")
@@ -75,23 +71,18 @@ class HochwasserPortalConfigFlow(ConfigFlow, domain=DOMAIN):
         pegel_identifier = import_config[CONF_PEGEL]
 
         # Validate pegel identifier using the API
-        api = await self.hass.async_add_executor_job(
-            HochwasserPortalAPI, pegel_identifier
-        )
-        if api.err_msg is not None:
-            LOGGER.error(
-                "%s (%s): err_msg=%s",
-                api.ident,
-                api.name,
-                api.err_msg,
+        try:
+            api = await self.hass.async_add_executor_job(
+                HochwasserPortalAPI, pegel_identifier
             )
-            return self.async_abort(reason="invalid_identifier")
-        else:
             LOGGER.debug(
                 "%s (%s): Successfully imported!",
                 api.ident,
                 api.name,
             )
+        except LHPError as err:
+            LOGGER.exception("Setup of %s failed: %s", pegel_identifier, err)
+            return self.async_abort(reason="invalid_identifier")
 
         # Set the unique ID for this imported entry.
         await self.async_set_unique_id(f"{DOMAIN}_{pegel_identifier.lower()}")

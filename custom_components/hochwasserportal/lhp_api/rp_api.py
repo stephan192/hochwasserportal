@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from collections import namedtuple
-from .api_utils import fetch_json, calc_stage
+from .api_utils import LHPError, fetch_json, calc_stage
 import datetime
 
 
@@ -44,9 +44,8 @@ def init_RP(ident):
                 break
         Initdata = namedtuple("Initdata", ["name", "url", "stage_levels"])
         return Initdata(name, url, stage_levels)
-    except Exception as err_msg:
-        Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "rp_api.py: init_RP()") from err
 
 
 def parse_RP(ident, stage_levels):
@@ -77,6 +76,5 @@ def parse_RP(ident, stage_levels):
             last_update = None
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
-    except Exception as err_msg:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "rp_api.py: parse_RP()") from err

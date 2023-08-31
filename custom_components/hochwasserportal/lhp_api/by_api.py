@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from collections import namedtuple
-from .api_utils import fetch_soup
+from .api_utils import LHPError, fetch_soup
 import datetime
 
 
@@ -22,9 +22,8 @@ def init_BY(ident):
         hint = data.get("data-stoerung")
         Initdata = namedtuple("Initdata", ["name", "url", "hint"])
         return Initdata(name, url, hint)
-    except Exception as err_msg:
-        Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "by_api.py: init_BY()") from err
 
 
 def parse_BY(ident):
@@ -59,6 +58,5 @@ def parse_BY(ident):
             last_update = None
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
-    except Exception as err_msg:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "by_api.py: parse_BY()") from err

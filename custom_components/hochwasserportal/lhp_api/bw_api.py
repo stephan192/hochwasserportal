@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from collections import namedtuple
-from .api_utils import fetch_text, calc_stage
+from .api_utils import LHPError, fetch_text, calc_stage
 import datetime
 import json
 
@@ -38,9 +38,8 @@ def init_BW(ident):
                 break
         Initdata = namedtuple("Initdata", ["name", "url", "stage_levels"])
         return Initdata(name, url, stage_levels)
-    except Exception as err_msg:
-        Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "bw_api.py: init_BW()") from err
 
 
 def parse_BW(ident, stage_levels):
@@ -93,6 +92,5 @@ def parse_BW(ident, stage_levels):
                 break
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
-    except Exception as err_msg:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "bw_api.py: parse_BW()") from err

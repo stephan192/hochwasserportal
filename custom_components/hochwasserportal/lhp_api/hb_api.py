@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from collections import namedtuple
-from .api_utils import fetch_json, fetch_text, calc_stage
+from .api_utils import LHPError, fetch_json, fetch_text, calc_stage
 import datetime
 
 
@@ -57,9 +57,8 @@ def init_HB(ident):
             "Initdata", ["name", "url", "internal_url", "stage_levels"]
         )
         return Initdata(name, url, internal_url, stage_levels)
-    except Exception as err_msg:
-        Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "hb_api.py: init_HB()") from err
 
 
 def parse_HB(internal_url, stage_levels):
@@ -81,6 +80,5 @@ def parse_HB(internal_url, stage_levels):
                 last_update = None
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
         return Cyclicdata(level, stage, last_update)
-    except Exception as err_msg:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "hb_api.py: parse_HB()") from err

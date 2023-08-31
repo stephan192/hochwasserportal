@@ -5,6 +5,17 @@ import requests
 import bs4
 
 
+class LHPError(Exception):
+    """Exception occurred while running."""
+
+    def __init__(self, exception: Exception | str, location: str) -> None:
+        """Init the error."""
+        if isinstance(exception, str):
+            super().__init__(f"{location}: {exception}")
+        else:
+            super().__init__(f"{location}: {exception.__class__.__name__}: {exception}")
+
+
 def fetch_json(url, timeout=10):
     """Fetch data via json."""
     try:

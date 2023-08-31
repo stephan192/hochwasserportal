@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from collections import namedtuple
-from .api_utils import fetch_soup
+from .api_utils import LHPError, fetch_soup
 import datetime
 import re
 
@@ -33,9 +33,8 @@ def init_MV(ident):
             url = link["href"]
         Initdata = namedtuple("Initdata", ["name", "url"])
         return Initdata(name, url)
-    except Exception as err_msg:
-        Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "mv_api.py: init_MV()") from err
 
 
 def parse_MV(ident):
@@ -83,6 +82,5 @@ def parse_MV(ident):
             cnt += 1
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
         return Cyclicdata(level, stage, flow, last_update)
-    except Exception as err_msg:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "mv_api.py: parse_MV()") from err

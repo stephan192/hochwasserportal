@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from collections import namedtuple
-from .api_utils import fetch_soup, fetch_text
+from .api_utils import LHPError, fetch_soup, fetch_text
 import datetime
 
 
@@ -32,9 +32,8 @@ def init_BE(ident):
                     break
         Initdata = namedtuple("Initdata", ["name", "url"])
         return Initdata(name, url)
-    except Exception as err_msg:
-        Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "be_api.py: init_BE()") from err
 
 
 def parse_BE(url):
@@ -84,6 +83,5 @@ def parse_BE(url):
                         continue
         Cyclicdata = namedtuple("Cyclicdata", ["level", "flow", "last_update"])
         return Cyclicdata(level, flow, last_update)
-    except Exception as err_msg:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "be_api.py: parse_BE()") from err

@@ -1,6 +1,7 @@
 """The Länderübergreifendes Hochwasser Portal API."""
 
 from __future__ import annotations
+from .api_utils import LHPError
 from .bb_api import init_BB, parse_BB
 from .be_api import init_BE, parse_BE
 from .bw_api import init_BW, parse_BW
@@ -35,12 +36,12 @@ class HochwasserPortalAPI:
         self.stage_levels = [None] * 4
         self.last_update = None
         if len(ident) > 3:
-            self.err_msg = None
             self.parse_init()
-            if self.err_msg is None:
-                self.update()
+            self.update()
         else:
-            self.err_msg = "Invalid ident given (ident too short)!"
+            raise LHPError(
+                "Invalid ident given (ident too short)!", "__init__py: __init__()"
+            )
 
     def parse_init(self):
         """Init data."""
@@ -79,16 +80,20 @@ class HochwasserPortalAPI:
             init_data = init_TH(self.ident)
 
         if init_data is not None:
-            self.err_msg = getattr(init_data, "err_msg", None)
             self.name = getattr(init_data, "name", None)
+            if self.name is None:
+                raise LHPError(
+                    "Invalid ident given (nothing found)!", "__init__.py: parse_init()"
+                )
             self.url = getattr(init_data, "url", None)
             self.internal_url = getattr(init_data, "internal_url", None)
             self.hint = getattr(init_data, "hint", None)
             self.stage_levels = getattr(init_data, "stage_levels", [None] * 4)
-            if (self.name is None) and (self.err_msg is None):
-                self.err_msg = "Invalid ident given (nothing found)!"
         else:
-            self.err_msg = "Invalid ident given (wrong first letters)!"
+            raise LHPError(
+                "Invalid ident given (wrong first letters)!",
+                "__init__.py: parse_init()",
+            )
 
     def update(self):
         """Update data."""
@@ -127,10 +132,11 @@ class HochwasserPortalAPI:
             cyclic_data = parse_TH(self.ident)
 
         if cyclic_data is not None:
-            self.err_msg = getattr(cyclic_data, "err_msg", None)
             self.last_update = getattr(cyclic_data, "last_update", None)
             self.level = getattr(cyclic_data, "level", None)
             self.stage = getattr(cyclic_data, "stage", None)
             self.flow = getattr(cyclic_data, "flow", None)
         else:
-            self.err_msg = "Invalid ident given (wrong first letters)!"
+            raise LHPError(
+                "Invalid ident given (wrong first letters)!", "__init__.py: update()"
+            )

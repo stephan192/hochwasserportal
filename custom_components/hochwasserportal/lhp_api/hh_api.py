@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from collections import namedtuple
-from .api_utils import fetch_soup
+from .api_utils import LHPError, fetch_soup
 import datetime
 
 
@@ -28,9 +28,8 @@ def init_HH(ident):
             url = "https://www.wabiha.de/grafik-" + ident[3:] + ".html"
         Initdata = namedtuple("Initdata", ["name", "url"])
         return Initdata(name, url)
-    except Exception as err_msg:
-        Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "hh_api.py: init_HH()") from err
 
 
 def parse_HH(ident):
@@ -79,6 +78,5 @@ def parse_HH(ident):
                 stage = None
         Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
         return Cyclicdata(level, stage, last_update)
-    except Exception as err_msg:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "hh_api.py: parse_HH()") from err

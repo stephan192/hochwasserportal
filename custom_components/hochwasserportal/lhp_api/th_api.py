@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from collections import namedtuple
-from .api_utils import fetch_soup
+from .api_utils import LHPError, fetch_soup
 import datetime
 
 
@@ -34,9 +34,8 @@ def init_TH(ident):
                 break
         Initdata = namedtuple("Initdata", ["name", "url"])
         return Initdata(name, url)
-    except Exception as err_msg:
-        Initdata = namedtuple("Initdata", ["err_msg"])
-        return Initdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "th_api.py: init_TH()") from err
 
 
 def parse_TH(ident):
@@ -73,6 +72,5 @@ def parse_TH(ident):
             last_update = None
         Cyclicdata = namedtuple("Cyclicdata", ["level", "flow", "last_update"])
         return Cyclicdata(level, flow, last_update)
-    except Exception as err_msg:
-        Cyclicdata = namedtuple("Cyclicdata", ["err_msg"])
-        return Cyclicdata(err_msg)
+    except Exception as err:
+        raise LHPError(err, "th_api.py: parse_TH()") from err
