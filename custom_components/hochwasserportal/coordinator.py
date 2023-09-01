@@ -19,43 +19,13 @@ class HochwasserPortalCoordinator(DataUpdateCoordinator[None]):
         )
 
         self.api = api
-        LOGGER.debug(
-            "%s (%s): stage_levels=%s",
-            self.api.ident,
-            self.api.name,
-            self.api.stage_levels,
-        )
-        LOGGER.debug("%s (%s): url=%s", self.api.ident, self.api.name, self.api.url)
-        LOGGER.debug(
-            "%s (%s): internal_url=%s",
-            self.api.ident,
-            self.api.name,
-            self.api.internal_url,
-        )
-        LOGGER.debug("%s (%s): hint=%s", self.api.ident, self.api.name, self.api.hint)
-        LOGGER.debug(
-            "%s (%s): level=%s, stage=%s, flow=%s, last_update=%s",
-            self.api.ident,
-            self.api.name,
-            self.api.level,
-            self.api.stage,
-            self.api.flow,
-            self.api.last_update,
-        )
+        LOGGER.debug("%s", repr(self.api))
 
     async def _async_update_data(self) -> None:
         """Get the latest data from the hochwasserportal API."""
         try:
             await self.hass.async_add_executor_job(self.api.update)
-            LOGGER.debug(
-                "%s (%s): level=%s, stage=%s, flow=%s, last_update=%s",
-                self.api.ident,
-                self.api.name,
-                self.api.level,
-                self.api.stage,
-                self.api.flow,
-                self.api.last_update,
-            )
+            LOGGER.debug("%s", repr(self.api))
         except LHPError as err:
             LOGGER.exception("Update of %s failed: %s", self.api.ident, err)
             return False
