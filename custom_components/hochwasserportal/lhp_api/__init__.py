@@ -1,6 +1,7 @@
 """The Länderübergreifendes Hochwasser Portal API."""
 
 from __future__ import annotations
+from typing import Final
 from datetime import datetime
 from .api_utils import LHPError, StaticData, DynamicData
 from .bb_api import init_BB, update_BB
@@ -21,43 +22,31 @@ from .st_api import init_ST, update_ST
 from .th_api import init_TH, update_TH
 
 
+FUNCTION_DICT: Final[dict[str, dict[str, function]]] = {
+    "BB": {"init": init_BB, "update": update_BB},
+    "BE": {"init": init_BE, "update": update_BE},
+    "BW": {"init": init_BW, "update": update_BW},
+    "BY": {"init": init_BY, "update": update_BY},
+    "HB": {"init": init_HB, "update": update_HB},
+    "HE": {"init": init_HE, "update": update_HE},
+    "HH": {"init": init_HH, "update": update_HH},
+    "MV": {"init": init_MV, "update": update_MV},
+    "NI": {"init": init_NI, "update": update_NI},
+    "NW": {"init": init_NW, "update": update_NW},
+    "RP": {"init": init_RP, "update": update_RP},
+    "SH": {"init": init_SH, "update": update_SH},
+    "SL": {"init": init_SL, "update": update_SL},
+    "SN": {"init": init_SN, "update": update_SN},
+    "ST": {"init": init_ST, "update": update_ST},
+    "TH": {"init": init_TH, "update": update_TH},
+}
+
+
 def init_lhp_data(ident: str) -> StaticData:
     """Init LHP API data."""
-    static_data = None
-    if ident[0:3] == "BB_":
-        static_data = init_BB(ident)
-    elif ident[0:3] == "BE_":
-        static_data = init_BE(ident)
-    elif ident[0:3] == "BW_":
-        static_data = init_BW(ident)
-    elif ident[0:3] == "BY_":
-        static_data = init_BY(ident)
-    elif ident[0:3] == "HB_":
-        static_data = init_HB(ident)
-    elif ident[0:3] == "HE_":
-        static_data = init_HE(ident)
-    elif ident[0:3] == "HH_":
-        static_data = init_HH(ident)
-    elif ident[0:3] == "MV_":
-        static_data = init_MV(ident)
-    elif ident[0:3] == "NI_":
-        static_data = init_NI(ident)
-    elif ident[0:3] == "NW_":
-        static_data = init_NW(ident)
-    elif ident[0:3] == "RP_":
-        static_data = init_RP(ident)
-    elif ident[0:3] == "SH_":
-        static_data = init_SH(ident)
-    elif ident[0:3] == "SL_":
-        static_data = init_SL(ident)
-    elif ident[0:3] == "SN_":
-        static_data = init_SN(ident)
-    elif ident[0:3] == "ST_":
-        static_data = init_ST(ident)
-    elif ident[0:3] == "TH_":
-        static_data = init_TH(ident)
-
-    if static_data is not None:
+    prefix = ident[:2]
+    if prefix in FUNCTION_DICT:
+        static_data = FUNCTION_DICT[prefix]["init"](ident)
         if static_data.name is None:
             raise LHPError(
                 "Invalid ident given (nothing found)!", "__init__.py: init_lhp_data()"
@@ -71,42 +60,9 @@ def init_lhp_data(ident: str) -> StaticData:
 
 def update_lhp_data(static_data: StaticData) -> DynamicData:
     """Update data."""
-    dynamic_data = None
-    if static_data.ident[0:3] == "BB_":
-        dynamic_data = update_BB(static_data.ident)
-    elif static_data.ident[0:3] == "BE_":
-        dynamic_data = update_BE(static_data.url)
-    elif static_data.ident[0:3] == "BW_":
-        dynamic_data = update_BW(static_data.ident, static_data.stage_levels)
-    elif static_data.ident[0:3] == "BY_":
-        dynamic_data = update_BY(static_data.ident)
-    elif static_data.ident[0:3] == "HB_":
-        dynamic_data = update_HB(static_data.internal_url, static_data.stage_levels)
-    elif static_data.ident[0:3] == "HE_":
-        dynamic_data = update_HE(static_data.internal_url, static_data.stage_levels)
-    elif static_data.ident[0:3] == "HH_":
-        dynamic_data = update_HH(static_data.ident)
-    elif static_data.ident[0:3] == "MV_":
-        dynamic_data = update_MV(static_data.ident)
-    elif static_data.ident[0:3] == "NI_":
-        dynamic_data = update_NI(static_data.internal_url)
-    elif static_data.ident[0:3] == "NW_":
-        dynamic_data = update_NW(static_data.internal_url, static_data.stage_levels)
-    elif static_data.ident[0:3] == "RP_":
-        dynamic_data = update_RP(static_data.ident, static_data.stage_levels)
-    elif static_data.ident[0:3] == "SH_":
-        dynamic_data = update_SH(static_data.ident)
-    elif static_data.ident[0:3] == "SL_":
-        dynamic_data = update_SL(static_data.ident)
-    elif static_data.ident[0:3] == "SN_":
-        dynamic_data = update_SN(static_data.ident)
-    elif static_data.ident[0:3] == "ST_":
-        dynamic_data = update_ST(static_data.internal_url, static_data.stage_levels)
-    elif static_data.ident[0:3] == "TH_":
-        dynamic_data = update_TH(static_data.ident)
-
-    if dynamic_data is not None:
-        return dynamic_data
+    prefix = static_data.ident[:2]
+    if prefix in FUNCTION_DICT:
+        return FUNCTION_DICT[prefix]["update"](static_data)
     raise LHPError(
         "Invalid ident given (wrong first letters)!", "__init__.py: update_lhp_data()"
     )

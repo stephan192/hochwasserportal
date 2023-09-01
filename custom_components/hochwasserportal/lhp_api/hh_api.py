@@ -5,7 +5,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
 import datetime
 
 
-def init_HH(ident) -> StaticData:
+def init_HH(ident: str) -> StaticData:
     """Init data for Hamburg."""
     try:
         # Get data
@@ -30,13 +30,15 @@ def init_HH(ident) -> StaticData:
         raise LHPError(err, "hh_api.py: init_HH()") from err
 
 
-def update_HH(ident) -> DynamicData:
+def update_HH(static_data: StaticData) -> DynamicData:
     """Update data for Hamburg."""
     try:
         # Get data
         soup = fetch_soup("https://www.wabiha.de/karte.html")
         tooltipwrapper = soup.find("div", id="tooltipwrapper")
-        div = tooltipwrapper.find_next("div", id="tooltip-content-" + ident[3:])
+        div = tooltipwrapper.find_next(
+            "div", id="tooltip-content-" + static_data.ident[3:]
+        )
         spans = div.find_all("span")
         # Parse data
         last_update = None

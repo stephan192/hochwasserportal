@@ -5,7 +5,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
 import datetime
 
 
-def init_BY(ident) -> StaticData:
+def init_BY(ident: str) -> StaticData:
     """Init data for Bayern."""
     try:
         # Get data
@@ -24,12 +24,12 @@ def init_BY(ident) -> StaticData:
         raise LHPError(err, "by_api.py: init_BY()") from err
 
 
-def update_BY(ident) -> DynamicData:
+def update_BY(static_data: StaticData) -> DynamicData:
     """Update data for Bayern."""
     try:
         # Get data
         soup = fetch_soup("https://www.hnd.bayern.de/pegel")
-        img_id = "p" + ident[3:]
+        img_id = "p" + static_data.ident[3:]
         imgs = soup.find_all("img", id=img_id)
         data = imgs[0]
         # Parse data

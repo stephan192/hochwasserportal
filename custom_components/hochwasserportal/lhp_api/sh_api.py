@@ -6,7 +6,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
 import datetime
 
 
-def init_SH(ident) -> StaticData:
+def init_SH(ident: str) -> StaticData:
     """Init data for Schleswig-Holstein."""
     try:
         # Get data
@@ -35,7 +35,7 @@ def init_SH(ident) -> StaticData:
         raise LHPError(err, "sh_api.py: init_SH()") from err
 
 
-def update_SH(ident) -> DynamicData:
+def update_SH(static_data: StaticData) -> DynamicData:
     """Update data for Schleswig-Holstein."""
     level = None
     flow = None
@@ -44,7 +44,7 @@ def update_SH(ident) -> DynamicData:
     try:
         # Get data
         soup = fetch_soup("https://hsi-sh.de")
-        search_string = "dialogheader-" + ident[3:]
+        search_string = "dialogheader-" + static_data.ident[3:]
         headings = soup.find_all("h1", id=search_string)
         # Parse data
         heading = headings[0]

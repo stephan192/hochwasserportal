@@ -5,7 +5,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_json, calc_stage
 import datetime
 
 
-def init_NW(ident) -> StaticData:
+def init_NW(ident: str) -> StaticData:
     """Init data for Nordrhein-Westfalen."""
     try:
         # Get stations data
@@ -71,11 +71,11 @@ def init_NW(ident) -> StaticData:
         raise LHPError(err, "nw_api.py: init_NW()") from err
 
 
-def update_NW(internal_url, stage_levels) -> DynamicData:
+def update_NW(static_data: StaticData) -> DynamicData:
     """Update data for Nordrhein-Westfalen."""
     try:
         # Get data
-        data = fetch_json(internal_url + "/S/week.json")
+        data = fetch_json(static_data.internal_url + "/S/week.json")
         # Parse data
         if (
             "data" in data[0]
@@ -83,7 +83,7 @@ def update_NW(internal_url, stage_levels) -> DynamicData:
             and len(data[0]["data"]) > 0
         ):
             level = float(data[0]["data"][-1][1])
-            stage = calc_stage(level, stage_levels)
+            stage = calc_stage(level, static_data.stage_levels)
             # Extract the last update timestamp from the JSON data
             last_update_str = data[0]["data"][-1][0]
             # Convert the string timestamp to a datetime object

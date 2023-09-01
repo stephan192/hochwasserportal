@@ -5,7 +5,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_json, calc_stage
 import datetime
 
 
-def init_HE(ident) -> StaticData:
+def init_HE(ident: str) -> StaticData:
     """Init data for Hessen."""
     try:
         name = None
@@ -74,18 +74,18 @@ def init_HE(ident) -> StaticData:
     )
 
 
-def update_HE(internal_url, stage_levels) -> DynamicData:
+def update_HE(static_data: StaticData) -> DynamicData:
     """Update data for Hessen."""
     last_update_str_w = None
     try:
         # Get data
-        data = fetch_json(internal_url + "/W/week.json")
+        data = fetch_json(static_data.internal_url + "/W/week.json")
         # Parse data
         for dataset in data:
             if dataset["ts_name"] == "15.P":
                 last_update_str_w = dataset["data"][-1][0]
                 level = float(dataset["data"][-1][1])
-                stage = calc_stage(level, stage_levels)
+                stage = calc_stage(level, static_data.stage_levels)
                 break
     except:
         level = None
@@ -94,7 +94,7 @@ def update_HE(internal_url, stage_levels) -> DynamicData:
     last_update_str_q = None
     try:
         # Get data
-        data = fetch_json(internal_url + "/Q/week.json")
+        data = fetch_json(static_data.internal_url + "/Q/week.json")
         # Parse data
         for dataset in data:
             if dataset["ts_name"] == "15.P":

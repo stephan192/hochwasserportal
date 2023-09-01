@@ -5,7 +5,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_text
 import datetime
 
 
-def init_SL(ident) -> StaticData:
+def init_SL(ident: str) -> StaticData:
     """Init data for Saarland."""
     try:
         # Get data
@@ -30,7 +30,7 @@ def init_SL(ident) -> StaticData:
         raise LHPError(err, "sl_api.py: init_SL()") from err
 
 
-def update_SL(ident) -> DynamicData:
+def update_SL(static_data: StaticData) -> DynamicData:
     """Update data for Saarland."""
     try:
         # Get data
@@ -38,7 +38,7 @@ def update_SL(ident) -> DynamicData:
         lines = page.split("\r\n")
         # Parse data
         for line in lines:
-            if (line.find("Pegel(") != -1) and (line.find(ident[3:]) != -1):
+            if (line.find("Pegel(") != -1) and (line.find(static_data.ident[3:]) != -1):
                 content = line[line.find("Pegel(") + 6 : line.find(");")]
                 content = content.replace("'", "")
                 elements = content.split(",")

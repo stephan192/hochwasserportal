@@ -10,24 +10,24 @@ This Home Assistant integration started as integration for the [Länderübergrei
 * :heavy_check_mark: Value mostly available. Check individual state portal because not all stream gauges report all values.
 * :x: Value generally yet not available.
 
-| Ident | State                  | Level              | Stage              | Flow               | Portal |
-|-------|------------------------|--------------------|--------------------|--------------------|--------|
-| BB    | Brandenburg            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Pegelportal Brandenburg](https://pegelportal.brandenburg.de) |
-| BE    | Berlin                 | :heavy_check_mark: | :x:                | :heavy_check_mark: | [Wasserportal Berlin](https://wasserportal.berlin.de) |
-| BW    | Baden-Württemberg      | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwasservorhersagezentrale Baden-Württemberg](https://www.hvz.baden-wuerttemberg.de) |
-| BY    | Bayern                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwassernachrichtendienst Bayern](https://www.hnd.bayern.de) |
-| HB    | Bremen                 | :heavy_check_mark: | :heavy_check_mark: | :x:                | [Pegelstände Bremen](https://geoportale.dp.dsecurecloud.de/pegelbremen) |
-| HE    | Hessen                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwasserportal Hessen](https://www.hochwasser-hessen.de) |
-| HH    | Hamburg                | :heavy_check_mark: | :heavy_check_mark: | :x:                | [Warndienst Binnenhochwasser Hamburg](https://www.wabiha.de/karte.html) |
-| MV    | Mecklenburg-Vorpommern | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Pegelportal Mecklenburg-Vorpommern](https://pegelportal-mv.de) |
-| NI    | Niedersachsen          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [NLWKN Pegelonline](https://www.pegelonline.nlwkn.niedersachsen.de) |
-| NW    | Nordrhein-Westfalen    | :heavy_check_mark: | :heavy_check_mark: | :x:                | [Hochwassermeldedienst NRW](https://www.hochwasserportal.nrw.de)|
-| RP    | Rheinland-Pfalz        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwasservorhersagedienst - Landesamt für Umwelt Rheinland-Pfalz](https://hochwasser.rlp.de)|
-| SH    | Schleswig-Holstein     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwasser-Sturmflut-Information Schleswig-Holstein](https://hsi-sh.de) |
-| SL    | Saarland               | :heavy_check_mark: | :heavy_check_mark: | :x:                | [Pegel Saarland](https://www.saarland.de/mukmav/DE/portale/wasser/informationen/hochwassermeldedienst/wasserstaende_warnlage/wasserstaende_warnlage_node.html) |
-| SN    | Sachsen                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Landeshochwasserzentrum Sachsen](https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/wasserstand-uebersicht) |
-| ST    | Sachsen-Anhalt         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Landesportal Sachsen-Anhalt](https://hochwasservorhersage.sachsen-anhalt.de) |
-| TH    | Thüringen              | :heavy_check_mark: | :x:                | :heavy_check_mark: | [Hochwassernachrichtenzentrale Thüringen](https://hnz.thueringen.de/hw-portal) |
+| Prefix | State                  | Level              | Stage              | Flow               | Portal |
+|--------|------------------------|--------------------|--------------------|--------------------|--------|
+| BB     | Brandenburg            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Pegelportal Brandenburg](https://pegelportal.brandenburg.de) |
+| BE     | Berlin                 | :heavy_check_mark: | :x:                | :heavy_check_mark: | [Wasserportal Berlin](https://wasserportal.berlin.de) |
+| BW     | Baden-Württemberg      | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwasservorhersagezentrale Baden-Württemberg](https://www.hvz.baden-wuerttemberg.de) |
+| BY     | Bayern                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwassernachrichtendienst Bayern](https://www.hnd.bayern.de) |
+| HB     | Bremen                 | :heavy_check_mark: | :heavy_check_mark: | :x:                | [Pegelstände Bremen](https://geoportale.dp.dsecurecloud.de/pegelbremen) |
+| HE     | Hessen                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwasserportal Hessen](https://www.hochwasser-hessen.de) |
+| HH     | Hamburg                | :heavy_check_mark: | :heavy_check_mark: | :x:                | [Warndienst Binnenhochwasser Hamburg](https://www.wabiha.de/karte.html) |
+| MV     | Mecklenburg-Vorpommern | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Pegelportal Mecklenburg-Vorpommern](https://pegelportal-mv.de) |
+| NI     | Niedersachsen          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [NLWKN Pegelonline](https://www.pegelonline.nlwkn.niedersachsen.de) |
+| NW     | Nordrhein-Westfalen    | :heavy_check_mark: | :heavy_check_mark: | :x:                | [Hochwassermeldedienst NRW](https://www.hochwasserportal.nrw.de)|
+| RP     | Rheinland-Pfalz        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwasservorhersagedienst - Landesamt für Umwelt Rheinland-Pfalz](https://hochwasser.rlp.de)|
+| SH     | Schleswig-Holstein     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwasser-Sturmflut-Information Schleswig-Holstein](https://hsi-sh.de) |
+| SL     | Saarland               | :heavy_check_mark: | :heavy_check_mark: | :x:                | [Pegel Saarland](https://www.saarland.de/mukmav/DE/portale/wasser/informationen/hochwassermeldedienst/wasserstaende_warnlage/wasserstaende_warnlage_node.html) |
+| SN     | Sachsen                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Landeshochwasserzentrum Sachsen](https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/wasserstand-uebersicht) |
+| ST     | Sachsen-Anhalt         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Landesportal Sachsen-Anhalt](https://hochwasservorhersage.sachsen-anhalt.de) |
+| TH     | Thüringen              | :heavy_check_mark: | :x:                | :heavy_check_mark: | [Hochwassernachrichtenzentrale Thüringen](https://hnz.thueringen.de/hw-portal) |
 
 ## Notes
 * Not all stream gauges report all three values. If one or more values are unavailable check official site if stream gauge is down or if not which values are reported.

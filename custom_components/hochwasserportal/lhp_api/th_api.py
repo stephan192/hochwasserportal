@@ -5,7 +5,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
 import datetime
 
 
-def init_TH(ident) -> StaticData:
+def init_TH(ident: str) -> StaticData:
     """Init data for Thüringen."""
     try:
         # Get data
@@ -36,7 +36,7 @@ def init_TH(ident) -> StaticData:
         raise LHPError(err, "th_api.py: init_TH()") from err
 
 
-def update_TH(ident) -> DynamicData:
+def update_TH(static_data: StaticData) -> DynamicData:
     """Update data for Thüringen."""
     level = None
     flow = None
@@ -52,7 +52,7 @@ def update_TH(ident) -> DynamicData:
             tds = tr.find_all("td")
             cnt = 0
             for td in tds:
-                if (cnt == 1) and (td.getText().strip() != ident[3:]):
+                if (cnt == 1) and (td.getText().strip() != static_data.ident[3:]):
                     break
                 if cnt == 7:
                     last_update_str = td.getText().strip()

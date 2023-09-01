@@ -6,7 +6,7 @@ import datetime
 import re
 
 
-def init_MV(ident) -> StaticData:
+def init_MV(ident: str) -> StaticData:
     """Init data for Mecklenburg-Vorpommern."""
     try:
         # Get data
@@ -35,14 +35,14 @@ def init_MV(ident) -> StaticData:
         raise LHPError(err, "mv_api.py: init_MV()") from err
 
 
-def update_MV(ident) -> DynamicData:
+def update_MV(static_data: StaticData) -> DynamicData:
     """Update data for Mecklenburg-Vorpommern."""
     try:
         # Get data
         soup = fetch_soup("https://pegelportal-mv.de/pegel_list.html")
         table = soup.find("table", id="pegeltab")
         tbody = table.find("tbody")
-        search_string = re.compile(ident[3:])
+        search_string = re.compile(static_data.ident[3:])
         link = tbody.find_next("a", href=search_string)
         tr = link.parent.parent
         tds = tr.find_all("td")

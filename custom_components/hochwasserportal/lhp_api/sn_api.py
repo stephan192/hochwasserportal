@@ -5,7 +5,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
 import datetime
 
 
-def init_SN(ident) -> StaticData:
+def init_SN(ident: str) -> StaticData:
     """Init data for Sachsen."""
     try:
         # Get data
@@ -25,7 +25,7 @@ def init_SN(ident) -> StaticData:
         raise LHPError(err, "sn_api.py: init_SN()") from err
 
 
-def update_SN(ident) -> DynamicData:
+def update_SN(static_data: StaticData) -> DynamicData:
     """Update data for Sachsen."""
     try:
         # Get data
@@ -33,7 +33,7 @@ def update_SN(ident) -> DynamicData:
             "https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/wasserstand-uebersicht"
         )
         karte = soup.find_all("div", class_="karteWrapper")[0]
-        link = karte.find_all("a", href="wasserstand-pegel-" + ident[3:])[0]
+        link = karte.find_all("a", href="wasserstand-pegel-" + static_data.ident[3:])[0]
         # Parse data
         if "meldePegel" in link.attrs["class"]:
             stage_colors = {
@@ -74,7 +74,7 @@ def update_SN(ident) -> DynamicData:
                 data.getText().strip().split()[0], "%d.%m.%Y%H:%M"
             )
         except:
-            self.last_update = None
+            last_update = None
         return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "sn_api.py: update_SN()") from err

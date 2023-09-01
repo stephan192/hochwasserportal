@@ -5,7 +5,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_soup, fetch_text
 import datetime
 
 
-def init_BE(ident) -> StaticData:
+def init_BE(ident: str) -> StaticData:
     """Init data for Berlin."""
     try:
         # Get data
@@ -34,12 +34,16 @@ def init_BE(ident) -> StaticData:
         raise LHPError(err, "be_api.py: init_BE()") from err
 
 
-def update_BE(url) -> DynamicData:
+def update_BE(static_data: StaticData) -> DynamicData:
     """Update data for Berlin."""
     try:
         # Get data and parse level data
         yesterday = datetime.date.today() - datetime.timedelta(days=1)
-        query = url + "&sreihe=ew&smode=c&sdatum=" + yesterday.strftime("%d.%m.%Y")
+        query = (
+            static_data.url
+            + "&sreihe=ew&smode=c&sdatum="
+            + yesterday.strftime("%d.%m.%Y")
+        )
         data = fetch_text(query)
         lines = data.split("\n")
         lines.reverse()

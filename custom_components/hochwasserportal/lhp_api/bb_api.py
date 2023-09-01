@@ -5,7 +5,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_text
 import datetime
 
 
-def fix_bb_encoding(string_in) -> str:
+def fix_bb_encoding(string_in: str) -> str:
     """Fix utf-8 encoding for BB"""
     replace = False
     cnt = 0
@@ -50,7 +50,7 @@ def fix_bb_encoding(string_in) -> str:
     return string_out
 
 
-def init_BB(ident) -> StaticData:
+def init_BB(ident: str) -> StaticData:
     """Init data for Brandenburg."""
     try:
         # Get data
@@ -86,7 +86,7 @@ def init_BB(ident) -> StaticData:
         raise LHPError(err, "bb_api.py: init_BB()") from err
 
 
-def update_BB(ident) -> DynamicData:
+def update_BB(static_data: StaticData) -> DynamicData:
     """Update data for Brandenburg."""
     try:
         # Get data
@@ -97,7 +97,7 @@ def update_BB(ident) -> DynamicData:
         prev_line = None
         for line in lines:
             line = line.strip()
-            if line == "pkz: '" + ident[3:] + "',":
+            if line == "pkz: '" + static_data.ident[3:] + "',":
                 start_found = True
                 stage_valid = bool(prev_line == "pegel: 'bbalarm',")
                 continue

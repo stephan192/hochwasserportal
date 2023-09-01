@@ -5,7 +5,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_json
 import datetime
 
 
-def init_NI(ident) -> StaticData:
+def init_NI(ident: str) -> StaticData:
     """Init data for Niedersachsen."""
     try:
         # Get data
@@ -37,11 +37,11 @@ def init_NI(ident) -> StaticData:
         raise LHPError(err, "ni_api.py: init_NI()") from err
 
 
-def update_NI(internal_url) -> DynamicData:
+def update_NI(static_data: StaticData) -> DynamicData:
     """Update data for Niedersachsen."""
     try:
         # Get data
-        data = fetch_json(internal_url)
+        data = fetch_json(static_data.internal_url)
         # Parse data
         try:
             stage = int(

@@ -6,7 +6,7 @@ import datetime
 import json
 
 
-def init_BW(ident) -> StaticData:
+def init_BW(ident: str) -> StaticData:
     """Init data for Baden-Württemberg."""
     try:
         # Get data
@@ -40,7 +40,7 @@ def init_BW(ident) -> StaticData:
         raise LHPError(err, "bw_api.py: init_BW()") from err
 
 
-def update_BW(ident, stage_levels) -> DynamicData:
+def update_BW(static_data: StaticData) -> DynamicData:
     """Update data for Baden-Württemberg."""
     try:
         # Get data
@@ -54,11 +54,11 @@ def update_BW(ident, stage_levels) -> DynamicData:
             content = content.replace("'", '"')
             content = '{ "data":' + content + "}"
             data = json.loads(content)["data"]
-            if data[0] == ident[3:]:
+            if data[0] == static_data.ident[3:]:
                 try:
                     if data[5] == "cm":
                         level = float(data[4])
-                        stage = calc_stage(level, stage_levels)
+                        stage = calc_stage(level, static_data.stage_levels)
                         try:
                             dt = data[6].split()
                             last_update = datetime.datetime.strptime(

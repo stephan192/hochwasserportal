@@ -12,7 +12,7 @@ from .api_utils import (
 import datetime
 
 
-def init_HB(ident) -> StaticData:
+def init_HB(ident: str) -> StaticData:
     """Init data for Bremen."""
     try:
         # Get data from Pegelstände Bremen
@@ -48,38 +48,42 @@ def init_HB(ident) -> StaticData:
                 )
                 break
         # Parse data - Collect stage levels from Pegelstände Bremen
-        prop_string = pb_page[pb_page.find("Stations:{") + 10 :].strip()
-        prop_string = prop_string[prop_string.find("properties:[") + 12 :].strip()
-        prop_string = prop_string[: prop_string.find(")]}")].strip()
-        prop_string = prop_string[prop_string.find(station_name) - 1 :].strip()
-        prop_string = prop_string[: prop_string.find(")")].strip()
-        if prop_string.find("[") != -1:
-            sl_string = prop_string[prop_string.find("[") + 1 : prop_string.find("]")]
-            stage_levels = sl_string.split(",")
-            stage_levels = [float(sl) for sl in stage_levels]
-            while len(stage_levels) < 4:
-                stage_levels.append(None)
-        return StaticData(
-            ident=ident,
-            name=name,
-            internal_url=internal_url,
-            url=url,
-            stage_levels=stage_levels,
-        )
+        if "station_name" in locals():
+            prop_string = pb_page[pb_page.find("Stations:{") + 10 :].strip()
+            prop_string = prop_string[prop_string.find("properties:[") + 12 :].strip()
+            prop_string = prop_string[: prop_string.find(")]}")].strip()
+            prop_string = prop_string[prop_string.find(station_name) - 1 :].strip()
+            prop_string = prop_string[: prop_string.find(")")].strip()
+            if prop_string.find("[") != -1:
+                sl_string = prop_string[
+                    prop_string.find("[") + 1 : prop_string.find("]")
+                ]
+                stage_levels = sl_string.split(",")
+                stage_levels = [float(sl) for sl in stage_levels]
+                while len(stage_levels) < 4:
+                    stage_levels.append(None)
+            return StaticData(
+                ident=ident,
+                name=name,
+                internal_url=internal_url,
+                url=url,
+                stage_levels=stage_levels,
+            )
+        return StaticData(ident=ident)
     except Exception as err:
         raise LHPError(err, "hb_api.py: init_HB()") from err
 
 
-def update_HB(internal_url, stage_levels) -> DynamicData:
+def update_HB(static_data: StaticData) -> DynamicData:
     """Update data for Bremen."""
     try:
         # Get data
-        data = fetch_json(internal_url)
+        data = fetch_json(static_data.internal_url)
         # Parse data
         if len(data) > 0:
             try:
                 level = float(data[-1]["value"])
-                stage = calc_stage(level, stage_levels)
+                stage = calc_stage(level, static_data.stage_levels)
             except:
                 level = None
                 stage = None

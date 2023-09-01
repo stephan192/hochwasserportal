@@ -5,7 +5,7 @@ from .api_utils import LHPError, StaticData, DynamicData, fetch_json, calc_stage
 import datetime
 
 
-def init_RP(ident) -> StaticData:
+def init_RP(ident: str) -> StaticData:
     """Init data for Rheinland-Pfalz."""
     try:
         # Get data
@@ -46,18 +46,18 @@ def init_RP(ident) -> StaticData:
         raise LHPError(err, "rp_api.py: init_RP()") from err
 
 
-def update_RP(ident, stage_levels) -> DynamicData:
+def update_RP(static_data: StaticData) -> DynamicData:
     """Update data for Rheinland-Pfalz."""
     try:
         # Get data
         data = fetch_json(
-            "https://hochwasser.rlp.de/api/v1/measurement-site/" + ident[3:]
+            "https://hochwasser.rlp.de/api/v1/measurement-site/" + static_data.ident[3:]
         )
         # Parse data
         last_update_str = None
         try:
             level = float(data["W"]["yLast"])
-            stage = calc_stage(level, stage_levels)
+            stage = calc_stage(level, static_data.stage_levels)
             last_update_str = data["W"]["xLast"][:-1] + "+00:00"
         except:
             level = None
