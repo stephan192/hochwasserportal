@@ -1,9 +1,12 @@
 """The Länderübergreifendes Hochwasser Portal API - Utility functions."""
 
 from __future__ import annotations
+
 from datetime import datetime
-import requests
-import bs4
+from typing import Any
+
+from bs4 import BeautifulSoup
+from requests import get
 
 
 class LHPError(Exception):
@@ -58,10 +61,10 @@ class DynamicData:
         self.last_update = last_update
 
 
-def fetch_json(url, timeout=10):
+def fetch_json(url: str, timeout: float = 10.0) -> Any:
     """Fetch data via json."""
     try:
-        response = requests.get(url, timeout=timeout)
+        response = get(url=url, timeout=timeout)
         response.raise_for_status()
         json_data = response.json()
         return json_data
@@ -70,10 +73,12 @@ def fetch_json(url, timeout=10):
         return None
 
 
-def fetch_soup(url, timeout=10, remove_xml=False):
+def fetch_soup(
+    url: str, timeout: float = 10.0, remove_xml: bool = False
+) -> BeautifulSoup:
     """Fetch data via soup."""
     try:
-        response = requests.get(url, timeout=timeout)
+        response = get(url=url, timeout=timeout)
         # Override encoding by real educated guess (required for SH)
         response.encoding = response.apparent_encoding
         response.raise_for_status()
@@ -81,19 +86,19 @@ def fetch_soup(url, timeout=10, remove_xml=False):
             (response.text.find('<?xml version="1.0" encoding="ISO-8859-15" ?>')) == 0
         ):
             text = response.text[response.text.find("<!DOCTYPE html>") :]
-            soup = bs4.BeautifulSoup(text, "lxml")
+            soup = BeautifulSoup(text, "lxml")
         else:
-            soup = bs4.BeautifulSoup(response.text, "lxml")
+            soup = BeautifulSoup(response.text, "lxml")
         return soup
     except:
         # Don't care about errors because in some cases the requested page doesn't exist
         return None
 
 
-def fetch_text(url, timeout=10, forced_encoding=None):
+def fetch_text(url: str, timeout: float = 10.0, forced_encoding: str = None) -> str:
     """Fetch data via text."""
     try:
-        response = requests.get(url, timeout=timeout)
+        response = get(url=url, timeout=timeout)
         if forced_encoding is not None:
             response.encoding = forced_encoding
         else:
@@ -106,7 +111,7 @@ def fetch_text(url, timeout=10, forced_encoding=None):
         return None
 
 
-def calc_stage(level, stage_levels):
+def calc_stage(level: float, stage_levels: list[float]) -> int:
     """Calc stage from level and stage levels."""
     if all(sl is None for sl in stage_levels):
         return None
