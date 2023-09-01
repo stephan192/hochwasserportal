@@ -1,18 +1,20 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Bremen."""
 
 from __future__ import annotations
+
+from datetime import datetime
+
 from .api_utils import (
+    DynamicData,
     LHPError,
     StaticData,
-    DynamicData,
+    calc_stage,
     fetch_json,
     fetch_text,
-    calc_stage,
 )
-import datetime
 
 
-def init_HB(ident: str) -> StaticData:
+def init_HB(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Bremen."""
     try:
         # Get data from Pegelstände Bremen
@@ -31,20 +33,20 @@ def init_HB(ident: str) -> StaticData:
         stations_names = [station.replace('"', "") for station in stations]
         stations_names_upper = [station.upper() for station in stations_names]
         # Parse data - Collect data from PegelOnlie
-        for pe in pe_stations:
-            if pe["number"] == ident[3:]:
+        for pe_st in pe_stations:
+            if pe_st["number"] == ident[3:]:
                 station_name = stations_names[
-                    stations_names_upper.index(pe["longname"])
+                    stations_names_upper.index(pe_st["longname"])
                 ]
-                name = station_name + " / " + pe["water"]["longname"].capitalize()
+                name = station_name + " / " + pe_st["water"]["longname"].capitalize()
                 internal_url = (
                     "https://www.pegelonline.wsv.de/webservices/rest-api/v2/stations/"
-                    + pe["uuid"]
+                    + pe_st["uuid"]
                     + "/W/measurements.json?start=P1D"
                 )
                 url = (
                     "https://pegelonline.wsv.de/webservices/zeitreihe/visualisierung?pegeluuid="
-                    + pe["uuid"]
+                    + pe_st["uuid"]
                 )
                 break
         # Parse data - Collect stage levels from Pegelstände Bremen
@@ -74,7 +76,7 @@ def init_HB(ident: str) -> StaticData:
         raise LHPError(err, "hb_api.py: init_HB()") from err
 
 
-def update_HB(static_data: StaticData) -> DynamicData:
+def update_HB(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Bremen."""
     try:
         # Get data
@@ -88,7 +90,7 @@ def update_HB(static_data: StaticData) -> DynamicData:
                 level = None
                 stage = None
             try:
-                last_update = datetime.datetime.fromisoformat(data[-1]["timestamp"])
+                last_update = datetime.fromisoformat(data[-1]["timestamp"])
             except:
                 last_update = None
         return DynamicData(level=level, stage=stage, last_update=last_update)

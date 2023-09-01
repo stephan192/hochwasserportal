@@ -1,11 +1,13 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Berlin."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_soup, fetch_text
-import datetime
+
+from datetime import date, datetime, timedelta
+
+from .api_utils import DynamicData, LHPError, StaticData, fetch_soup, fetch_text
 
 
-def init_BE(ident: str) -> StaticData:
+def init_BE(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Berlin."""
     try:
         # Get data
@@ -17,8 +19,8 @@ def init_BE(ident: str) -> StaticData:
         table = page.find("table", id="pegeltab")
         tbody = table.find("tbody")
         trs = tbody.find_all("tr")
-        for tr in trs:
-            tds = tr.find_all("td")
+        for row in trs:
+            tds = row.find_all("td")
             if len(tds) == 10:
                 if (tds[0].getText().strip() == ident[3:]) and (
                     tds[0].find_next("a")["href"][:12] == "station.php?"
@@ -34,11 +36,11 @@ def init_BE(ident: str) -> StaticData:
         raise LHPError(err, "be_api.py: init_BE()") from err
 
 
-def update_BE(static_data: StaticData) -> DynamicData:
+def update_BE(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Berlin."""
     try:
         # Get data and parse level data
-        yesterday = datetime.date.today() - datetime.timedelta(days=1)
+        yesterday = date.today() - timedelta(days=1)
         query = (
             static_data.url
             + "&sreihe=ew&smode=c&sdatum="
@@ -56,7 +58,7 @@ def update_BE(static_data: StaticData) -> DynamicData:
                     try:
                         level = float(values[1].replace(",", "."))
                         if int(level) != -777:
-                            last_update = datetime.datetime.strptime(
+                            last_update = datetime.strptime(
                                 values[0], '"%d.%m.%Y %H:%M"'
                             )
                             break
@@ -77,7 +79,7 @@ def update_BE(static_data: StaticData) -> DynamicData:
                         flow = float(values[1].replace(",", "."))
                         if int(flow) != -777:
                             if last_update is None:
-                                last_update = datetime.datetime.strptime(
+                                last_update = datetime.strptime(
                                     values[0], '"%d.%m.%Y %H:%M"'
                                 )
                             break

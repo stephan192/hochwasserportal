@@ -1,12 +1,14 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Mecklenburg-Vorpommern."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
-import datetime
+
 import re
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, fetch_soup
 
 
-def init_MV(ident: str) -> StaticData:
+def init_MV(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Mecklenburg-Vorpommern."""
     try:
         # Get data
@@ -15,15 +17,15 @@ def init_MV(ident: str) -> StaticData:
         tbody = table.find("tbody")
         search_string = re.compile(ident[3:])
         link = tbody.find_next("a", href=search_string)
-        tr = link.parent.parent
-        tds = tr.find_all("td")
+        row = link.parent.parent
+        tds = row.find_all("td")
         # Parse data
         cnt = 0
-        for td in tds:
+        for tdata in tds:
             if cnt == 0:
-                name = td.getText().strip()
+                name = tdata.getText().strip()
             elif cnt == 1:
-                name += " / " + td.getText().strip()
+                name += " / " + tdata.getText().strip()
                 break
             cnt += 1
         if ident.find(".") != -1:
@@ -35,7 +37,7 @@ def init_MV(ident: str) -> StaticData:
         raise LHPError(err, "mv_api.py: init_MV()") from err
 
 
-def update_MV(static_data: StaticData) -> DynamicData:
+def update_MV(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Mecklenburg-Vorpommern."""
     try:
         # Get data
@@ -44,29 +46,29 @@ def update_MV(static_data: StaticData) -> DynamicData:
         tbody = table.find("tbody")
         search_string = re.compile(static_data.ident[3:])
         link = tbody.find_next("a", href=search_string)
-        tr = link.parent.parent
-        tds = tr.find_all("td")
+        row = link.parent.parent
+        tds = row.find_all("td")
         # Parse data
         cnt = 0
-        for td in tds:
+        for tdata in tds:
             if cnt == 2:
                 try:
-                    last_update = datetime.datetime.strptime(
-                        td.getText().strip(), "%d.%m.%Y %H:%M"
+                    last_update = datetime.strptime(
+                        tdata.getText().strip(), "%d.%m.%Y %H:%M"
                     )
                 except:
                     last_update = None
             elif cnt == 3:
                 try:
-                    level = float(td.getText().strip())
+                    level = float(tdata.getText().strip())
                 except:
                     level = None
             elif cnt == 4:
                 try:
-                    flow = float(td.getText().strip())
+                    flow = float(tdata.getText().strip())
                 except:
                     flow = None
-                img = td.find_next("img")
+                img = tdata.find_next("img")
                 try:
                     splits = img["title"].strip().split()
                     if splits[0] == "Pegel-Stufe":

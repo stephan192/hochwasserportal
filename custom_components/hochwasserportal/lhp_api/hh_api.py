@@ -1,11 +1,13 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Hamburg."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, fetch_soup
 
 
-def init_HH(ident: str) -> StaticData:
+def init_HH(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Hamburg."""
     try:
         # Get data
@@ -30,7 +32,7 @@ def init_HH(ident: str) -> StaticData:
         raise LHPError(err, "hh_api.py: init_HH()") from err
 
 
-def update_HH(static_data: StaticData) -> DynamicData:
+def update_HH(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Hamburg."""
     try:
         # Get data
@@ -56,7 +58,7 @@ def update_HH(static_data: StaticData) -> DynamicData:
             except:
                 level = None
             try:
-                last_update = datetime.datetime.strptime(
+                last_update = datetime.strptime(
                     text[
                         text.find("\u00A0\u00A0\u00A0 um") + 6 : text.find("Trend")
                     ].strip(),

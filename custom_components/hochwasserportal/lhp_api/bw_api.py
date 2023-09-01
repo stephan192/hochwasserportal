@@ -1,12 +1,14 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Baden-Württemberg."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_text, calc_stage
-import datetime
-import json
+
+from datetime import datetime
+from json import loads
+
+from .api_utils import DynamicData, LHPError, StaticData, calc_stage, fetch_text
 
 
-def init_BW(ident: str) -> StaticData:
+def init_BW(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Baden-Württemberg."""
     try:
         # Get data
@@ -19,7 +21,7 @@ def init_BW(ident: str) -> StaticData:
             content = line[line.find("[") : (line.find("]") + 1)]
             content = content.replace("'", '"')
             content = '{ "data":' + content + "}"
-            data = json.loads(content)["data"]
+            data = loads(content)["data"]
             if data[0] == ident[3:]:
                 name = data[1] + " / " + data[2]
                 url = "https://hvz.baden-wuerttemberg.de/pegel.html?id=" + ident[3:]
@@ -40,7 +42,7 @@ def init_BW(ident: str) -> StaticData:
         raise LHPError(err, "bw_api.py: init_BW()") from err
 
 
-def update_BW(static_data: StaticData) -> DynamicData:
+def update_BW(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Baden-Württemberg."""
     try:
         # Get data
@@ -53,16 +55,16 @@ def update_BW(static_data: StaticData) -> DynamicData:
             content = line[line.find("[") : (line.find("]") + 1)]
             content = content.replace("'", '"')
             content = '{ "data":' + content + "}"
-            data = json.loads(content)["data"]
+            data = loads(content)["data"]
             if data[0] == static_data.ident[3:]:
                 try:
                     if data[5] == "cm":
                         level = float(data[4])
                         stage = calc_stage(level, static_data.stage_levels)
                         try:
-                            dt = data[6].split()
-                            last_update = datetime.datetime.strptime(
-                                dt[0] + dt[1], "%d.%m.%Y%H:%M"
+                            parts = data[6].split()
+                            last_update = datetime.strptime(
+                                parts[0] + parts[1], "%d.%m.%Y%H:%M"
                             )
                         except:
                             last_update = None
@@ -81,9 +83,9 @@ def update_BW(static_data: StaticData) -> DynamicData:
                     flow = None
                 if last_update is None:
                     try:
-                        dt = data[9].split()
-                        last_update = datetime.datetime.strptime(
-                            dt[0] + dt[1], "%d.%m.%Y%H:%M"
+                        parts = data[9].split()
+                        last_update = datetime.strptime(
+                            parts[0] + parts[1], "%d.%m.%Y%H:%M"
                         )
                     except:
                         last_update = None

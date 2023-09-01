@@ -1,11 +1,13 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Hessen."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_json, calc_stage
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, calc_stage, fetch_json
 
 
-def init_HE(ident: str) -> StaticData:
+def init_HE(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Hessen."""
     try:
         name = None
@@ -24,7 +26,8 @@ def init_HE(ident: str) -> StaticData:
                     + station["WTO_OBJECT"].strip()
                 )
                 url = (
-                    "https://www.hlnug.de/static/pegel/wiskiweb3/webpublic/#/overview/Wasserstand/station/"
+                    "https://www.hlnug.de/static/pegel/wiskiweb3/webpublic/#"
+                    + "/overview/Wasserstand/station/"
                     + station["station_id"]
                     + "/"
                     + station["station_name"]
@@ -74,7 +77,7 @@ def init_HE(ident: str) -> StaticData:
     )
 
 
-def update_HE(static_data: StaticData) -> DynamicData:
+def update_HE(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Hessen."""
     last_update_str_w = None
     try:
@@ -106,9 +109,9 @@ def update_HE(static_data: StaticData) -> DynamicData:
 
     last_update = None
     if level is not None:
-        last_update = datetime.datetime.fromisoformat(last_update_str_w)
+        last_update = datetime.fromisoformat(last_update_str_w)
     elif flow is not None:
-        last_update = datetime.datetime.fromisoformat(last_update_str_q)
+        last_update = datetime.fromisoformat(last_update_str_q)
     if last_update is not None:
         return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     raise LHPError("An error occured while fetching data!", "he_api.py: update_HE()")

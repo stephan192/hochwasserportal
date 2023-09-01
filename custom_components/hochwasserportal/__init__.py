@@ -5,9 +5,9 @@ from __future__ import annotations
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from .lhp_api import HochwasserPortalAPI, LHPError
-from .const import CONF_PEGEL_IDENTIFIER, DOMAIN, PLATFORMS, LOGGER
+from .const import CONF_PEGEL_IDENTIFIER, DOMAIN, LOGGER, PLATFORMS
 from .coordinator import HochwasserPortalCoordinator
+from .lhp_api import HochwasserPortalAPI, LHPError
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

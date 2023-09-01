@@ -1,16 +1,19 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Sachsen."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, fetch_soup
 
 
-def init_SN(ident: str) -> StaticData:
+def init_SN(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Sachsen."""
     try:
         # Get data
         soup = fetch_soup(
-            "https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/wasserstand-uebersicht"
+            "https://www.umwelt.sachsen.de/umwelt/infosysteme"
+            + "/hwims/portal/web/wasserstand-uebersicht"
         )
         karte = soup.find_all("div", class_="karteWrapper")[0]
         link = karte.find_all("a", href="wasserstand-pegel-" + ident[3:])[0]
@@ -25,12 +28,13 @@ def init_SN(ident: str) -> StaticData:
         raise LHPError(err, "sn_api.py: init_SN()") from err
 
 
-def update_SN(static_data: StaticData) -> DynamicData:
+def update_SN(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Sachsen."""
     try:
         # Get data
         soup = fetch_soup(
-            "https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/wasserstand-uebersicht"
+            "https://www.umwelt.sachsen.de/umwelt/infosysteme"
+            + "/hwims/portal/web/wasserstand-uebersicht"
         )
         karte = soup.find_all("div", class_="karteWrapper")[0]
         link = karte.find_all("a", href="wasserstand-pegel-" + static_data.ident[3:])[0]
@@ -47,10 +51,7 @@ def update_SN(static_data: StaticData) -> DynamicData:
             data = link.find_next("div", class_="popUpStatus")
             try:
                 color = data.attrs["style"].split()[-1]
-                if color in stage_colors:
-                    stage = stage_colors[color]
-                else:
-                    stage = None
+                stage = stage_colors.get(color)
             except:
                 stage = None
         else:
@@ -70,7 +71,7 @@ def update_SN(static_data: StaticData) -> DynamicData:
         head = link.find_next("span", string="Datum:")
         data = head.find_next("span", class_="popUpValue")
         try:
-            last_update = datetime.datetime.strptime(
+            last_update = datetime.strptime(
                 data.getText().strip().split()[0], "%d.%m.%Y%H:%M"
             )
         except:

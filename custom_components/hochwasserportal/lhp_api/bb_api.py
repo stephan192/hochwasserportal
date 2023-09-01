@@ -1,8 +1,10 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Brandenburg."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_text
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, fetch_text
 
 
 def fix_bb_encoding(string_in: str) -> str:
@@ -10,8 +12,8 @@ def fix_bb_encoding(string_in: str) -> str:
     replace = False
     cnt = 0
     string_out = ""
-    for c in string_in:
-        num = ord(c)
+    for char in string_in:
+        num = ord(char)
         # Find '\'
         if num == 92:
             replace = True
@@ -50,7 +52,7 @@ def fix_bb_encoding(string_in: str) -> str:
     return string_out
 
 
-def init_BB(ident: str) -> StaticData:
+def init_BB(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Brandenburg."""
     try:
         # Get data
@@ -86,7 +88,7 @@ def init_BB(ident: str) -> StaticData:
         raise LHPError(err, "bb_api.py: init_BB()") from err
 
 
-def update_BB(static_data: StaticData) -> DynamicData:
+def update_BB(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Brandenburg."""
     try:
         # Get data
@@ -121,9 +123,7 @@ def update_BB(static_data: StaticData) -> DynamicData:
                 elif key == "zeit":
                     timestamp = timestamp + " " + str(value)
                     try:
-                        last_update = datetime.datetime.strptime(
-                            timestamp, "%d.%m.%Y %H:%M"
-                        )
+                        last_update = datetime.strptime(timestamp, "%d.%m.%Y %H:%M")
                     except:
                         last_update = None
                 elif key == "wert":

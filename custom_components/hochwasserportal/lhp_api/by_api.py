@@ -1,11 +1,13 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Bayern."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, fetch_soup
 
 
-def init_BY(ident: str) -> StaticData:
+def init_BY(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Bayern."""
     try:
         # Get data
@@ -24,7 +26,7 @@ def init_BY(ident: str) -> StaticData:
         raise LHPError(err, "by_api.py: init_BY()") from err
 
 
-def update_BY(static_data: StaticData) -> DynamicData:
+def update_BY(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Bayern."""
     try:
         # Get data
@@ -47,7 +49,7 @@ def update_BY(static_data: StaticData) -> DynamicData:
             stage = None
         if len(data.get("data-datum")) > 0:
             try:
-                last_update = datetime.datetime.strptime(
+                last_update = datetime.strptime(
                     data.get("data-datum"), "%d.%m.%Y, %H:%M"
                 )
             except:

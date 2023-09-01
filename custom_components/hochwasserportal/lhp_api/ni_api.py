@@ -1,16 +1,19 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Niedersachsen."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_json
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, fetch_json
 
 
-def init_NI(ident: str) -> StaticData:
+def init_NI(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Niedersachsen."""
     try:
         # Get data
         data = fetch_json(
-            "https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten/stationen/All?key=9dc05f4e3b4a43a9988d747825b39f43"
+            "https://bis.azure-api.net/PegelonlinePublic/REST/stammdaten"
+            + "/stationen/All?key=9dc05f4e3b4a43a9988d747825b39f43"
         )
         # Parse data
         for entry in data["getStammdatenResult"]:
@@ -37,7 +40,7 @@ def init_NI(ident: str) -> StaticData:
         raise LHPError(err, "ni_api.py: init_NI()") from err
 
 
-def update_NI(static_data: StaticData) -> DynamicData:
+def update_NI(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Niedersachsen."""
     try:
         # Get data
@@ -73,7 +76,7 @@ def update_NI(static_data: StaticData) -> DynamicData:
             level = None
             flow = None
         try:
-            last_update = datetime.datetime.strptime(
+            last_update = datetime.strptime(
                 data["getStammdatenResult"][0]["Parameter"][0]["Datenspuren"][0][
                     "AktuellerMesswert_Zeitpunkt"
                 ],

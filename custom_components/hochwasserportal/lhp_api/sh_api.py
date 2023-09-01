@@ -1,12 +1,13 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Schleswig-Holstein."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, fetch_soup
 
 
-def init_SH(ident: str) -> StaticData:
+def init_SH(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Schleswig-Holstein."""
     try:
         # Get data
@@ -35,7 +36,7 @@ def init_SH(ident: str) -> StaticData:
         raise LHPError(err, "sh_api.py: init_SH()") from err
 
 
-def update_SH(static_data: StaticData) -> DynamicData:
+def update_SH(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Schleswig-Holstein."""
     level = None
     flow = None
@@ -61,12 +62,12 @@ def update_SH(static_data: StaticData) -> DynamicData:
                 if element_text[1] == "cm":
                     level = float(element_text[0].replace(",", "."))
                     if element_text[4] == "(MEZ)":
-                        last_update = datetime.datetime.strptime(
+                        last_update = datetime.strptime(
                             element_text[2] + element_text[3] + "+0100",
                             "%d.%m.%Y%H:%M%z",
                         )
                     else:
-                        last_update = datetime.datetime.strptime(
+                        last_update = datetime.strptime(
                             element_text[2] + element_text[3], "%d.%m.%Y%H:%M"
                         )
             if (

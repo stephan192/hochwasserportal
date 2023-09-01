@@ -1,9 +1,12 @@
 """The Länderübergreifendes Hochwasser Portal API."""
 
 from __future__ import annotations
-from typing import Final
+
 from datetime import datetime
-from .api_utils import LHPError, StaticData, DynamicData
+from types import FunctionType
+from typing import Final
+
+from .api_utils import DynamicData, LHPError, StaticData
 from .bb_api import init_BB, update_BB
 from .be_api import init_BE, update_BE
 from .bw_api import init_BW, update_BW
@@ -21,8 +24,7 @@ from .sn_api import init_SN, update_SN
 from .st_api import init_ST, update_ST
 from .th_api import init_TH, update_TH
 
-
-FUNCTION_DICT: Final[dict[str, dict[str, function]]] = {
+FUNCTION_DICT: Final[dict[str, dict[str, FunctionType]]] = {
     "BB": {"init": init_BB, "update": update_BB},
     "BE": {"init": init_BE, "update": update_BE},
     "BW": {"init": init_BW, "update": update_BW},

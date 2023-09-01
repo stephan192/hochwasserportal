@@ -1,11 +1,13 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Thüringen."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, fetch_soup
 
 
-def init_TH(ident: str) -> StaticData:
+def init_TH(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Thüringen."""
     try:
         # Get data
@@ -14,19 +16,19 @@ def init_TH(ident: str) -> StaticData:
         tbody = table.find_all("tbody")[0]
         trs = tbody.find_all("tr")
         # Parse data
-        for tr in trs:
-            tds = tr.find_all("td")
+        for row in trs:
+            tds = row.find_all("td")
             cnt = 0
-            for td in tds:
-                if (cnt == 1) and (td.getText().strip() != ident[3:]):
+            for tdata in tds:
+                if (cnt == 1) and (tdata.getText().strip() != ident[3:]):
                     break
                 if cnt == 1:
-                    links = td.find_all("a")
+                    links = tdata.find_all("a")
                     url = "https://hnz.thueringen.de" + links[0]["href"]
                 elif cnt == 2:
-                    name = td.getText().strip()
+                    name = tdata.getText().strip()
                 elif cnt == 3:
-                    name += " / " + td.getText().strip()
+                    name += " / " + tdata.getText().strip()
                     break
                 cnt += 1
             if cnt == 3:
@@ -36,7 +38,7 @@ def init_TH(ident: str) -> StaticData:
         raise LHPError(err, "th_api.py: init_TH()") from err
 
 
-def update_TH(static_data: StaticData) -> DynamicData:
+def update_TH(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Thüringen."""
     level = None
     flow = None
@@ -48,24 +50,24 @@ def update_TH(static_data: StaticData) -> DynamicData:
         trs = tbody.find_all("tr")
         # Parse data
         last_update_str = None
-        for tr in trs:
-            tds = tr.find_all("td")
+        for row in trs:
+            tds = row.find_all("td")
             cnt = 0
-            for td in tds:
-                if (cnt == 1) and (td.getText().strip() != static_data.ident[3:]):
+            for tdata in tds:
+                if (cnt == 1) and (tdata.getText().strip() != static_data.ident[3:]):
                     break
                 if cnt == 7:
-                    last_update_str = td.getText().strip()
+                    last_update_str = tdata.getText().strip()
                 elif cnt == 8:
-                    level = float(td.getText().strip().replace(",", "."))
+                    level = float(tdata.getText().strip().replace(",", "."))
                 elif cnt == 10:
-                    flow = float(td.getText().strip().replace(",", "."))
+                    flow = float(tdata.getText().strip().replace(",", "."))
                     break
                 cnt += 1
             if cnt == 10:
                 break
         if last_update_str is not None:
-            last_update = datetime.datetime.strptime(last_update_str, "%d.%m.%Y %H:%M")
+            last_update = datetime.strptime(last_update_str, "%d.%m.%Y %H:%M")
         else:
             last_update = None
         return DynamicData(level=level, flow=flow, last_update=last_update)

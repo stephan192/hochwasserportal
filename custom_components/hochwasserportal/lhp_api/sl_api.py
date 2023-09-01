@@ -1,11 +1,13 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Saarland."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_text
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, fetch_text
 
 
-def init_SL(ident: str) -> StaticData:
+def init_SL(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Saarland."""
     try:
         # Get data
@@ -30,7 +32,7 @@ def init_SL(ident: str) -> StaticData:
         raise LHPError(err, "sl_api.py: init_SL()") from err
 
 
-def update_SL(static_data: StaticData) -> DynamicData:
+def update_SL(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Saarland."""
     try:
         # Get data
@@ -54,7 +56,7 @@ def update_SL(static_data: StaticData) -> DynamicData:
                         stage_int = int(elements[3].strip())
                         if stage_int == 7:
                             stage = 4
-                        elif (stage_int > 0) and (stage_int < 5):
+                        elif 0 < stage_int < 5:
                             stage = stage_int - 1
                         else:
                             stage = None
@@ -65,7 +67,7 @@ def update_SL(static_data: StaticData) -> DynamicData:
                     except:
                         level = None
                     try:
-                        last_update = datetime.datetime.strptime(
+                        last_update = datetime.strptime(
                             elements[7].strip() + "+0100", "%d.%m.%Y %H:%M%z"
                         )
                     except:

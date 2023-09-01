@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from datetime import timedelta
 import logging
+from datetime import timedelta
 from typing import Final
 
 from homeassistant.const import Platform
@@ -31,8 +31,10 @@ ATTR_DATA_PROVIDERS: Final[dict[str, str]] = {
     "NW": "https://www.hochwasserportal.nrw.de",
     "RP": "https://hochwasser.rlp.de",
     "SH": "https://hsi-sh.de",
-    "SL": "https://www.saarland.de/mukmav/DE/portale/wasser/informationen/hochwassermeldedienst/wasserstaende_warnlage/wasserstaende_warnlage_node.html",
-    "SN": "https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/wasserstand-uebersicht",
+    "SL": "https://www.saarland.de/mukmav/DE/portale/wasser/informationen"
+    + "/hochwassermeldedienst/wasserstaende_warnlage/wasserstaende_warnlage_node.html",
+    "SN": "https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal"
+    + "/web/wasserstand-uebersicht",
     "ST": "https://hochwasservorhersage.sachsen-anhalt.de",
     "TH": "https://hnz.thueringen.de/hw-portal",
 }

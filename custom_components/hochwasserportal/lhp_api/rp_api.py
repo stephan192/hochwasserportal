@@ -1,11 +1,13 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Rheinland-Pfalz."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_json, calc_stage
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, calc_stage, fetch_json
 
 
-def init_RP(ident: str) -> StaticData:
+def init_RP(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Rheinland-Pfalz."""
     try:
         # Get data
@@ -46,7 +48,7 @@ def init_RP(ident: str) -> StaticData:
         raise LHPError(err, "rp_api.py: init_RP()") from err
 
 
-def update_RP(static_data: StaticData) -> DynamicData:
+def update_RP(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Rheinland-Pfalz."""
     try:
         # Get data
@@ -69,7 +71,7 @@ def update_RP(static_data: StaticData) -> DynamicData:
         except:
             flow = None
         if last_update_str is not None:
-            last_update = datetime.datetime.fromisoformat(last_update_str)
+            last_update = datetime.fromisoformat(last_update_str)
         else:
             last_update = None
         return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)

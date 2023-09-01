@@ -1,10 +1,8 @@
 """Platform for sensor integration."""
 from __future__ import annotations
 
-from typing import Final
-
+import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
-
 from homeassistant.components.sensor import (
     PLATFORM_SCHEMA,
     SensorEntity,
@@ -14,7 +12,6 @@ from homeassistant.components.sensor import (
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import UnitOfLength
 from homeassistant.core import HomeAssistant
-import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.issue_registry import IssueSeverity, async_create_issue
@@ -22,19 +19,19 @@ from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import (
-    CONF_PEGEL,
-    CONF_LEVEL,
-    CONF_STAGE,
-    CONF_FLOW,
     ATTR_DATA_PROVIDERS,
+    ATTR_HINT,
     ATTR_LAST_UPDATE,
     ATTR_URL,
-    ATTR_HINT,
-    LEVEL_SENSOR,
-    STAGE_SENSOR,
-    FLOW_SENSOR,
+    CONF_FLOW,
+    CONF_LEVEL,
+    CONF_PEGEL,
+    CONF_STAGE,
     DOMAIN,
+    FLOW_SENSOR,
+    LEVEL_SENSOR,
     LOGGER,
+    STAGE_SENSOR,
 )
 from .coordinator import HochwasserPortalCoordinator
 
@@ -78,8 +75,8 @@ SENSOR_TYPES: tuple[SensorEntityDescription, ...] = (
 async def async_setup_platform(
     hass: HomeAssistant,
     config: ConfigType,
-    add_entities: AddEntitiesCallback,
-    discovery_info: DiscoveryInfoType | None = None,
+    add_entities: AddEntitiesCallback,  # pylint: disable=unused-argument
+    discovery_info: DiscoveryInfoType | None = None,  # pylint: disable=unused-argument
 ) -> None:
     """Import the configurations from YAML to config flows."""
     # Show issue as long as the YAML configuration exists.

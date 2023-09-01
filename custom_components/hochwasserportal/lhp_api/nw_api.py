@@ -1,11 +1,13 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Nordrhein-Westfalen."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_json, calc_stage
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, calc_stage, fetch_json
 
 
-def init_NW(ident: str) -> StaticData:
+def init_NW(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Nordrhein-Westfalen."""
     try:
         # Get stations data
@@ -22,7 +24,8 @@ def init_NW(ident: str) -> StaticData:
                     + station["station_no"]
                 )
                 url = (
-                    "https://hochwasserportal.nrw/lanuv/webpublic/index.html#/overview/Wasserstand/station/"
+                    "https://hochwasserportal.nrw/lanuv/webpublic/index.html#"
+                    + "/overview/Wasserstand/station/"
                     + station["station_id"]
                     + "/"
                     + station["station_name"]
@@ -71,7 +74,7 @@ def init_NW(ident: str) -> StaticData:
         raise LHPError(err, "nw_api.py: init_NW()") from err
 
 
-def update_NW(static_data: StaticData) -> DynamicData:
+def update_NW(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Nordrhein-Westfalen."""
     try:
         # Get data
@@ -87,7 +90,7 @@ def update_NW(static_data: StaticData) -> DynamicData:
             # Extract the last update timestamp from the JSON data
             last_update_str = data[0]["data"][-1][0]
             # Convert the string timestamp to a datetime object
-            last_update = datetime.datetime.fromisoformat(last_update_str)
+            last_update = datetime.fromisoformat(last_update_str)
         else:
             level = None
             stage = None

@@ -1,11 +1,13 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Sachsen-Anhalt."""
 
 from __future__ import annotations
-from .api_utils import LHPError, StaticData, DynamicData, fetch_json, calc_stage
-import datetime
+
+from datetime import datetime
+
+from .api_utils import DynamicData, LHPError, StaticData, calc_stage, fetch_json
 
 
-def init_ST(ident: str) -> StaticData:
+def init_ST(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Sachsen-Anhalt."""
     try:
         name = None
@@ -14,7 +16,8 @@ def init_ST(ident: str) -> StaticData:
         hint = None
         # Get Stations Data
         st_stations = fetch_json(
-            "https://hvz.lsaurl.de/fileadmin/Bibliothek/Politik_und_Verwaltung/MLU/HVZ/KISTERS/data/internet/stations/stations.json"
+            "https://hvz.lsaurl.de/fileadmin/Bibliothek/Politik_und_Verwaltung"
+            + "/MLU/HVZ/KISTERS/data/internet/stations/stations.json"
         )
         for station in st_stations:
             if station["station_no"] == ident[3:]:
@@ -25,7 +28,8 @@ def init_ST(ident: str) -> StaticData:
                 )
                 url = "https://hvz.lsaurl.de/#" + ident[3:]
                 internal_url = (
-                    "https://hvz.lsaurl.de/fileadmin/Bibliothek/Politik_und_Verwaltung/MLU/HVZ/KISTERS/data/internet/stations/"
+                    "https://hvz.lsaurl.de/fileadmin/Bibliothek/Politik_und_Verwaltung"
+                    + "/MLU/HVZ/KISTERS/data/internet/stations/"
                     + station["site_no"]
                     + "/"
                     + ident[3:]
@@ -73,7 +77,7 @@ def init_ST(ident: str) -> StaticData:
     )
 
 
-def update_ST(static_data: StaticData) -> DynamicData:
+def update_ST(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Sachsen-Anhalt."""
     last_update_str_w = None
     try:
@@ -99,9 +103,9 @@ def update_ST(static_data: StaticData) -> DynamicData:
 
     last_update = None
     if level is not None:
-        last_update = datetime.datetime.fromisoformat(last_update_str_w)
+        last_update = datetime.fromisoformat(last_update_str_w)
     elif flow is not None:
-        last_update = datetime.datetime.fromisoformat(last_update_str_q)
+        last_update = datetime.fromisoformat(last_update_str_q)
     if last_update is not None:
         return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     raise LHPError("An error occured while fetching data!", "st_api.py: update_ST()")
