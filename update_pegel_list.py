@@ -92,7 +92,7 @@ def fix_bb_encoding(input):
 def get_bb_stations():
     stations = []
     page = fetch_text("https://pegelportal.brandenburg.de/start.php")
-    lines = page.split("\r\n")
+    lines = page.split("\n")
     start_found = False
     for line in lines:
         line = line.strip()
