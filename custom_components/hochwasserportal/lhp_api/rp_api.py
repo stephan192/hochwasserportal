@@ -1,12 +1,11 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Rheinland-Pfalz."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_json, calc_stage
+from .api_utils import LHPError, StaticData, DynamicData, fetch_json, calc_stage
 import datetime
 
 
-def init_RP(ident):
+def init_RP(ident) -> StaticData:
     """Init data for Rheinland-Pfalz."""
     try:
         # Get data
@@ -42,13 +41,12 @@ def init_RP(ident):
                 except:
                     stage_levels = [None] * 4
                 break
-        Initdata = namedtuple("Initdata", ["name", "url", "stage_levels"])
-        return Initdata(name, url, stage_levels)
+        return StaticData(ident=ident, name=name, url=url, stage_levels=stage_levels)
     except Exception as err:
         raise LHPError(err, "rp_api.py: init_RP()") from err
 
 
-def update_RP(ident, stage_levels):
+def update_RP(ident, stage_levels) -> DynamicData:
     """Update data for Rheinland-Pfalz."""
     try:
         # Get data
@@ -74,7 +72,6 @@ def update_RP(ident, stage_levels):
             last_update = datetime.datetime.fromisoformat(last_update_str)
         else:
             last_update = None
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
-        return Cyclicdata(level, stage, flow, last_update)
+        return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "rp_api.py: update_RP()") from err

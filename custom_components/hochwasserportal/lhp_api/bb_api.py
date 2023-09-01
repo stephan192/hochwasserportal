@@ -1,12 +1,11 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Brandenburg."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_text
+from .api_utils import LHPError, StaticData, DynamicData, fetch_text
 import datetime
 
 
-def fix_bb_encoding(string_in):
+def fix_bb_encoding(string_in) -> str:
     """Fix utf-8 encoding for BB"""
     replace = False
     cnt = 0
@@ -51,7 +50,7 @@ def fix_bb_encoding(string_in):
     return string_out
 
 
-def init_BB(ident):
+def init_BB(ident) -> StaticData:
     """Init data for Brandenburg."""
     try:
         # Get data
@@ -82,13 +81,12 @@ def init_BB(ident):
                             + ident[3:]
                         )
                         break
-        Initdata = namedtuple("Initdata", ["name", "url"])
-        return Initdata(name, url)
+        return StaticData(ident=ident, name=name, url=url)
     except Exception as err:
         raise LHPError(err, "bb_api.py: init_BB()") from err
 
 
-def update_BB(ident):
+def update_BB(ident) -> DynamicData:
     """Update data for Brandenburg."""
     try:
         # Get data
@@ -140,7 +138,6 @@ def update_BB(ident):
                         flow = None
                     break
             prev_line = line
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
-        return Cyclicdata(level, stage, flow, last_update)
+        return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "bb_api.py: update_BB()") from err

@@ -1,12 +1,11 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Sachsen."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_soup
+from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
 import datetime
 
 
-def init_SN(ident):
+def init_SN(ident) -> StaticData:
     """Init data for Sachsen."""
     try:
         # Get data
@@ -21,13 +20,12 @@ def init_SN(ident):
             "https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal/web/"
             + link["href"]
         )
-        Initdata = namedtuple("Initdata", ["name", "url"])
-        return Initdata(name, url)
+        return StaticData(ident=ident, name=name, url=url)
     except Exception as err:
         raise LHPError(err, "sn_api.py: init_SN()") from err
 
 
-def update_SN(ident):
+def update_SN(ident) -> DynamicData:
     """Update data for Sachsen."""
     try:
         # Get data
@@ -77,7 +75,6 @@ def update_SN(ident):
             )
         except:
             self.last_update = None
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
-        return Cyclicdata(level, stage, flow, last_update)
+        return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "sn_api.py: update_SN()") from err

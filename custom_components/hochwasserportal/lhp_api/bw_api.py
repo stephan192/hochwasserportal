@@ -1,13 +1,12 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Baden-Württemberg."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_text, calc_stage
+from .api_utils import LHPError, StaticData, DynamicData, fetch_text, calc_stage
 import datetime
 import json
 
 
-def init_BW(ident):
+def init_BW(ident) -> StaticData:
     """Init data for Baden-Württemberg."""
     try:
         # Get data
@@ -36,13 +35,12 @@ def init_BW(ident):
                 if data[33] > 0:
                     stage_levels[3] = float(data[33])
                 break
-        Initdata = namedtuple("Initdata", ["name", "url", "stage_levels"])
-        return Initdata(name, url, stage_levels)
+        return StaticData(ident=ident, name=name, url=url, stage_levels=stage_levels)
     except Exception as err:
         raise LHPError(err, "bw_api.py: init_BW()") from err
 
 
-def update_BW(ident, stage_levels):
+def update_BW(ident, stage_levels) -> DynamicData:
     """Update data for Baden-Württemberg."""
     try:
         # Get data
@@ -90,7 +88,6 @@ def update_BW(ident, stage_levels):
                     except:
                         last_update = None
                 break
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
-        return Cyclicdata(level, stage, flow, last_update)
+        return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "bw_api.py: update_BW()") from err

@@ -1,12 +1,11 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Berlin."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_soup, fetch_text
+from .api_utils import LHPError, StaticData, DynamicData, fetch_soup, fetch_text
 import datetime
 
 
-def init_BE(ident):
+def init_BE(ident) -> StaticData:
     """Init data for Berlin."""
     try:
         # Get data
@@ -30,13 +29,12 @@ def init_BE(ident):
                     )
                     name = tds[1].getText().strip() + " / " + tds[4].getText().strip()
                     break
-        Initdata = namedtuple("Initdata", ["name", "url"])
-        return Initdata(name, url)
+        return StaticData(ident=ident, name=name, url=url)
     except Exception as err:
         raise LHPError(err, "be_api.py: init_BE()") from err
 
 
-def update_BE(url):
+def update_BE(url) -> DynamicData:
     """Update data for Berlin."""
     try:
         # Get data and parse level data
@@ -81,7 +79,6 @@ def update_BE(url):
                             break
                     except:
                         continue
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "flow", "last_update"])
-        return Cyclicdata(level, flow, last_update)
+        return DynamicData(level=level, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "be_api.py: update_BE()") from err

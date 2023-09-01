@@ -1,6 +1,7 @@
 """The Länderübergreifendes Hochwasser Portal API - Utility functions."""
 
 from __future__ import annotations
+from datetime import datetime
 import requests
 import bs4
 
@@ -14,6 +15,47 @@ class LHPError(Exception):
             super().__init__(f"{location}: {exception}")
         else:
             super().__init__(f"{location}: {exception.__class__.__name__}: {exception}")
+
+
+class StaticData:
+    """Class containing the static data."""
+
+    def __init__(
+        self,
+        ident: str,
+        name: str = None,
+        internal_url: str = None,
+        url: str = None,
+        hint: str = None,
+        stage_levels: list[float] = None,
+    ) -> None:
+        """Initialize the static data class."""
+        self.ident = ident
+        self.name = name
+        self.internal_url = internal_url
+        self.url = url
+        self.hint = hint
+        if stage_levels is None:
+            self.stage_levels = [None] * 4
+        else:
+            self.stage_levels = stage_levels
+
+
+class DynamicData:
+    """Class containing the dynamic data."""
+
+    def __init__(
+        self,
+        level: float = None,
+        stage: int = None,
+        flow: float = None,
+        last_update: datetime = None,
+    ) -> None:
+        """Initialize the dynamic data class."""
+        self.level = level
+        self.stage = stage
+        self.flow = flow
+        self.last_update = last_update
 
 
 def fetch_json(url, timeout=10):

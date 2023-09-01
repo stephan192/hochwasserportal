@@ -1,12 +1,11 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Saarland."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_text
+from .api_utils import LHPError, StaticData, DynamicData, fetch_text
 import datetime
 
 
-def init_SL(ident):
+def init_SL(ident) -> StaticData:
     """Init data for Saarland."""
     try:
         # Get data
@@ -26,13 +25,12 @@ def init_SL(ident):
                         + ".htm"
                     )
                     break
-        Initdata = namedtuple("Initdata", ["name", "url"])
-        return Initdata(name, url)
+        return StaticData(ident=ident, name=name, url=url)
     except Exception as err:
         raise LHPError(err, "sl_api.py: init_SL()") from err
 
 
-def update_SL(ident):
+def update_SL(ident) -> DynamicData:
     """Update data for Saarland."""
     try:
         # Get data
@@ -73,7 +71,6 @@ def update_SL(ident):
                     except:
                         last_update = None
                     break
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
-        return Cyclicdata(level, stage, last_update)
+        return DynamicData(level=level, stage=stage, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "sl_api.py: update_SL()") from err

@@ -1,12 +1,11 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Niedersachsen."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_json
+from .api_utils import LHPError, StaticData, DynamicData, fetch_json
 import datetime
 
 
-def init_NI(ident):
+def init_NI(ident) -> StaticData:
     """Init data for Niedersachsen."""
     try:
         # Get data
@@ -31,13 +30,14 @@ def init_NI(ident):
                 else:
                     hint = None
                 break
-        Initdata = namedtuple("Initdata", ["name", "url", "internal_url", "hint"])
-        return Initdata(name, url, internal_url, hint)
+        return StaticData(
+            ident=ident, name=name, internal_url=internal_url, url=url, hint=hint
+        )
     except Exception as err:
         raise LHPError(err, "ni_api.py: init_NI()") from err
 
 
-def update_NI(internal_url):
+def update_NI(internal_url) -> DynamicData:
     """Update data for Niedersachsen."""
     try:
         # Get data
@@ -81,7 +81,6 @@ def update_NI(internal_url):
             )
         except (IndexError, KeyError, TypeError):
             last_update = None
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
-        return Cyclicdata(level, stage, flow, last_update)
+        return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "ni_api.py: update_NI()") from err

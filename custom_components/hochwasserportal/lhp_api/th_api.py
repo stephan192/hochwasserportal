@@ -1,12 +1,11 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Thüringen."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_soup
+from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
 import datetime
 
 
-def init_TH(ident):
+def init_TH(ident) -> StaticData:
     """Init data for Thüringen."""
     try:
         # Get data
@@ -32,13 +31,12 @@ def init_TH(ident):
                 cnt += 1
             if cnt == 3:
                 break
-        Initdata = namedtuple("Initdata", ["name", "url"])
-        return Initdata(name, url)
+        return StaticData(ident=ident, name=name, url=url)
     except Exception as err:
         raise LHPError(err, "th_api.py: init_TH()") from err
 
 
-def update_TH(ident):
+def update_TH(ident) -> DynamicData:
     """Update data for Thüringen."""
     level = None
     flow = None
@@ -70,7 +68,6 @@ def update_TH(ident):
             last_update = datetime.datetime.strptime(last_update_str, "%d.%m.%Y %H:%M")
         else:
             last_update = None
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "flow", "last_update"])
-        return Cyclicdata(level, flow, last_update)
+        return DynamicData(level=level, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "th_api.py: update_TH()") from err

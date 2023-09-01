@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 from collections import namedtuple
-from .api_utils import LHPError, fetch_soup
+from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
 import datetime
 
 
-def init_SH(ident):
+def init_SH(ident) -> StaticData:
     """Init data for Schleswig-Holstein."""
     try:
         # Get data
@@ -30,13 +30,12 @@ def init_SH(ident):
             url = "https://hsi-sh.de/" + link["href"][2:]
         else:
             url = link["href"]
-        Initdata = namedtuple("Initdata", ["name", "url"])
-        return Initdata(name, url)
+        return StaticData(ident=ident, name=name, url=url)
     except Exception as err:
         raise LHPError(err, "sh_api.py: init_SH()") from err
 
 
-def update_SH(ident):
+def update_SH(ident) -> DynamicData:
     """Update data for Schleswig-Holstein."""
     level = None
     flow = None
@@ -77,7 +76,6 @@ def update_SH(ident):
                 element_text = element.getText().split()
                 if element_text[1] == "m3/s":
                     flow = float(element_text[0].replace(",", "."))
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
-        return Cyclicdata(level, stage, flow, last_update)
+        return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "sh_api.py: update_SH()") from err

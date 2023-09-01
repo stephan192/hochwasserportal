@@ -1,12 +1,11 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Hamburg."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_soup
+from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
 import datetime
 
 
-def init_HH(ident):
+def init_HH(ident) -> StaticData:
     """Init data for Hamburg."""
     try:
         # Get data
@@ -26,13 +25,12 @@ def init_HH(ident):
                 ].strip()
             )
             url = "https://www.wabiha.de/grafik-" + ident[3:] + ".html"
-        Initdata = namedtuple("Initdata", ["name", "url"])
-        return Initdata(name, url)
+        return StaticData(ident=ident, name=name, url=url)
     except Exception as err:
         raise LHPError(err, "hh_api.py: init_HH()") from err
 
 
-def update_HH(ident):
+def update_HH(ident) -> DynamicData:
     """Update data for Hamburg."""
     try:
         # Get data
@@ -76,7 +74,6 @@ def update_HH(ident):
                     stage = None
             except:
                 stage = None
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
-        return Cyclicdata(level, stage, last_update)
+        return DynamicData(level=level, stage=stage, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "hh_api.py: update_HH()") from err

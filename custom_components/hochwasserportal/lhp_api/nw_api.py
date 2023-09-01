@@ -1,12 +1,11 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Nordrhein-Westfalen."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_json, calc_stage
+from .api_utils import LHPError, StaticData, DynamicData, fetch_json, calc_stage
 import datetime
 
 
-def init_NW(ident):
+def init_NW(ident) -> StaticData:
     """Init data for Nordrhein-Westfalen."""
     try:
         # Get stations data
@@ -60,15 +59,19 @@ def init_NW(ident):
                     hint += " / " + data[0]["AdminBemerkung"].strip()
                 else:
                     hint = data[0]["AdminBemerkung"].strip()
-        Initdata = namedtuple(
-            "Initdata", ["name", "url", "internal_url", "hint", "stage_levels"]
+        return StaticData(
+            ident=ident,
+            name=name,
+            internal_url=internal_url,
+            url=url,
+            hint=hint,
+            stage_levels=stage_levels,
         )
-        return Initdata(name, url, internal_url, hint, stage_levels)
     except Exception as err:
         raise LHPError(err, "nw_api.py: init_NW()") from err
 
 
-def update_NW(internal_url, stage_levels):
+def update_NW(internal_url, stage_levels) -> DynamicData:
     """Update data for Nordrhein-Westfalen."""
     try:
         # Get data
@@ -89,7 +92,6 @@ def update_NW(internal_url, stage_levels):
             level = None
             stage = None
             last_update = None
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
-        return Cyclicdata(level, stage, last_update)
+        return DynamicData(level=level, stage=stage, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "nw_api.py: update_NW()") from err

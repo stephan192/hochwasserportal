@@ -1,13 +1,12 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Mecklenburg-Vorpommern."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_soup
+from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
 import datetime
 import re
 
 
-def init_MV(ident):
+def init_MV(ident) -> StaticData:
     """Init data for Mecklenburg-Vorpommern."""
     try:
         # Get data
@@ -31,13 +30,12 @@ def init_MV(ident):
             url = "https://pegelportal-mv.de/" + ident[3:] + ".html"
         else:
             url = link["href"]
-        Initdata = namedtuple("Initdata", ["name", "url"])
-        return Initdata(name, url)
+        return StaticData(ident=ident, name=name, url=url)
     except Exception as err:
         raise LHPError(err, "mv_api.py: init_MV()") from err
 
 
-def update_MV(ident):
+def update_MV(ident) -> DynamicData:
     """Update data for Mecklenburg-Vorpommern."""
     try:
         # Get data
@@ -80,7 +78,6 @@ def update_MV(ident):
                     stage = None
                 break
             cnt += 1
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
-        return Cyclicdata(level, stage, flow, last_update)
+        return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "mv_api.py: update_MV()") from err

@@ -1,12 +1,11 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Hessen."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_json, calc_stage
+from .api_utils import LHPError, StaticData, DynamicData, fetch_json, calc_stage
 import datetime
 
 
-def init_HE(ident):
+def init_HE(ident) -> StaticData:
     """Init data for Hessen."""
     try:
         name = None
@@ -65,13 +64,17 @@ def init_HE(ident):
                         stage_levels[3] = float(station_data["data"][-1][1])
     except:
         stage_levels = [None] * 4
-    Initdata = namedtuple(
-        "Initdata", ["name", "url", "internal_url", "hint", "stage_levels"]
+    return StaticData(
+        ident=ident,
+        name=name,
+        internal_url=internal_url,
+        url=url,
+        hint=hint,
+        stage_levels=stage_levels,
     )
-    return Initdata(name, url, internal_url, hint, stage_levels)
 
 
-def update_HE(internal_url, stage_levels):
+def update_HE(internal_url, stage_levels) -> DynamicData:
     """Update data for Hessen."""
     last_update_str_w = None
     try:
@@ -107,6 +110,5 @@ def update_HE(internal_url, stage_levels):
     elif flow is not None:
         last_update = datetime.datetime.fromisoformat(last_update_str_q)
     if last_update is not None:
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
-        return Cyclicdata(level, stage, flow, last_update)
+        return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     raise LHPError("An error occured while fetching data!", "he_api.py: update_HE()")

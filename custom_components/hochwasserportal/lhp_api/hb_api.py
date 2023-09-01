@@ -1,12 +1,18 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Bremen."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_json, fetch_text, calc_stage
+from .api_utils import (
+    LHPError,
+    StaticData,
+    DynamicData,
+    fetch_json,
+    fetch_text,
+    calc_stage,
+)
 import datetime
 
 
-def init_HB(ident):
+def init_HB(ident) -> StaticData:
     """Init data for Bremen."""
     try:
         # Get data from Pegelstände Bremen
@@ -53,15 +59,18 @@ def init_HB(ident):
             stage_levels = [float(sl) for sl in stage_levels]
             while len(stage_levels) < 4:
                 stage_levels.append(None)
-        Initdata = namedtuple(
-            "Initdata", ["name", "url", "internal_url", "stage_levels"]
+        return StaticData(
+            ident=ident,
+            name=name,
+            internal_url=internal_url,
+            url=url,
+            stage_levels=stage_levels,
         )
-        return Initdata(name, url, internal_url, stage_levels)
     except Exception as err:
         raise LHPError(err, "hb_api.py: init_HB()") from err
 
 
-def update_HB(internal_url, stage_levels):
+def update_HB(internal_url, stage_levels) -> DynamicData:
     """Update data for Bremen."""
     try:
         # Get data
@@ -78,7 +87,6 @@ def update_HB(internal_url, stage_levels):
                 last_update = datetime.datetime.fromisoformat(data[-1]["timestamp"])
             except:
                 last_update = None
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "last_update"])
-        return Cyclicdata(level, stage, last_update)
+        return DynamicData(level=level, stage=stage, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "hb_api.py: update_HB()") from err

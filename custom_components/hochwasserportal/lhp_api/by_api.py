@@ -1,12 +1,11 @@
 """The Länderübergreifendes Hochwasser Portal API - Functions for Bayern."""
 
 from __future__ import annotations
-from collections import namedtuple
-from .api_utils import LHPError, fetch_soup
+from .api_utils import LHPError, StaticData, DynamicData, fetch_soup
 import datetime
 
 
-def init_BY(ident):
+def init_BY(ident) -> StaticData:
     """Init data for Bayern."""
     try:
         # Get data
@@ -20,13 +19,12 @@ def init_BY(ident):
             name += " / " + data.get("data-zeile2")
         url = data.parent.attrs["href"]
         hint = data.get("data-stoerung")
-        Initdata = namedtuple("Initdata", ["name", "url", "hint"])
-        return Initdata(name, url, hint)
+        return StaticData(ident=ident, name=name, url=url, hint=hint)
     except Exception as err:
         raise LHPError(err, "by_api.py: init_BY()") from err
 
 
-def update_BY(ident):
+def update_BY(ident) -> DynamicData:
     """Update data for Bayern."""
     try:
         # Get data
@@ -56,7 +54,6 @@ def update_BY(ident):
                 last_update = None
         else:
             last_update = None
-        Cyclicdata = namedtuple("Cyclicdata", ["level", "stage", "flow", "last_update"])
-        return Cyclicdata(level, stage, flow, last_update)
+        return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "by_api.py: update_BY()") from err
