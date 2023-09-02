@@ -223,15 +223,15 @@
 | BB_6030500 | Kienitz / Oder |
 | BB_6030604 | Güstebieser Loose, Überleitung OP / Güstebieser Alte Oder |
 | BB_6030800 | Hohensaaten-Finow / Oder |
-| BB_6030900 | Hohensaaten, Ostschleuse OP / Verbindungskanal Hohensaaten Ost |
+| BB_6030900 | Hohensaaten, Ostschleuse AP / Verbindungskanal Hohensaaten Ost |
 | BB_6031000 | Stützkow / Oder |
-| BB_6031100 | Schwedt, Schleuse OP / Schwedter Querfahrt |
+| BB_6031100 | Schwedt, Schleuse AP / Schwedter Querfahrt |
 | BB_6031300 | Schwedt, Oderbrücke / Oder |
 | BB_6031400 | Ratzdorf / Oder |
 | BB_6032000 | Reitwein, Überleitung OP / Oderaltarm bei Reitwein |
-| BB_6033100 | Hohensaaten, Westschleuse OP / Alte Oder |
-| BB_6034000 | Hohensaaten, Westschleuse UP / Alte Oder |
-| BB_6034100 | Schwedt, Schleuse UP / Schwedter Querfahrt |
+| BB_6033100 | Hohensaaten, Westschleuse BP / Alte Oder |
+| BB_6034000 | Hohensaaten, Westschleuse AP / Alte Oder |
+| BB_6034100 | Schwedt, Schleuse BP / Alte Oder |
 | BB_6034200 | Friedrichsthal / Alte Oder |
 | BB_6035100 | Gartz / Westoder |
 | BB_6035200 | Mescherin / Westoder |
@@ -1403,7 +1403,7 @@
 | BY_24214300 | Weiboldshausen / Felchbach |
 | BY_24214445 | Brombachsee Vorsperre / Kleiner Brombachsee |
 | BY_24214456 | Brombachsee / Brombachsee |
-| BY_24214499 | Brombachsee Hauptsperre Ablauf / Brombachsee |
+| BY_24214489 | Brombachsee Hauptsperre Ablauf / Brombachsee |
 | BY_24214900 | Roth Bleiche / Roth |
 | BY_24215302 | Rothsee Hauptsperre / Rothsee |
 | BY_24215404 | Rothsee Hauptsperre Ablauf / Rothsee |
@@ -1827,6 +1827,7 @@
 | MV_04443.1 | Dobbin / Nebel |
 | MV_04445.0 | Lüssow N / Hohensprenzer Mühlbach |
 | MV_04450.1 | Güstrow-Südost / Inselsee |
+| MV_04451.0 | Klein Upahl / Upahler See |
 | MV_04453.0 | Kirch Rosin / Teuchelbach |
 | MV_04455.2 | Liessow / Augraben |
 | MV_04455.5 | Dehmen / Augraben |
@@ -1838,6 +1839,7 @@
 | MV_04479.0 | Goldberg / Goldberger See |
 | MV_04490.0 | Sülten / Brüeler Bach |
 | MV_04495.0 | Warin / Wariner See |
+| MV_04501.0 | Ribnitz / Recknitz |
 | MV_04504.0 | Marlow / Recknitz |
 | MV_04506.1 | Bad Sülze / Recknitz |
 | MV_04507.0 | Dudendorf UP / Recknitz |
@@ -1899,13 +1901,16 @@
 | MV_04803.5 | Klempenow Straßenbrücke / Tollense |
 | MV_04808.9 | Neubrandenburg / Tollensesee (Bogenbr.) |
 | MV_04812.2 | Gehmkow / Augraben |
+| MV_04815.1 | Breest OP / Gr. Landgraben |
 | MV_04835.1 | Zirzow / Malliner Wasser |
 | MV_04841.2 | Burg Stargard / Lindebach |
 | MV_04849.0 | Rödlin / Rödliner See |
 | MV_04850.1 | Grambin / Zarow |
 | MV_04860.1 | Heinrichswalde Nord / Weißer Graben |
+| MV_04860.2 | Gehren Wald / Knüppelbach |
 | MV_04861.0 | Heinrichswalde / Galenbecker See |
 | MV_04863.9 | Brohm OP Kleinbahnbrücke / Golmer Mühlbach |
+| MV_04864.2 | Brohm Beckenpegel / Talsperre |
 | MV_04867.1 | Groß Miltzow / Miltzower Bach |
 | MV_04870.1 | Friedland / Datze |
 | MV_04872.0 | Putzar / Putzarer See |
@@ -1924,11 +1929,14 @@
 | MV_04933.0 | Ludwigshof / Teufelsgraben |
 | MV_04934.0 | Gottesheide / Schloßsee |
 | MV_04941.2 | Strasburg / Strasburger Stadtsee |
+| MV_04972.1 | Carwitz / Bäk |
 | MV_503050 | Wittenberge / Elbe |
 | MV_503120 | Lenzen / Elbe |
-| MV_58002.0 | WESENBERG OP / Obere Havel-Wasserstrasse |
-| MV_58003.0 | WESENBERG UP / Obere Havel-Wasserstrasse |
+| MV_580000 | VOSSWINKEL OP / Obere Havel-Wasserstrasse |
+| MV_580010 | VOSSWINKEL UP / Obere Havel-Wasserstrasse |
+| MV_580020 | WESENBERG OP / Obere Havel-Wasserstrasse |
 | MV_58003.5 | Steinförde Straßenbrücke / Obere-Havel-Wasserstraße |
+| MV_580030 | WESENBERG UP / Obere Havel-Wasserstrasse |
 | MV_580060 | Fürstenberg OP / Obere Havel-Wasserstrasse |
 | MV_580070 | Fürstenberg UP / Obere Havel-Wasserstrasse |
 | MV_580080 | Bredereiche OP / Obere Havel-Wasserstrasse |
@@ -2117,6 +2125,7 @@
 | NW_2728189000100 | Derschlag / Dörspe |
 | NW_2728219000100 | Oberagger / Steinagger |
 | NW_2728313000100 | Rebbelroth / Agger |
+| NW_2728510000200 | Ruenderoth (Verband) / Agger |
 | NW_2728759000100 | Overath / Agger |
 | NW_2728845300100 | Perke / Wiehl |
 | NW_2728849000100 | Hommerich / Kürtener Sülz |
@@ -2500,6 +2509,7 @@
 | RP_26780609 | Platten 2 / Lieser |
 | RP_26790205 | Traben-Trarbach / Kautenbach |
 | RP_26800207 | Saxler Mühle / Alf |
+| RP_26800400 | Sprink / Alf |
 | RP_26820500 | Hasborner Mühle / Sammetbach |
 | RP_26830605 | Bengel / Alf |
 | RP_26840507 | Peltzerhaus / Ueßbach |
