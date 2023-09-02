@@ -2,9 +2,14 @@
 
 from __future__ import annotations
 
-from datetime import datetime
-
-from .api_utils import DynamicData, LHPError, StaticData, fetch_soup
+from .api_utils import (
+    DynamicData,
+    LHPError,
+    StaticData,
+    convert_to_datetime,
+    convert_to_float,
+    fetch_soup,
+)
 
 
 def init_SN(ident: str) -> StaticData:  # pylint: disable=invalid-name
@@ -49,33 +54,28 @@ def update_SN(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
                 "#d400f9": 4,
             }
             data = link.find_next("div", class_="popUpStatus")
-            try:
+            if (
+                "style" in data.attrs
+                and isinstance(data.attrs["style"], list)
+                and len(data.attrs["style"]) > 0
+            ):
                 color = data.attrs["style"].split()[-1]
                 stage = stage_colors.get(color)
-            except:
+            else:
                 stage = None
         else:
             stage = None
         head = link.find_next("span", string="Wasserstand:")
         data = head.find_next("span", class_="popUpValue")
-        try:
-            level = float(data.getText().split()[0])
-        except:
-            level = None
+        level = convert_to_float(data.getText().split()[0])
         head = link.find_next("span", string="Durchfluss:")
         data = head.find_next("span", class_="popUpValue")
-        try:
-            flow = float(data.getText().split()[0].replace(",", "."))
-        except:
-            flow = None
+        flow = convert_to_float(data.getText().split()[0], True)
         head = link.find_next("span", string="Datum:")
         data = head.find_next("span", class_="popUpValue")
-        try:
-            last_update = datetime.strptime(
-                data.getText().strip().split()[0], "%d.%m.%Y%H:%M"
-            )
-        except:
-            last_update = None
+        last_update = convert_to_datetime(
+            data.getText().strip().split()[0], "%d.%m.%Y%H:%M"
+        )
         return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "sn_api.py: update_SN()") from err

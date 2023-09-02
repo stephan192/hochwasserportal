@@ -2,9 +2,14 @@
 
 from __future__ import annotations
 
-from datetime import datetime
-
-from .api_utils import DynamicData, LHPError, StaticData, fetch_soup
+from .api_utils import (
+    DynamicData,
+    LHPError,
+    StaticData,
+    convert_to_datetime,
+    convert_to_float,
+    fetch_soup,
+)
 
 
 def init_TH(ident: str) -> StaticData:  # pylint: disable=invalid-name
@@ -18,22 +23,14 @@ def init_TH(ident: str) -> StaticData:  # pylint: disable=invalid-name
         # Parse data
         for row in trs:
             tds = row.find_all("td")
-            cnt = 0
-            for tdata in tds:
-                if (cnt == 1) and (tdata.getText().strip() != ident[3:]):
-                    break
-                if cnt == 1:
-                    links = tdata.find_all("a")
-                    url = "https://hnz.thueringen.de" + links[0]["href"]
-                elif cnt == 2:
-                    name = tdata.getText().strip()
-                elif cnt == 3:
-                    name += " / " + tdata.getText().strip()
-                    break
-                cnt += 1
-            if cnt == 3:
-                break
-        return StaticData(ident=ident, name=name, url=url)
+            if len(tds) > 10:
+                if tds[1].getText().strip() != ident[3:]:
+                    continue
+                links = tds[1].find_all("a")
+                url = "https://hnz.thueringen.de" + links[0]["href"]
+                name = tds[2].getText().strip() + " / " + tds[3].getText().strip()
+                return StaticData(ident=ident, name=name, url=url)
+        return StaticData(ident=ident)
     except Exception as err:
         raise LHPError(err, "th_api.py: init_TH()") from err
 
@@ -49,27 +46,17 @@ def update_TH(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
         tbody = table.find_all("tbody")[0]
         trs = tbody.find_all("tr")
         # Parse data
-        last_update_str = None
         for row in trs:
             tds = row.find_all("td")
-            cnt = 0
-            for tdata in tds:
-                if (cnt == 1) and (tdata.getText().strip() != static_data.ident[3:]):
-                    break
-                if cnt == 7:
-                    last_update_str = tdata.getText().strip()
-                elif cnt == 8:
-                    level = float(tdata.getText().strip().replace(",", "."))
-                elif cnt == 10:
-                    flow = float(tdata.getText().strip().replace(",", "."))
-                    break
-                cnt += 1
-            if cnt == 10:
-                break
-        if last_update_str is not None:
-            last_update = datetime.strptime(last_update_str, "%d.%m.%Y %H:%M")
-        else:
-            last_update = None
-        return DynamicData(level=level, flow=flow, last_update=last_update)
+            if len(tds) > 10:
+                if tds[1].getText().strip() != static_data.ident[3:]:
+                    continue
+                last_update = convert_to_datetime(
+                    tds[7].getText().strip(), "%d.%m.%Y %H:%M"
+                )
+                level = convert_to_float(tds[8].getText().strip(), True)
+                flow = convert_to_float(tds[10].getText().strip(), True)
+                return DynamicData(level=level, flow=flow, last_update=last_update)
+        return DynamicData()
     except Exception as err:
         raise LHPError(err, "th_api.py: update_TH()") from err

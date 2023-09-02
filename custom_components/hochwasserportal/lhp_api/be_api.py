@@ -2,9 +2,17 @@
 
 from __future__ import annotations
 
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 
-from .api_utils import DynamicData, LHPError, StaticData, fetch_soup, fetch_text
+from .api_utils import (
+    DynamicData,
+    LHPError,
+    StaticData,
+    convert_to_datetime,
+    convert_to_float,
+    fetch_soup,
+    fetch_text,
+)
 
 
 def init_BE(ident: str) -> StaticData:  # pylint: disable=invalid-name
@@ -30,8 +38,8 @@ def init_BE(ident: str) -> StaticData:  # pylint: disable=invalid-name
                         + tds[0].find_next("a")["href"]
                     )
                     name = tds[1].getText().strip() + " / " + tds[4].getText().strip()
-                    break
-        return StaticData(ident=ident, name=name, url=url)
+                    return StaticData(ident=ident, name=name, url=url)
+        return StaticData(ident=ident)
     except Exception as err:
         raise LHPError(err, "be_api.py: init_BE()") from err
 
@@ -55,15 +63,11 @@ def update_BE(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
             if len(line) > 0:
                 values = line.split(";")
                 if len(values) == 2:
-                    try:
-                        level = float(values[1].replace(",", "."))
-                        if int(level) != -777:
-                            last_update = datetime.strptime(
-                                values[0], '"%d.%m.%Y %H:%M"'
-                            )
-                            break
-                    except:
-                        continue
+                    level = convert_to_float(values[1], True)
+                    if (level is not None) and (int(level) != -777):
+                        last_update = convert_to_datetime(values[0], "%d.%m.%Y %H:%M")
+                    if (level is not None) and (last_update is not None):
+                        break
         # Get data and parse flow data
         query = query.replace("thema=ows", "thema=odf")
         query = query.replace("thema=wws", "thema=wdf")
@@ -75,16 +79,15 @@ def update_BE(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
             if len(line) > 0:
                 values = line.split(";")
                 if len(values) == 2:
-                    try:
-                        flow = float(values[1].replace(",", "."))
-                        if int(flow) != -777:
-                            if last_update is None:
-                                last_update = datetime.strptime(
-                                    values[0], '"%d.%m.%Y %H:%M"'
-                                )
-                            break
-                    except:
-                        continue
+                    flow = convert_to_float(values[1], True)
+                    if (
+                        (flow is not None)
+                        and (int(flow) != -777)
+                        and (last_update is None)
+                    ):
+                        last_update = convert_to_datetime(values[0], "%d.%m.%Y %H:%M")
+                    if (flow is not None) and (last_update is not None):
+                        break
         return DynamicData(level=level, flow=flow, last_update=last_update)
     except Exception as err:
         raise LHPError(err, "be_api.py: update_BE()") from err

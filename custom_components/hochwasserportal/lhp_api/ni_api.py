@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
-from datetime import datetime
-
-from .api_utils import DynamicData, LHPError, StaticData, fetch_json
+from .api_utils import (
+    DynamicData,
+    LHPError,
+    StaticData,
+    convert_to_datetime,
+    convert_to_float,
+    convert_to_int,
+    fetch_json,
+)
 
 
 def init_NI(ident: str) -> StaticData:  # pylint: disable=invalid-name
@@ -32,10 +38,14 @@ def init_NI(ident: str) -> StaticData:  # pylint: disable=invalid-name
                     hint = entry["Internetbeschreibung"]
                 else:
                     hint = None
-                break
-        return StaticData(
-            ident=ident, name=name, internal_url=internal_url, url=url, hint=hint
-        )
+                return StaticData(
+                    ident=ident,
+                    name=name,
+                    internal_url=internal_url,
+                    url=url,
+                    hint=hint,
+                )
+        return StaticData(ident=ident)
     except Exception as err:
         raise LHPError(err, "ni_api.py: init_NI()") from err
 
@@ -47,20 +57,20 @@ def update_NI(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
         data = fetch_json(static_data.internal_url)
         # Parse data
         try:
-            stage = int(
+            stage = convert_to_int(
                 data["getStammdatenResult"][0]["Parameter"][0]["Datenspuren"][0][
                     "AktuelleMeldeStufe"
                 ]
             )
-        except (IndexError, KeyError, TypeError):
+        except (IndexError, KeyError):
             stage = None
         try:
-            value = float(
+            value = convert_to_float(
                 data["getStammdatenResult"][0]["Parameter"][0]["Datenspuren"][0][
                     "AktuellerMesswert"
                 ]
             )
-        except (IndexError, KeyError, TypeError):
+        except (IndexError, KeyError):
             value = None
         try:
             if data["getStammdatenResult"][0]["Parameter"][0]["Einheit"] == "cm":
@@ -72,17 +82,17 @@ def update_NI(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
             else:
                 level = None
                 flow = None
-        except (IndexError, KeyError, TypeError):
+        except (IndexError, KeyError):
             level = None
             flow = None
         try:
-            last_update = datetime.strptime(
+            last_update = convert_to_datetime(
                 data["getStammdatenResult"][0]["Parameter"][0]["Datenspuren"][0][
                     "AktuellerMesswert_Zeitpunkt"
                 ],
                 "%d.%m.%Y %H:%M",
             )
-        except (IndexError, KeyError, TypeError):
+        except (IndexError, KeyError):
             last_update = None
         return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:

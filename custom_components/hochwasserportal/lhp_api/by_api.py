@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
-from datetime import datetime
-
-from .api_utils import DynamicData, LHPError, StaticData, fetch_soup
+from .api_utils import (
+    DynamicData,
+    LHPError,
+    StaticData,
+    convert_to_datetime,
+    convert_to_float,
+    convert_to_int,
+    fetch_soup,
+)
 
 
 def init_BY(ident: str) -> StaticData:  # pylint: disable=invalid-name
@@ -36,24 +42,19 @@ def update_BY(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
         data = imgs[0]
         # Parse data
         if len(data.get("data-wert")) > 0:
-            level = float(str(data.get("data-wert")).replace(",", "."))
+            level = convert_to_float(str(data.get("data-wert")), True)
         else:
             level = None
         if len(data.get("data-wert2")) > 0:
-            flow = float(str(data.get("data-wert2")).replace(",", "."))
+            flow = convert_to_float(str(data.get("data-wert2")), True)
         else:
             flow = None
         if len(data.get("data-ms")) > 0:
-            stage = int(data.get("data-ms"))
+            stage = convert_to_int(data.get("data-ms"))
         else:
             stage = None
         if len(data.get("data-datum")) > 0:
-            try:
-                last_update = datetime.strptime(
-                    data.get("data-datum"), "%d.%m.%Y, %H:%M"
-                )
-            except:
-                last_update = None
+            last_update = convert_to_datetime(data.get("data-datum"), "%d.%m.%Y, %H:%M")
         else:
             last_update = None
         return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)

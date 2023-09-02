@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
-from datetime import datetime
-
-from .api_utils import DynamicData, LHPError, StaticData, calc_stage, fetch_json
+from .api_utils import (
+    DynamicData,
+    LHPError,
+    StaticData,
+    calc_stage,
+    convert_to_datetime,
+    convert_to_float,
+    fetch_json,
+)
 
 
 def init_RP(ident: str) -> StaticData:  # pylint: disable=invalid-name
@@ -36,14 +42,16 @@ def init_RP(ident: str) -> StaticData:  # pylint: disable=invalid-name
                 )
                 try:
                     stage_levels = [None] * 4
-                    stage_levels[0] = thresholds[key]["W"]["22"]
-                    stage_levels[1] = thresholds[key]["W"]["21"]
-                    stage_levels[2] = thresholds[key]["W"]["20"]
-                    stage_levels[3] = thresholds[key]["W"]["19"]
-                except:
+                    stage_levels[0] = convert_to_float(thresholds[key]["W"]["22"])
+                    stage_levels[1] = convert_to_float(thresholds[key]["W"]["21"])
+                    stage_levels[2] = convert_to_float(thresholds[key]["W"]["20"])
+                    stage_levels[3] = convert_to_float(thresholds[key]["W"]["19"])
+                except (IndexError, KeyError):
                     stage_levels = [None] * 4
-                break
-        return StaticData(ident=ident, name=name, url=url, stage_levels=stage_levels)
+                return StaticData(
+                    ident=ident, name=name, url=url, stage_levels=stage_levels
+                )
+        return StaticData(ident=ident)
     except Exception as err:
         raise LHPError(err, "rp_api.py: init_RP()") from err
 
@@ -58,20 +66,20 @@ def update_RP(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
         # Parse data
         last_update_str = None
         try:
-            level = float(data["W"]["yLast"])
+            level = convert_to_float(data["W"]["yLast"])
             stage = calc_stage(level, static_data.stage_levels)
             last_update_str = data["W"]["xLast"][:-1] + "+00:00"
-        except:
+        except (IndexError, KeyError):
             level = None
             stage = None
         try:
-            flow = float(data["Q"]["yLast"])
+            flow = convert_to_float(data["Q"]["yLast"])
             if last_update_str is None:
                 last_update_str = data["Q"]["xLast"][:-1] + "+00:00"
-        except:
+        except (IndexError, KeyError):
             flow = None
         if last_update_str is not None:
-            last_update = datetime.fromisoformat(last_update_str)
+            last_update = convert_to_datetime(last_update_str, "iso")
         else:
             last_update = None
         return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)

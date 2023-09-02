@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
@@ -20,100 +21,69 @@ class LHPError(Exception):
             super().__init__(f"{location}: {exception.__class__.__name__}: {exception}")
 
 
+@dataclass
 class StaticData:
     """Class containing the static data."""
 
-    def __init__(
-        self,
-        ident: str,
-        name: str = None,
-        internal_url: str = None,
-        url: str = None,
-        hint: str = None,
-        stage_levels: list[float] = None,
-    ) -> None:
-        """Initialize the static data class."""
-        self.ident = ident
-        self.name = name
-        self.internal_url = internal_url
-        self.url = url
-        self.hint = hint
-        if stage_levels is None:
-            self.stage_levels = [None] * 4
-        else:
-            self.stage_levels = stage_levels
+    ident: str
+    name: str = None
+    internal_url: str = None
+    url: str = None
+    hint: str = None
+    stage_levels: list[float] = None
 
 
+@dataclass
 class DynamicData:
     """Class containing the dynamic data."""
 
-    def __init__(
-        self,
-        level: float = None,
-        stage: int = None,
-        flow: float = None,
-        last_update: datetime = None,
-    ) -> None:
-        """Initialize the dynamic data class."""
-        self.level = level
-        self.stage = stage
-        self.flow = flow
-        self.last_update = last_update
+    level: float = None
+    stage: int = None
+    flow: float = None
+    last_update: datetime = None
 
 
 def fetch_json(url: str, timeout: float = 10.0) -> Any:
     """Fetch data via json."""
-    try:
-        response = get(url=url, timeout=timeout)
-        response.raise_for_status()
-        json_data = response.json()
-        return json_data
-    except:
-        # Don't care about errors because in some cases the requested page doesn't exist
-        return None
+    response = get(url=url, timeout=timeout)
+    response.raise_for_status()
+    json_data = response.json()
+    return json_data
 
 
 def fetch_soup(
     url: str, timeout: float = 10.0, remove_xml: bool = False
 ) -> BeautifulSoup:
     """Fetch data via soup."""
-    try:
-        response = get(url=url, timeout=timeout)
-        # Override encoding by real educated guess (required for SH)
-        response.encoding = response.apparent_encoding
-        response.raise_for_status()
-        if remove_xml and (
-            (response.text.find('<?xml version="1.0" encoding="ISO-8859-15" ?>')) == 0
-        ):
-            text = response.text[response.text.find("<!DOCTYPE html>") :]
-            soup = BeautifulSoup(text, "lxml")
-        else:
-            soup = BeautifulSoup(response.text, "lxml")
-        return soup
-    except:
-        # Don't care about errors because in some cases the requested page doesn't exist
-        return None
+    response = get(url=url, timeout=timeout)
+    # Override encoding by real educated guess (required for e.g. SH)
+    response.encoding = response.apparent_encoding
+    response.raise_for_status()
+    if remove_xml and (
+        (response.text.find('<?xml version="1.0" encoding="ISO-8859-15" ?>')) == 0
+    ):
+        text = response.text[response.text.find("<!DOCTYPE html>") :]
+        soup = BeautifulSoup(text, "lxml")
+    else:
+        soup = BeautifulSoup(response.text, "lxml")
+    return soup
 
 
 def fetch_text(url: str, timeout: float = 10.0, forced_encoding: str = None) -> str:
     """Fetch data via text."""
-    try:
-        response = get(url=url, timeout=timeout)
-        if forced_encoding is not None:
-            response.encoding = forced_encoding
-        else:
-            # Override encoding by real educated guess (required for BW)
-            response.encoding = response.apparent_encoding
-        response.raise_for_status()
-        return response.text
-    except:
-        # Don't care about errors because in some cases the requested page doesn't exist
-        return None
+    response = get(url=url, timeout=timeout)
+    if forced_encoding is not None:
+        response.encoding = forced_encoding
+    else:
+        # Override encoding by real educated guess (required for e.g. BW)
+        response.encoding = response.apparent_encoding
+    response.raise_for_status()
+    return response.text
 
 
 def calc_stage(level: float, stage_levels: list[float]) -> int:
     """Calc stage from level and stage levels."""
-    if all(sl is None for sl in stage_levels):
+    if (level is None) or all(sl is None for sl in stage_levels):
         return None
     if (stage_levels[3] is not None) and (level > stage_levels[3]):
         return 4
@@ -124,3 +94,31 @@ def calc_stage(level: float, stage_levels: list[float]) -> int:
     if (stage_levels[0] is not None) and (level > stage_levels[0]):
         return 1
     return 0
+
+
+def convert_to_int(value: str) -> int:
+    """Convert value to int."""
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def convert_to_float(value: str, _replace: bool = False) -> float:
+    """Convert value to float."""
+    if _replace:
+        value = value.replace(",", ".")
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def convert_to_datetime(value: str, _format: str) -> datetime:
+    """Convert value to datetime."""
+    try:
+        if _format == "iso":
+            return datetime.fromisoformat(value)
+        return datetime.strptime(value, _format)
+    except (TypeError, ValueError):
+        return None
