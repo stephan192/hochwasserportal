@@ -1958,6 +1958,7 @@
 | MV_5930040 | Hohnstorf / Elbe |
 | MV_59599.0 | Buchholz / Elde |
 | MV_59601.2 | Röbel / Dambecker Graben |
+| MV_59602.2 | Groß Kelle / Kellerbach |
 | MV_596030 | Waren / Müritz-Elde-Wasserstrasse |
 | MV_596080 | Plau OP / Müritz-Elde-Wasserstrasse |
 | MV_596090 | Plau UP / Müritz-Elde-Wasserstrasse |
@@ -1990,7 +1991,7 @@
 | MV_9650070 | Stahlbrode / Ostsee |
 | MV_9650073 | Greifswald Wiek / Ostsee |
 | MV_9650080 | Wolgast / Ostsee |
-| MV_9660001 | Anklam / Peene |
+| MV_9660001 | Anklam /  |
 | MV_9660005 | Jarmen / Peene |
 | MV_9660007 | Demmin / Peene |
 | MV_9660009 | Aalbude / Peene |
