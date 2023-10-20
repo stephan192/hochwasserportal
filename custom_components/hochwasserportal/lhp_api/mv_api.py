@@ -53,7 +53,7 @@ def update_MV(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
         level = convert_to_float(tds[3].getText().strip())
         flow = convert_to_float(tds[4].getText().strip())
         img = tds[4].find_next("img")
-        if (img is not None) and ("title" in img):
+        if (img is not None) and img.has_attr("title"):
             splits = img["title"].strip().split()
             if splits[0] == "Pegel-Stufe":
                 stage = convert_to_int(splits[1])
