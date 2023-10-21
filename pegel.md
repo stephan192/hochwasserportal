@@ -57,7 +57,7 @@
 | BB_5011600 | Mühlberg / Elbe |
 | BB_5012601 | Torgau / Elbe |
 | BB_5020700 | Barby / Elbe |
-| BB_5023500 | Tangermünde / --- |
+| BB_5023500 | Tangermünde / Elbe |
 | BB_5030500 | Wittenberge / Elbe |
 | BB_5031200 | Lenzen / Elbe |
 | BB_5530103 | Trado 3 / Schwarze Elster |
@@ -381,6 +381,7 @@
 | BE_5864801 | Am Kienberg / Hellersdorfer Graben |
 | BE_5865000 | Honsfelder Brücke / Wuhle |
 | BE_5865200 | Hoppendorfer Straße / Wuhle |
+| BE_5865300 | Am Bahndamm / Wuhle |
 | BE_5865900 | Allee der Kosmonauten / M.-H.-Grenzgr. |
 | BE_586600 | Berlin-Oberschleuse OP / Landwehrkanal |
 | BE_586610 | Berlin-Oberschleuse UP / Landwehrkanal |
@@ -1730,6 +1731,7 @@
 | HE_42881100 | Gungelshausen / Antreff |
 | HE_42881325 | Riebelsdorf / Grenff |
 | HE_42881552 | Treysa / Schwalm |
+| HE_42882226 | Gilsa / Gilsa |
 | HE_42882806 | Uttershausen / Schwalm |
 | HE_42883558 | Hebel / Efze |
 | HE_42900100 | Guntershausen / Fulda |
@@ -1828,6 +1830,7 @@
 | MV_04445.0 | Lüssow N / Hohensprenzer Mühlbach |
 | MV_04450.1 | Güstrow-Südost / Inselsee |
 | MV_04451.0 | Klein Upahl / Upahler See |
+| MV_04452.0 | Hohen Wangelin / Orthsee |
 | MV_04453.0 | Kirch Rosin / Teuchelbach |
 | MV_04455.2 | Liessow / Augraben |
 | MV_04455.5 | Dehmen / Augraben |
@@ -1881,6 +1884,7 @@
 | MV_04718.0 | Dahmen / Malchiner See |
 | MV_04719.4 | Ziddorf / Westpeene |
 | MV_04722.1 | Gielow Süd / Ostpeene |
+| MV_04724.0 | Rittermannshagen / Rittermannshg. See |
 | MV_04725.1 | Groß Gievitz / Ostpeene |
 | MV_04730.2 | Kittendorf / Kittendorfer Peene |
 | MV_04731.9 | Varchentin / Varchentiner See |
@@ -2098,7 +2102,6 @@
 | NI_9429105 | Vareler Schleuse / Nordsee |
 | NW_104 | Bad-Honnef / Rhein |
 | NW_12 | Muelheim / Ruhr |
-| NW_12341234 | Schledde / Olef |
 | NW_1234512345 | Soestbach / Soestbach |
 | NW_2420600700100 | Hellenthal / Platißbach |
 | NW_2581119000100 | Feudingen / Lahn |
@@ -2116,7 +2119,7 @@
 | NW_2721770000200 | Niederschelden / Sieg |
 | NW_2723830000200 | Morsbach / Wisserbach |
 | NW_2724900000100 | Heimborn (Rheinland-Pfalz) / Nister |
-| NW_2725851000100 | Muehleip / Eipbach |
+| NW_2725851000100 | Mühleip / Eipbach |
 | NW_2725910000100 | Eitorf / Sieg |
 | NW_2726599000100 | Broeleck / Bröl |
 | NW_2726900000100 | Broel / Bröl |
@@ -2301,6 +2304,7 @@
 | NW_4281334000100 | Aue / Preisdorf |
 | NW_4281490000100 | Raumland / Odeborn |
 | NW_4281591000100 | Beddelhausen / Eder |
+| NW_43 | D.-Flehe / Rhein |
 | NW_43100056 | Datteln-Hötting_Schleuse_NRW / Wesel Datteln Kanal |
 | NW_43100109 | WSV_Hann-Muenden / Weser |
 | NW_43900105 | WSV_Wahmbeck / Weser |
@@ -2330,10 +2334,12 @@
 | NW_4667100000100 | Oberahle / Else |
 | NW_4670000000100 | Loehne / Werre |
 | NW_47100100 | WSV_Porta / Weser |
+| NW_47138 | DuisburgLaar / Rhein |
 | NW_4714900000100 | Rodenbeck / Bastau |
 | NW_47300100 | WSV_Petershagen / Weser |
 | NW_4745000000100 | Bierde / Gehle |
 | NW_4761500000100 | Fiestel / Große Aue |
+| NW_504 | Bimmen / Rhein |
 | NW_9281330000100 | Daemmerwald / Issel |
 | NW_9281700000200 | Isselburg / Issel |
 | NW_9282570000100 | Rhedebruegge / Bocholter Aa |
@@ -2437,8 +2443,6 @@
 | RP_25800200 | Leun / Lahn |
 | RP_25800500 | Diez / Lahn |
 | RP_25800600 | Kalkofen_Neu / Lahn |
-| RP_25810558 | Biedenkopf / Lahn |
-| RP_25811190 | Feudingen / Lahn |
 | RP_25830056 | Marburg / Lahn |
 | RP_25870502 | Westerburg / Schafbach |
 | RP_25880506 | Zollhaus / Aar |
@@ -2710,6 +2714,7 @@
 | SH_9620085 | Travemünde / Trave |
 | SH_9620090 | Lübeck-Bauhof / Trave |
 | SL_1011120 | Oberthal / Blies |
+| SL_1012120 | Bliesen / Blies |
 | SL_1013120 | Alsfassen / Blies |
 | SL_1014120 | Urweiler / Todbach |
 | SL_1022120 | Ottweiler / Blies |
@@ -2766,6 +2771,8 @@
 | SL_1502120 | Mettlach / Saar |
 | SL_1631120 | Beeden / Erbach |
 | SL_1641120 | Ihn / Ihner Bach |
+| SL_1651120 | Körprich / Prims |
+| SL_1661120 | Bardenbach / Wahrnbach |
 | SN_1000000 | Hohberg / Rosenbach |
 | SN_1000001 | Burgneudorf / Kleine Spree |
 | SN_10000020 | Hagenwerder 3 / Lausitzer Neiße |

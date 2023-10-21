@@ -260,19 +260,22 @@ def get_mv_stations() -> tuple[str, str]:
         tds = row.find_all("td")
         if len(tds) > 1:
             name = tds[0].getText().strip() + " / " + tds[1].getText().strip()
-            link = tds[1].find_next("a")
-            href = link["href"]
-            if href.find("pegelnummer=") != -1:
-                ident = href[href.find("pegelnummer=") + 12 :]
-                ident = "MV_" + ident[: ident.find("&")]
-            elif href.find("pdf/pegelsteckbrief_") != -1:
-                ident = href[href.find("pdf/pegelsteckbrief_") + 20 :]
-                ident = "MV_" + ident[: ident.find(".pdf")]
-            else:
-                ident = "MV_" + href[: href.rfind(".")]
-                if ident.find("-q") != -1:
-                    ident = ident[: ident.find("-q")]
-            stations.append((ident, name))
+            link = tds[6].find("a")
+            if link is None:
+                link = tds[7].find("a")
+            if link is not None:
+                href = link["href"]
+                if href.find("pegelnummer=") != -1:
+                    ident = href[href.find("pegelnummer=") + 12 :]
+                    ident = "MV_" + ident[: ident.find("&")]
+                elif href.find("pdf/pegelsteckbrief_") != -1:
+                    ident = href[href.find("pdf/pegelsteckbrief_") + 20 :]
+                    ident = "MV_" + ident[: ident.find(".pdf")]
+                else:
+                    ident = "MV_" + href[: href.rfind(".")]
+                    if ident.find("-q") != -1:
+                        ident = ident[: ident.find("-q")]
+                stations.append((ident, name))
     return stations
 
 
