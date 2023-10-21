@@ -348,7 +348,7 @@ def get_sh_stations() -> tuple[str, str]:
 def get_sl_stations() -> tuple[str, str]:
     """Get all available stations for Saarland."""
     stations = []
-    data = fetch_text("https://iframe01.saarland.de/extern/wasser/Daten.js")
+    data = fetch_text("https://iframe01.saarland.de/extern/wasser/Daten.js", forced_encoding="ISO-8859-1")
     lines = data.split("\r\n")
     for line in lines:
         if line.find("Pegel(") != -1:
