@@ -388,7 +388,6 @@
 | BE_586620 | Berlin-Unterschleuse OP / Landwehrkanal |
 | BE_586630 | Berlin-Unterschleuse UP / Landwehrkanal |
 | BE_5866301 | Zoo / Landwehrkanal |
-| BE_586640 | Berlin-Ploetzensee OP / Berlin-Spandauer-Schifffahrtskanal |
 | BE_586650 | Berlin-Ploetzensee UP / Berlin-Spandauer-Schifffahrtskanal |
 | BE_5866700 | Schleuse Neukölln OP / Neuk. Schifffahrtskanal |
 | BE_5866800 | Schleuse Neukölln UP / Neuk. Schifffahrtskanal |
@@ -1570,10 +1569,12 @@
 | HE_23800690 | Rockenau / Neckar |
 | HE_23900200 | Worms / Rhein |
 | HE_23940359 | Fahrenbach / Weschnitz |
+| HE_23941602 | Heppenheim / Stadtbach |
 | HE_23942300 | Lorsch / Weschnitz |
 | HE_23950104 | Bensheim / Lauter |
 | HE_23950250 | Auerbach / Winkelbach |
 | HE_23960709 | Eberstadt / Modau |
+| HE_23980309 | Mönchbruch2 / Geräthsbach |
 | HE_23980353 | Nauheim / Schwarzbach |
 | HE_24480695 | Jossa-neu / Jossa |
 | HE_24700200 | Kleinheubach / Main |
@@ -1828,6 +1829,7 @@
 | MV_04441.0 | Krakow / Krakower See |
 | MV_04443.1 | Dobbin / Nebel |
 | MV_04445.0 | Lüssow N / Hohensprenzer Mühlbach |
+| MV_04449.0 | Malkwitz / Malkwitzer See |
 | MV_04450.1 | Güstrow-Südost / Inselsee |
 | MV_04451.0 | Klein Upahl / Upahler See |
 | MV_04452.0 | Hohen Wangelin / Orthsee |
@@ -1915,6 +1917,7 @@
 | MV_04861.0 | Heinrichswalde / Galenbecker See |
 | MV_04863.9 | Brohm OP Kleinbahnbrücke / Golmer Mühlbach |
 | MV_04864.2 | Brohm Beckenpegel / Talsperre |
+| MV_04864.8 | Brohm UP / Golmer Mühlbach |
 | MV_04867.1 | Groß Miltzow / Miltzower Bach |
 | MV_04870.1 | Friedland / Datze |
 | MV_04872.0 | Putzar / Putzarer See |
@@ -1995,7 +1998,7 @@
 | MV_9650070 | Stahlbrode / Ostsee |
 | MV_9650073 | Greifswald Wiek / Ostsee |
 | MV_9650080 | Wolgast / Ostsee |
-| MV_9660001 | Anklam /  |
+| MV_9660001 | Anklam / Peene |
 | MV_9660005 | Jarmen / Peene |
 | MV_9660007 | Demmin / Peene |
 | MV_9660009 | Aalbude / Peene |
