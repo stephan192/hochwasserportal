@@ -12,6 +12,8 @@ from .api_utils import (
     fetch_json,
 )
 
+import requests
+
 
 def get_basic_station_data(ident: str) -> tuple[str, str, str, str]:
     """Get basic station data."""
@@ -50,23 +52,27 @@ def get_basic_station_data(ident: str) -> tuple[str, str, str, str]:
 def get_stage_levels(internal_url: str) -> list[float]:
     """Get stage levels."""
     stage_levels = [None] * 4
-    alarmlevels = fetch_json(internal_url + "/W/alarmlevel.json")
-    for station_data in alarmlevels:
-        if (
-            "ts_name" in station_data
-            and "data" in station_data
-            and isinstance(station_data["data"], list)
-            and len(station_data["data"]) > 0
-        ):
-            # Check if ts_name is one of the desired values
-            if station_data["ts_name"] == "Alarmstufe 1":
-                stage_levels[0] = convert_to_float(station_data["data"][-1][1])
-            elif station_data["ts_name"] == "Alarmstufe 2":
-                stage_levels[1] = convert_to_float(station_data["data"][-1][1])
-            elif station_data["ts_name"] == "Alarmstufe 3":
-                stage_levels[2] = convert_to_float(station_data["data"][-1][1])
-            elif station_data["ts_name"] == "Alarmstufe 4":
-                stage_levels[3] = convert_to_float(station_data["data"][-1][1])
+    try:
+        alarmlevels = fetch_json(internal_url + "/W/alarmlevel.json")
+        for station_data in alarmlevels:
+            if (
+                "ts_name" in station_data
+                and "data" in station_data
+                and isinstance(station_data["data"], list)
+                and len(station_data["data"]) > 0
+            ):
+                # Check if ts_name is one of the desired values
+                if station_data["ts_name"] == "Alarmstufe 1":
+                    stage_levels[0] = convert_to_float(station_data["data"][-1][1])
+                elif station_data["ts_name"] == "Alarmstufe 2":
+                    stage_levels[1] = convert_to_float(station_data["data"][-1][1])
+                elif station_data["ts_name"] == "Alarmstufe 3":
+                    stage_levels[2] = convert_to_float(station_data["data"][-1][1])
+                elif station_data["ts_name"] == "Alarmstufe 4":
+                    stage_levels[3] = convert_to_float(station_data["data"][-1][1])
+    # eg, 502180/W/alarmlevel.json does not exist (404)
+    except requests.exceptions.HTTPError:
+        pass
     return stage_levels
 
 
@@ -102,6 +108,9 @@ def update_ST(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
             last_update_str_w = data[0]["data"][-1][0]
             level = convert_to_float(data[0]["data"][-1][1])
             stage = calc_stage(level, static_data.stage_levels)
+        # handling 404 etc
+        except requests.exceptions.HTTPError:
+            flow = None
         except (IndexError, KeyError):
             level = None
             stage = None
@@ -113,6 +122,9 @@ def update_ST(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
             # Parse data
             last_update_str_q = data[0]["data"][-1][0]
             flow = convert_to_float(data[0]["data"][-1][1])
+        # eg, 502170/Q/week.json does not exist (404)
+        except requests.exceptions.HTTPError:
+            flow = None
         except (IndexError, KeyError):
             flow = None
 
