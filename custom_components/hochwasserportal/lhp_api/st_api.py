@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import requests
+
 from .api_utils import (
     DynamicData,
     LHPError,
@@ -11,8 +13,6 @@ from .api_utils import (
     convert_to_float,
     fetch_json,
 )
-
-import requests
 
 
 def get_basic_station_data(ident: str) -> tuple[str, str, str, str]:
@@ -108,10 +108,8 @@ def update_ST(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
             last_update_str_w = data[0]["data"][-1][0]
             level = convert_to_float(data[0]["data"][-1][1])
             stage = calc_stage(level, static_data.stage_levels)
-        # handling 404 etc
-        except requests.exceptions.HTTPError:
-            flow = None
-        except (IndexError, KeyError):
+        # requests.exceptions.HTTPError for handling 404 etc
+        except (IndexError, KeyError, requests.exceptions.HTTPError):
             level = None
             stage = None
 
@@ -122,10 +120,8 @@ def update_ST(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
             # Parse data
             last_update_str_q = data[0]["data"][-1][0]
             flow = convert_to_float(data[0]["data"][-1][1])
-        # eg, 502170/Q/week.json does not exist (404)
-        except requests.exceptions.HTTPError:
-            flow = None
-        except (IndexError, KeyError):
+        # requests.exceptions.HTTPError for handling 404 etc
+        except (IndexError, KeyError, requests.exceptions.HTTPError):
             flow = None
 
         last_update = None
