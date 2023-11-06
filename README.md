@@ -31,6 +31,7 @@ This Home Assistant integration started as integration for the [Länderübergrei
 
 ## Notes
 * Not all stream gauges report all three values. If one or more values are unavailable check official site if stream gauge is down or if not which values are reported.
+* Some stream gauges are listed twice or even more often in [pegel.md](https://github.com/stephan192/hochwasserportal/blob/main/pegel.md), because they are listed on more than one state portal. Select the one of your choice.
 * `Level` reports the actual water level (in German *Pegelstand* or colloquially *Wasserstand*). A value in centimetres, starting from 0 cm = *Pegelnullpunktshöhe*.
 * `Stage` reports the actual warning stage (in German depending on ferderal state e.g. *Meldestufe* in Bavaria, *Alarmstufe* in Brandenburg). A number between 0 (=no flood) and 4 (= very large flood).
 * `Flow` reports the actual flow rate (in German *Abfluss* or *Durchfluss*). A value in m³/s.
