@@ -38,6 +38,7 @@ def init_TH(ident: str) -> StaticData:  # pylint: disable=invalid-name
 def update_TH(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Thüringen."""
     level = None
+    stage = None
     flow = None
     try:
         # Get data
@@ -51,12 +52,27 @@ def update_TH(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
             if len(tds) > 10:
                 if tds[1].getText().strip() != static_data.ident[3:]:
                     continue
+                if str(tds[6]).find("Hochwassermeldepegel") != -1:
+                    if "w3-purple" in row["class"]:
+                        stage = 4
+                    elif "w3-red" in row["class"]:
+                        stage = 3
+                    elif "w3-orange" in row["class"]:
+                        stage = 2
+                    elif "w3-yellow" in row["class"]:
+                        stage = 1
+                    else:
+                        stage = 0
+                else:
+                    stage = None
                 last_update = convert_to_datetime(
                     tds[7].getText().strip(), "%d.%m.%Y %H:%M"
                 )
                 level = convert_to_float(tds[8].getText().strip(), True)
                 flow = convert_to_float(tds[10].getText().strip(), True)
-                return DynamicData(level=level, flow=flow, last_update=last_update)
+                return DynamicData(
+                    level=level, stage=stage, flow=flow, last_update=last_update
+                )
         return DynamicData()
     except Exception as err:
         raise LHPError(err, "th_api.py: update_TH()") from err
