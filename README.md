@@ -4,6 +4,10 @@
 [![Validate with hassfest](https://github.com/stephan192/hochwasserportal/actions/workflows/hassfest.yml/badge.svg)](https://github.com/stephan192/hochwasserportal/actions/workflows/hassfest.yml)
 [![HACS Action](https://github.com/stephan192/hochwasserportal/actions/workflows/hacs.yml/badge.svg)](https://github.com/stephan192/hochwasserportal/actions/workflows/hacs.yml)
 
+[![Actively Maintained](https://img.shields.io/badge/Maintenance%20Level-Actively%20Maintained-green.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d)
+[![Code style: black](https://img.shields.io/badge/Code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Imports: isort](https://img.shields.io/badge/Imports-isort-1674b1.svg)](https://pycqa.github.io/isort/)
+
 This Home Assistant integration started as integration for the [Länderübergreifendes Hochwasser Portal (LHP)](https://www.hochwasserzentralen.de), but due to the fact that the LHP locked their formerly open API in July 2023 this integration was rewritten the query the 16 state portals to get all information. The positive side effect, now more pegel are available, because the different state portals didn't report all their pegel to the LHP. The negativ side effect, some of the state portals need to be queried by web scraping and therefore need to be adjusted if the portal's design changes.
 
 ## List of supported values
