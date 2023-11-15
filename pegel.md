@@ -526,7 +526,7 @@
 | BW_00147 | Ramsbach / Rench |
 | BW_00148 | Mosbach / Elz |
 | BW_00149 | Hausen / Zaber |
-| BW_00151 | Donaueschingen / Donau |
+| BW_00151 | Donaueschingen (Add.) / Donau |
 | BW_00152 | Schadberg / Blinde Rot |
 | BW_00153 | Wendlingen-Kläranlage / Neckar |
 | BW_00155 | Tegernau / Kleine Wiese |
@@ -1987,7 +1987,9 @@
 | MV_59848.0 | Klein Bengerstorf / Schaale |
 | MV_59859.0 | Camin / Schilde |
 | MV_59905.0 | Schwartow / Boize |
-| MV_9610085 | Travemünde / Trave |
+| MV_9620085 | Travemünde / Trave |
+| MV_9630007 | Timmendorf Poel / Ostsee |
+| MV_9630008 | Wismar-Baumhaus-Alt / Ostsee |
 | MV_9640002 | Rostock Mühlendamm OW / Warnow |
 | MV_9640015 | Warnemünde / Ostsee |
 | MV_9640018 | Rostock Mühlendamm UW / Warnow |
@@ -2002,14 +2004,12 @@
 | MV_9660005 | Jarmen / Peene |
 | MV_9660007 | Demmin / Peene |
 | MV_9660009 | Aalbude / Peene |
-| MV_9670030 | Wismar-Baumhaus-Alt / Ostsee |
 | MV_9670046 | Neuendorf Hafen / Ostsee |
 | MV_9670050 | Kloster / Ostsee |
 | MV_9670055 | Wittower Fähre / Ostsee |
 | MV_9670063 | Lauterbach / Ostsee |
 | MV_9670065 | Sassnitz / Ostsee |
 | MV_9670067 | Thiessow / Ostsee |
-| MV_9670070 | Timmendorf Poel / Ostsee |
 | MV_9690078 | Greifswald OIE / Ostsee |
 | MV_9690084 | Karnin / Kleines Haff |
 | MV_9690085 | Karlshagen / Ostsee |
