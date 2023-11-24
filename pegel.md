@@ -1799,6 +1799,7 @@
 | MV_03156.0 | Ralswiek / Gr. Jasmunder Bodden |
 | MV_03182.1 | Pudagla / Achterwasser |
 | MV_04341.1 | Börzow / Stepenitz |
+| MV_04347.1 | Klocksdorf / Röggeliner See |
 | MV_04360.0 | Eulenkrug / Tarnewitzer Bach |
 | MV_04370.0 | Rothentor / Wallensteingraben |
 | MV_04373.0 | Hohen Viecheln / Wallensteingraben |
@@ -2273,7 +2274,7 @@
 | NW_2843000000100 | Molzmuehle / Schwalm |
 | NW_2847500000100 | Pannenmuehle / Schwalm |
 | NW_2849900000100 | Landesgrenze / Schwalm |
-| NW_2850000000200 | Veert / Nierskanal |
+| NW_2850000000200 | Veert / Niers |
 | NW_2861530000100 | Bettrather_Dyck / Niers |
 | NW_2861700000100 | Oedt / Niers |
 | NW_2862500000100 | Sassenfeld / Nette |
@@ -2288,6 +2289,7 @@
 | NW_3125000000100 | Avenwedde / Dalkebach |
 | NW_3132900000100 | Marienfeld_W / Lutter |
 | NW_3166000000100 | Versmold_W / Hessel |
+| NW_3169000000100 | Milte / Hessel |
 | NW_3171000000100 | Einen / Ems |
 | NW_3190000000100 | Haskenau / Ems |
 | NW_3211000000300 | Ahlen / Werse |
@@ -2787,6 +2789,7 @@
 | SN_10000224 | Stroga / Elligastbach |
 | SN_10000226 | Hainsberg 7 / Wilde Weißeritz |
 | SN_10000241 | Kössern / Vereinigte Mulde |
+| SN_10000242 | Großbardau 1 / Parthe |
 | SN_10000244 | Zitzschen / Weiße Elster |
 | SN_10000246 | Kleinwolmsdorf / Schwarze Röder |
 | SN_10000260 | Freiberg / Münzbach |
@@ -2803,6 +2806,8 @@
 | SN_10000820 | Herzogswalde 2 / Triebisch |
 | SN_10000940 | Niederau / Niederauer Dorfbach |
 | SN_10000960 | Neusalza-Spremberg / Spree |
+| SN_10001040 | Großbardau / Schnellbach |
+| SN_10001060 | Glasten / Parthe |
 | SN_10001080 | Niederbobritzsch / Bobritzsch |
 | SN_10001120 | Sebnitz 3 / Sebnitz |
 | SN_1100001 | Rosenthal 1 / Lausitzer Neiße |
