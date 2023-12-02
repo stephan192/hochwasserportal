@@ -1462,7 +1462,6 @@
 | BY_24349003 | Atzhausen / Castellbach |
 | BY_24369000 | Marktbreit / Breitbach |
 | BY_24374805 | Würzburg / Pleichach |
-| BY_24381006 | Geldersheim / Wern |
 | BY_24381503 | Ettleben / Wern |
 | BY_24382304 | Arnstein / Wern |
 | BY_24385007 | Sachsenheim / Wern |
