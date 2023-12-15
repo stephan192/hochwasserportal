@@ -1097,7 +1097,6 @@
 | BY_16607001 | Inkofen / Amper |
 | BY_16609007 | Neumühlschwaig / Amper |
 | BY_16609109 | Moosburg / Amper |
-| BY_16609110 | Moosburg Q / Amper |
 | BY_16610709 | Oberammergau / Ammer |
 | BY_16612001 | Peißenberg / Ammer |
 | BY_16613004 | Weilheim / Ammer |
@@ -1970,6 +1969,7 @@
 | MV_596080 | Plau OP / Müritz-Elde-Wasserstrasse |
 | MV_596090 | Plau UP / Müritz-Elde-Wasserstrasse |
 | MV_59618.0 | Kronskamp / Müritz-Elde-Wasserstraße |
+| MV_59619.5 | Neustadt-Glewe / Neustädter See |
 | MV_596250 | Lewitz OP / Müritz-Elde-Wasserstrasse |
 | MV_596330 | Grabow OP / Müritz-Elde-Wasserstrasse |
 | MV_596370 | Eldena OP / Müritz-Elde-Wasserstrasse |
