@@ -2044,15 +2044,17 @@
 | NI_4821117 | Oker / Abzucht |
 | NI_4823104 | Schladen / Oker |
 | NI_4825109 | Ohrum / Oker |
-| NI_48254501 | Klein Mahner / Warne |
 | NI_4828120 | Glentorf / Schunter |
 | NI_4828132 | Niedersickte / Wabe |
 | NI_4828140 | Harxbüttel / Schunter |
 | NI_4829102 | Groß Schwülper / Oker |
 | NI_4833101 | Langlingen / Aller |
+| NI_4836128 | Beedenbostel / Aschau |
 | NI_4836129 | Lachendorf / Lachte |
 | NI_4845103 | Peine / Fuhse |
 | NI_4849104 | Wathlingen / Fuhse |
+| NI_4869108 | Feuerschützenbostel / Örtze |
+| NI_4872128 | Wieckenberg / Wietze |
 | NI_4881121 | Reckershausen / Leine |
 | NI_4881142 | Göttingen / Leine |
 | NI_4881166 | Leineturm / Leine |
@@ -2073,7 +2075,11 @@
 | NI_4888139 | Wunstorf / Westaue |
 | NI_4894119 | Brock / Böhme |
 | NI_4928107 | Holzkamp / Delme |
+| NI_4941115 | Lauenbrück F / Fintau |
+| NI_4941116 | Lauenbrück B75 / Wümme |
+| NI_4944120 | Worth / Wiedau |
 | NI_4945108 | Hellwege / Wümme |
+| NI_4946105 | Grasberg / Wörpe |
 | NI_4961125 | Schäferhof / Hunte |
 | NI_4964115 | Düste / Wagenfelder Aue |
 | NI_4965116 | Colnrade / Hunte |
