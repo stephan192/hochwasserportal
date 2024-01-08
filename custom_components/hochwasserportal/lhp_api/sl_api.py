@@ -70,6 +70,7 @@ def update_SL(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
                 if len(elements) == 9:
                     stage = calc_sl_stage(elements[3].strip())
                     level = convert_to_float(elements[6].strip())
+                    # Timestamps are always in CET/MEZ, ignoring daylight saving time
                     last_update = convert_to_datetime(
                         elements[7].strip() + "+0100", "%d.%m.%Y %H:%M%z"
                     )

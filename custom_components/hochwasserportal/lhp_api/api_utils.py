@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from bs4 import BeautifulSoup
 from requests import get
@@ -118,7 +119,14 @@ def convert_to_datetime(value: str, _format: str) -> datetime:
     """Convert value to datetime."""
     try:
         if _format == "iso":
-            return datetime.fromisoformat(value)
-        return datetime.strptime(value, _format)
+            dt = datetime.fromisoformat(value)
+        else:
+            dt = datetime.strptime(value, _format)
+        # Set timezone if not yet set
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=ZoneInfo("Europe/Berlin"))
+        # Convert datetime to UTC
+        dt_utc = dt.astimezone(UTC)
+        return dt_utc
     except (TypeError, ValueError):
         return None

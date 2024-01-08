@@ -74,6 +74,11 @@ def update_SH(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
                             element_text[2] + element_text[3] + "+0100",
                             "%d.%m.%Y%H:%M%z",
                         )
+                    elif element_text[4] == "(MESZ)":
+                        last_update = convert_to_datetime(
+                            element_text[2] + element_text[3] + "+0200",
+                            "%d.%m.%Y%H:%M%z",
+                        )
                     else:
                         last_update = convert_to_datetime(
                             element_text[2] + element_text[3], "%d.%m.%Y%H:%M"

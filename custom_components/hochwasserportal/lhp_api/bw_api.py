@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from json import loads
 
 from .api_utils import (
@@ -56,6 +57,16 @@ def init_BW(ident: str) -> StaticData:  # pylint: disable=invalid-name
         raise LHPError(err, "bw_api.py: init_BW()") from err
 
 
+def calc_last_update(time_str: str) -> datetime:
+    """Convert timestring to datetime object."""
+    parts = time_str.split()
+    if parts[2] == "MEZ":
+        return convert_to_datetime(parts[0] + parts[1] + "+0100", "%d.%m.%Y%H:%M%z")
+    if parts[2] == "MESZ":
+        return convert_to_datetime(parts[0] + parts[1] + "+0200", "%d.%m.%Y%H:%M%z")
+    return convert_to_datetime(parts[0] + parts[1], "%d.%m.%Y%H:%M")
+
+
 def update_BW(static_data: StaticData) -> DynamicData:  # pylint: disable=invalid-name
     """Update data for Baden-Württemberg."""
     try:
@@ -77,17 +88,11 @@ def update_BW(static_data: StaticData) -> DynamicData:  # pylint: disable=invali
                 if data[5] == "cm":
                     level = convert_to_float(data[4])
                     stage = calc_stage(level, static_data.stage_levels)
-                    parts = data[6].split()
-                    last_update = convert_to_datetime(
-                        parts[0] + parts[1], "%d.%m.%Y%H:%M"
-                    )
+                    last_update = calc_last_update(data[6])
                 if data[8] == "m³/s":
                     flow = convert_to_float(data[7])
                     if last_update is None:
-                        parts = data[9].split()
-                        last_update = convert_to_datetime(
-                            parts[0] + parts[1], "%d.%m.%Y%H:%M"
-                        )
+                        last_update = calc_last_update(data[9])
                 break
         return DynamicData(level=level, stage=stage, flow=flow, last_update=last_update)
     except Exception as err:
