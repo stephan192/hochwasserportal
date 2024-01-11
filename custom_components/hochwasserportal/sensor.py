@@ -1,21 +1,16 @@
 """Platform for sensor integration."""
 from __future__ import annotations
 
-import homeassistant.helpers.config_validation as cv
-import voluptuous as vol
 from homeassistant.components.sensor import (
-    PLATFORM_SCHEMA,
     SensorEntity,
     SensorEntityDescription,
     SensorStateClass,
 )
-from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import UnitOfLength
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.issue_registry import IssueSeverity, async_create_issue
-from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import (
@@ -23,10 +18,6 @@ from .const import (
     ATTR_HINT,
     ATTR_LAST_UPDATE,
     ATTR_URL,
-    CONF_FLOW,
-    CONF_LEVEL,
-    CONF_PEGEL,
-    CONF_STAGE,
     DOMAIN,
     FLOW_SENSOR,
     LEVEL_SENSOR,
@@ -34,15 +25,6 @@ from .const import (
     STAGE_SENSOR,
 )
 from .coordinator import HochwasserPortalCoordinator
-
-PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
-    {
-        vol.Required(CONF_PEGEL): cv.string,
-        vol.Optional(CONF_LEVEL, default=True): cv.boolean,
-        vol.Optional(CONF_STAGE, default=True): cv.boolean,
-        vol.Optional(CONF_FLOW, default=True): cv.boolean,
-    }
-)
 
 SENSOR_TYPES: tuple[SensorEntityDescription, ...] = (
     SensorEntityDescription(
@@ -70,30 +52,6 @@ SENSOR_TYPES: tuple[SensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
     ),
 )
-
-
-async def async_setup_platform(
-    hass: HomeAssistant,
-    config: ConfigType,
-    add_entities: AddEntitiesCallback,  # pylint: disable=unused-argument
-    discovery_info: DiscoveryInfoType | None = None,  # pylint: disable=unused-argument
-) -> None:
-    """Import the configurations from YAML to config flows."""
-    # Show issue as long as the YAML configuration exists.
-    async_create_issue(
-        hass,
-        DOMAIN,
-        "deprecated_yaml",
-        is_fixable=False,
-        severity=IssueSeverity.WARNING,
-        translation_key="deprecated_yaml",
-    )
-
-    hass.async_create_task(
-        hass.config_entries.flow.async_init(
-            DOMAIN, context={"source": SOURCE_IMPORT}, data=config
-        )
-    )
 
 
 async def async_setup_entry(

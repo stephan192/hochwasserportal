@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-import logging
 from datetime import timedelta
+import logging
 from typing import Final
 
 from homeassistant.const import Platform
@@ -13,10 +13,6 @@ LOGGER = logging.getLogger(__package__)
 DOMAIN: Final = "hochwasserportal"
 
 CONF_PEGEL_IDENTIFIER: Final = "pegel_identifier"
-CONF_PEGEL: Final = "pegel"
-CONF_LEVEL: Final = "level"
-CONF_STAGE: Final = "stage"
-CONF_FLOW: Final = "flow"
 
 ATTR_DATA_PROVIDERS: Final[dict[str, str]] = {
     "BB": "https://pegelportal.brandenburg.de",
