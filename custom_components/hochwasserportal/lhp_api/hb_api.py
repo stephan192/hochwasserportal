@@ -65,11 +65,15 @@ def get_stage_levels(pb_page: str, station_name: str) -> list[float]:
 def init_HB(ident: str) -> StaticData:  # pylint: disable=invalid-name
     """Init data for Bremen."""
     try:
-        # Get data from Pegelstände Bremen
+        # Get script url
         pb_page = fetch_text(
-            "https://geoportale.dp.dsecurecloud.de/pegelbremen/src.9b7ef0d4.js",
-            forced_encoding="utf-8",
+            "https://geoportale.dp.dsecurecloud.de/pegelbremen", forced_encoding="utf-8"
         )
+        js_file = pb_page[pb_page.find('<script src="') + 13 :].strip()
+        js_file = js_file[: js_file.find('"></script>')].strip()
+        js_url = "https://geoportale.dp.dsecurecloud.de/pegelbremen/" + js_file
+        # Get data from Pegelstände Bremen
+        pb_page = fetch_text(js_url, forced_encoding="utf-8")
         # Parse data - Get list of stations
         stations_string = pb_page[pb_page.find("pegelonlineStations:[") + 21 :].strip()
         stations_string = stations_string[: stations_string.find("],")].strip()

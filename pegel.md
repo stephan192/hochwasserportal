@@ -1979,7 +1979,6 @@
 | MV_59655.0 | Klinken / Klinker Kanal |
 | MV_596900 | Schwerin Werderbrücke / Stör-Wasserstrasse |
 | MV_596920 | Banzkow OP / Stör-Wasserstrasse |
-| MV_596930 | Banzkow UP / Stör-Wasserstrasse |
 | MV_59805.1 | Radelübbe / Sude |
 | MV_59810.0 | Garlitz / Sude |
 | MV_59831.0 | Laave / Rögnitz |
@@ -2044,6 +2043,7 @@
 | NI_4821117 | Oker / Abzucht |
 | NI_4823104 | Schladen / Oker |
 | NI_4825109 | Ohrum / Oker |
+| NI_48254501 | Klein Mahner / Warne |
 | NI_4828120 | Glentorf / Schunter |
 | NI_4828132 | Niedersickte / Wabe |
 | NI_4828140 | Harxbüttel / Schunter |
@@ -2279,7 +2279,7 @@
 | NW_2843000000100 | Molzmuehle / Schwalm |
 | NW_2847500000100 | Pannenmuehle / Schwalm |
 | NW_2849900000100 | Landesgrenze / Schwalm |
-| NW_2850000000200 | Veert / Niers |
+| NW_2850000000200 | Veert / Nierskanal |
 | NW_2861530000100 | Bettrather_Dyck / Niers |
 | NW_2861700000100 | Oedt / Niers |
 | NW_2862500000100 | Sassenfeld / Nette |
@@ -2326,12 +2326,14 @@
 | NW_4528900000100 | Brakel / Brucht |
 | NW_4529500000100 | Ottbergen / Nethe |
 | NW_45300109 | WSV_Hoexter / Weser |
+| NW_45300200 | WSV_Bodenwerder / Weser |
 | NW_4566900000100 | Blomberg / Diestelbach |
 | NW_4567000000100 | Schieder-Nessenberg / Emmer |
 | NW_4568900000100 | Schieder / Niese |
 | NW_4569300000100 | Schieder-Stausee / Emmer |
 | NW_45700207 | WSV_Hameln_Wehrbergen / Weser |
 | NW_4589000000100 | Uchtdorf / Exter |
+| NW_45900109 | WSV_Rinteln / Weser |
 | NW_45900208 | WSV_Vlotho / Weser |
 | NW_4619100000100 | Pottenhausen / Werre |
 | NW_4621900000100 | Vossheide / Bega |
@@ -2591,6 +2593,7 @@
 | RP_6271010 | Damelevieres / Meurthe |
 | RP_7 | Mersch / Alzette |
 | RP_7010610 | Custines / Mosel |
+| RP_850061001 | Uckange / Mosel |
 | RP_9021010 | Sarrebourg / Saar |
 | RP_9091050 | Keskastel / Saar |
 | RP_9091060 | Diedendorf / Saar |

@@ -187,9 +187,12 @@ def get_hb_stations() -> tuple[str, str]:
     """Get all available stations for Bremen."""
     stations = []
     data = fetch_text(
-        "https://geoportale.dp.dsecurecloud.de/pegelbremen/src.9b7ef0d4.js",
-        forced_encoding="utf-8",
+        "https://geoportale.dp.dsecurecloud.de/pegelbremen", forced_encoding="utf-8"
     )
+    js_file = data[data.find('<script src="') + 13 :].strip()
+    js_file = js_file[: js_file.find('"></script>')].strip()
+    js_url = "https://geoportale.dp.dsecurecloud.de/pegelbremen/" + js_file
+    data = fetch_text(js_url, forced_encoding="utf-8")
     stations_string = data[data.find("pegelonlineStations:[") + 21 :].strip()
     stations_string = stations_string[: stations_string.find("],")].strip()
     stations_names = stations_string.split(",")
