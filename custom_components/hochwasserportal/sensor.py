@@ -1,6 +1,9 @@
 """Platform for sensor integration."""
 from __future__ import annotations
 
+from collections.abc import Callable
+from dataclasses import dataclass
+
 from homeassistant.components.sensor import (
     SensorEntity,
     SensorEntityDescription,
@@ -25,31 +28,47 @@ from .const import (
     STAGE_SENSOR,
 )
 from .coordinator import HochwasserPortalCoordinator
+from .lhp_api import HochwasserPortalAPI
 
-SENSOR_TYPES: tuple[SensorEntityDescription, ...] = (
-    SensorEntityDescription(
+
+@dataclass(frozen=True, kw_only=True)
+class HochwasserPortalSensorEntityDescription(SensorEntityDescription):
+    """Describes HochwasserPortal sensor entity."""
+
+    value_fn: Callable[[HochwasserPortalAPI], int | float | None]
+    available_fn: Callable[[HochwasserPortalAPI], bool]
+
+
+SENSOR_TYPES: tuple[HochwasserPortalSensorEntityDescription, ...] = (
+    HochwasserPortalSensorEntityDescription(
         key=LEVEL_SENSOR,
         translation_key=LEVEL_SENSOR,
         icon="mdi:waves",
         native_unit_of_measurement=UnitOfLength.CENTIMETERS,
         device_class=None,
         state_class=SensorStateClass.MEASUREMENT,
+        value_fn=lambda api: api.level,
+        available_fn=lambda api: api.level is not None,
     ),
-    SensorEntityDescription(
+    HochwasserPortalSensorEntityDescription(
         key=STAGE_SENSOR,
         translation_key=STAGE_SENSOR,
         icon="mdi:waves-arrow-up",
         native_unit_of_measurement=None,
         device_class=None,
         state_class=SensorStateClass.MEASUREMENT,
+        value_fn=lambda api: api.stage,
+        available_fn=lambda api: api.stage is not None,
     ),
-    SensorEntityDescription(
+    HochwasserPortalSensorEntityDescription(
         key=FLOW_SENSOR,
         translation_key=FLOW_SENSOR,
         icon="mdi:waves-arrow-right",
         native_unit_of_measurement="m³/s",
         device_class=None,
         state_class=SensorStateClass.MEASUREMENT,
+        value_fn=lambda api: api.flow,
+        available_fn=lambda api: api.flow is not None,
     ),
 )
 
@@ -73,13 +92,14 @@ class HochwasserPortalSensor(
 ):
     """Sensor representation."""
 
+    entity_description: HochwasserPortalSensorEntityDescription
     _attr_has_entity_name = True
 
     def __init__(
         self,
         coordinator: HochwasserPortalCoordinator,
         entry: ConfigEntry,
-        description: SensorEntityDescription,
+        description: HochwasserPortalSensorEntityDescription,
     ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
@@ -97,11 +117,7 @@ class HochwasserPortalSensor(
     @property
     def native_value(self):
         """Return the state of the sensor."""
-        if self.entity_description.key == LEVEL_SENSOR:
-            return self.api.level
-        if self.entity_description.key == STAGE_SENSOR:
-            return self.api.stage
-        return self.api.flow
+        return self.entity_description.value_fn(self.api)
 
     @property
     def extra_state_attributes(self):
@@ -113,19 +129,11 @@ class HochwasserPortalSensor(
             data[ATTR_URL] = self.api.url
         if self.api.hint is not None:
             data[ATTR_HINT] = self.api.hint
-        return data
+        if bool(data):
+            return data
+        return None
 
     @property
     def available(self) -> bool:
         """Could the device be accessed during the last update call."""
-        if self.entity_description.key == LEVEL_SENSOR:
-            if self.api.level is not None:
-                return True
-            return False
-        if self.entity_description.key == STAGE_SENSOR:
-            if self.api.stage is not None:
-                return True
-            return False
-        if self.api.flow is not None:
-            return True
-        return False
+        return self.entity_description.available_fn(self.api)
