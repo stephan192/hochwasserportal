@@ -4,7 +4,8 @@
       "user": {
         "description": "Um den Pegel zu identifizieren, ist die Pegel-ID erforderlich.",
         "data": {
-          "pegel_identifier": "Pegel ID"
+          "pegel_identifier": "Pegel ID",
+          "add_unavailable": "Nicht verfügbare Entitäten trotzdem hinzufügen"
         }
       }
     },

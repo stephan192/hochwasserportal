@@ -21,6 +21,7 @@ from .const import (
     ATTR_HINT,
     ATTR_LAST_UPDATE,
     ATTR_URL,
+    CONF_ADD_UNAVAILABLE,
     DOMAIN,
     FLOW_SENSOR,
     LEVEL_SENSOR,
@@ -77,12 +78,14 @@ async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     """Set up entities from config entry."""
-    coordinator = hass.data[DOMAIN][entry.entry_id]
+    coordinator: HochwasserPortalCoordinator = hass.data[DOMAIN][entry.entry_id]
 
     async_add_entities(
         [
             HochwasserPortalSensor(coordinator, entry, description)
             for description in SENSOR_TYPES
+            if description.available_fn(coordinator.api)
+            or entry.data.get(CONF_ADD_UNAVAILABLE, False)
         ]
     )
 

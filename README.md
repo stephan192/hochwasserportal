@@ -8,7 +8,7 @@
 [![Code style: black](https://img.shields.io/badge/Code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Imports: isort](https://img.shields.io/badge/Imports-isort-1674b1.svg)](https://pycqa.github.io/isort/)
 
-This Home Assistant integration started as integration for the [Länderübergreifendes Hochwasser Portal (LHP)](https://www.hochwasserzentralen.de), but due to the fact that the LHP locked their formerly open API in July 2023 this integration was rewritten the query the 16 state portals to get all information. The positive side effect, now more pegel are available, because the different state portals didn't report all their pegel to the LHP. The negativ side effect, some of the state portals need to be queried by web scraping and therefore need to be adjusted if the portal's design changes.
+This Home Assistant integration started as integration for the [Länderübergreifendes Hochwasser Portal (LHP)](https://www.hochwasserzentralen.de), but due to the fact that the LHP locked their formerly open API in July 2023 this integration was rewritten to query the 16 state portals to get all information. The positive side effect, now more pegel are available, because the different state portals didn't report all their pegel to the LHP. The negativ side effect, some of the state portals need to be queried by web scraping and therefore need to be adjusted if the portal's design changes.
 
 ## List of supported values
 * :heavy_check_mark: Value mostly available. Check individual state portal because not all stream gauges report all values.
@@ -34,7 +34,7 @@ This Home Assistant integration started as integration for the [Länderübergrei
 | TH     | Thüringen              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | [Hochwassernachrichtenzentrale Thüringen](https://hnz.thueringen.de/hw-portal) |
 
 ## Notes
-* Not all stream gauges report all three values. If one or more values are unavailable check official site if stream gauge is down or if not which values are reported.
+* Not all stream gauges report all three values. If one or more values are not added check official site if stream gauge is down or if not which values are reported. Since v0.0.23 entities for unavailable values are by default not created to reduce the number of unnecessary entities in Home Assistant. To add the unavailable entities in anyway a checkbox during setup is available.
 * Some stream gauges are listed twice or even more often in [pegel.md](https://github.com/stephan192/hochwasserportal/blob/main/pegel.md), because they are listed on more than one state portal. Select the one of your choice.
 * `Level` reports the actual water level (in German *Pegelstand* or colloquially *Wasserstand*). A value in centimetres, starting from 0 cm = *Pegelnullpunktshöhe*.
 * `Stage` reports the actual warning stage (in German depending on ferderal state e.g. *Meldestufe* in Bavaria, *Alarmstufe* in Brandenburg). A number between 0 (=no flood) and 4 (= very large flood).

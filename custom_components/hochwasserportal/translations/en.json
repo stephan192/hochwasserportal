@@ -4,7 +4,8 @@
       "user": {
         "description": "To identify the pegel, the pegel ID is required.",
         "data": {
-          "pegel_identifier": "Pegel ID"
+          "pegel_identifier": "Pegel ID",
+          "add_unavailable": "Add unavailable entities anyway"
         }
       }
     },

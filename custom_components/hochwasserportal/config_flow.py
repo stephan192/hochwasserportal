@@ -10,7 +10,7 @@ from homeassistant.config_entries import ConfigFlow
 from homeassistant.data_entry_flow import FlowResult
 import homeassistant.helpers.config_validation as cv
 
-from .const import CONF_PEGEL_IDENTIFIER, DOMAIN, LOGGER
+from .const import CONF_ADD_UNAVAILABLE, CONF_PEGEL_IDENTIFIER, DOMAIN, LOGGER
 from .lhp_api import HochwasserPortalAPI, LHPError
 
 
@@ -18,6 +18,7 @@ class HochwasserPortalConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle the config flow for the hochwasserportal integration."""
 
     VERSION = 1
+    MINOR_VERSION = 2
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -57,6 +58,7 @@ class HochwasserPortalConfigFlow(ConfigFlow, domain=DOMAIN):
             data_schema=vol.Schema(
                 {
                     vol.Required(CONF_PEGEL_IDENTIFIER): cv.string,
+                    vol.Required(CONF_ADD_UNAVAILABLE, default=False): cv.boolean,
                 }
             ),
         )

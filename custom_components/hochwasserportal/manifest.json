@@ -10,5 +10,5 @@
   "issue_tracker": "https://github.com/stephan192/hochwasserportal/issues",
   "loggers": ["hochwasserportal"],
   "requirements": ["lxml>=4.6.2,<5", "beautifulsoup4>=4.9.3,<5"],
-  "version": "0.0.22"
+  "version": "0.0.23"
 }

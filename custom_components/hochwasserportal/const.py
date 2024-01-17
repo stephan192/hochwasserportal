@@ -13,6 +13,7 @@ LOGGER = logging.getLogger(__package__)
 DOMAIN: Final = "hochwasserportal"
 
 CONF_PEGEL_IDENTIFIER: Final = "pegel_identifier"
+CONF_ADD_UNAVAILABLE: Final = "add_unavailable"
 
 ATTR_DATA_PROVIDERS: Final[dict[str, str]] = {
     "BB": "https://pegelportal.brandenburg.de",
