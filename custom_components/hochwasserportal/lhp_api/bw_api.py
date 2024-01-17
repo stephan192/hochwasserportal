@@ -31,7 +31,7 @@ def init_BW(ident: str) -> StaticData:  # pylint: disable=invalid-name
             data = loads(content)["data"]
             if data[0] == ident[3:]:
                 name = data[1] + " / " + data[2]
-                url = "https://hvz.baden-wuerttemberg.de/pegel.html?id=" + ident[3:]
+                url = "https://www.hvz.baden-wuerttemberg.de/pegel.html?id=" + ident[3:]
                 stage_levels = [None] * 4
                 hmo_level = convert_to_float(data[24])
                 if (hmo_level is not None) and (hmo_level > 0.0):
