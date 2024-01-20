@@ -17,12 +17,6 @@
       "invalid_identifier": "[%key:component::hochwasserportal::config::error::invalid_identifier%]"
     }
   },
-  "issues": {
-    "deprecated_yaml": {
-      "title": "The länderübergreifendes Hochwasser Portal (LHP) YAML configuration is being removed",
-      "description": "Configuring länderübergreifendes Hochwasser Portal (LHP) using YAML is being removed.\n\nYour existing YAML configuration has been imported into the UI automatically.\n\nRemove the länderübergreifendes Hochwasser Portal (LHP) YAML configuration from your configuration.yaml file and restart Home Assistant to fix this issue."
-    }
-  },
   "entity": {
     "sensor": {
       "level": {
