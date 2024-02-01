@@ -83,25 +83,25 @@
 | BB_5547401 | Lindena 2 / Schacke |
 | BB_5548200 | Schönewalde / Schweinitzer Fließ |
 | BB_5800509 | Peetschsee, Steinförde / Seen |
-| BB_5800800 | Bredereiche, Schleuse OP / Havel |
+| BB_5800800 | Bredereiche OP / Havel |
 | BB_5802600 | Sachsenhausen, Sohlabsturz / Havel |
 | BB_5804102 | Potsdam, ABz-Bauhof / Havel |
 | BB_5804300 | Ketzin / Havel |
-| BB_5804400 | Brandenburg, Vorstadtschleuse OP / Havel |
-| BB_5804500 | Brandenburg, Vorstadtschleuse UP / Havel |
-| BB_5805200 | Rathenow, Albertsheim / Havel |
-| BB_5806200 | Bahnitz, Schleuse OP / Schleusenkanal Bahnitz |
-| BB_5806400 | Rathenow, Hauptschleuse OP / Havel |
-| BB_5806500 | Rathenow, Hauptschleuse UP / Havel |
-| BB_5807000 | Grütz, Schleuse OP / Havel |
-| BB_5807500 | Garz, Schleuse OP / Schleusenkanal Garz |
+| BB_5804400 | Brandenburg OP / Havel |
+| BB_5804500 | Brandenburg UP / Havel |
+| BB_5805200 | Albertsheim / Havel |
+| BB_5806200 | Bahnitz OP / Schleusenkanal Bahnitz |
+| BB_5806400 | Rathenow OP / Havel |
+| BB_5806500 | Rathenow UP / Havel |
+| BB_5807000 | Grütz OP / Havel |
+| BB_5807500 | Garz OP / Schleusenkanal Garz |
 | BB_5807900 | Havelberg Stadt / Havel |
 | BB_5810900 | Ravensbrück / Hegensteinfließ |
 | BB_5811701 | Küstrinchen, Wehr UP / Lychener Gewässer |
 | BB_5811800 | Lychen, Wehr OP / Lychener Gewässer |
 | BB_5812401 | Storkow / Schulzenfließ |
-| BB_5815400 | Liebenwalde, Schleuse OP / Obere Havel-Wasserstraße / Havel-Oder-Wasserstraße |
-| BB_5815500 | Liebenwalde, Schleuse UP / Obere Havel-Wasserstraße / Havel-Oder-Wasserstraße |
+| BB_5815400 | Liebenwalde OP / Obere Havel-Wasserstraße / Havel-Oder-Wasserstraße |
+| BB_5815500 | Liebenwalde UP / Obere Havel-Wasserstraße / Havel-Oder-Wasserstraße |
 | BB_5815901 | Borgsdorf / Havel |
 | BB_5816802 | Krewelin, Brücke / Havel |
 | BB_5817000 | Bischofswerder / Döllnfließ |
@@ -117,7 +117,7 @@
 | BB_5824700 | Leibsch, Spreewehr UP / Spree |
 | BB_5825500 | Beeskow, Spreeschleuse UP / Spree |
 | BB_5826000 | Neubrück, Schleuse OP / Spree |
-| BB_5826700 | Große Tränke, Wehr UP / Spree |
+| BB_5826700 | Große Tränke Wehr UP / Spree |
 | BB_5826801 | Alt Mönchwinkel 2 / Spree |
 | BB_5827000 | Hohenbinde / Spree |
 | BB_5827700 | Sophienwerder / Spree |
@@ -130,16 +130,16 @@
 | BB_5856600 | Rangsdorf, Wehr OP / Zülowkanal |
 | BB_5856800 | Mittenwalde, Verteilerwehr OP / Zülowkanal |
 | BB_5857000 | Goyatz 1 / Spree |
-| BB_5859500 | Kersdorf, Schleuse UP / Oder-Spree-Kanal |
+| BB_5859500 | Kersdorf UP / Oder-Spree-Kanal |
 | BB_5861600 | Märkisch Buchholz 2 / Dahme |
 | BB_5862201 | Prierow 2 / Dahme |
 | BB_5862500 | Prieros, Schleuse OP / Dahme |
 | BB_5862600 | Prieros, Schleuse UP / Dahme |
-| BB_5862800 | Neue Mühle, Schleuse UP / Dahme |
+| BB_5862800 | Neue Mühle Schleuse UP / Dahme |
 | BB_5862811 | Schmöckwitz, US / Dahme |
 | BB_5863001 | Teupitz 2 / Teupitzer Gewässer |
-| BB_5870200 | Kleinmachnow, Schleuse OP / Teltowkanal |
-| BB_5870801 | Zeestow, Einlassbauwerk UP / Havelkanal |
+| BB_5870200 | Kleinmachnow OP / Teltowkanal |
+| BB_5870801 | Zeestow, Einlassbauwerk UP / Großer Havelländischer Hauptkanal |
 | BB_5870901 | Jüterbog, Rückhaltebecken Einlauf / Nuthe |
 | BB_5871101 | Woltersdorf I, Wehr OP / Nuthe |
 | BB_5871102 | Woltersdorf I, Brücke / Nuthe |
@@ -160,7 +160,7 @@
 | BB_5874701 | Wenzlow, Forellenanlage / Verlorenwasser |
 | BB_5874900 | Mahlenzien, Wehr UP / Buckau |
 | BB_5875001 | Trebbin, Wehr OP / Nuthe |
-| BB_5875401 | Kade, U-Schall / Elbe-Havel-Kanal |
+| BB_5875401 | Kade / Elbe-Havel-Kanal |
 | BB_5878000 | Gröben, Wehr OP / Nuthe |
 | BB_5878800 | Zauchwitz, Wehr OP / Nieplitz |
 | BB_5879406 | Luckenwalde, Schwimmbad Elsthal / Nuthe |
@@ -218,20 +218,20 @@
 | BB_6030000 | Eisenhüttenstadt / Oder |
 | BB_6030201 | Eisenhüttenstadt, Schöpfwerk AP / Alter Abstieg |
 | BB_6030300 | Frankfurt (Oder) / Oder |
-| BB_6030301 | Frankfurt (Oder) 1 / Oder |
+| BB_6030301 | Frankfurt 1 (Oder) / Oder |
 | BB_6030400 | Kietz / Oder |
 | BB_6030500 | Kienitz / Oder |
 | BB_6030604 | Güstebieser Loose, Überleitung OP / Güstebieser Alte Oder |
 | BB_6030800 | Hohensaaten-Finow / Oder |
-| BB_6030900 | Hohensaaten, Ostschleuse AP / Verbindungskanal Hohensaaten Ost |
+| BB_6030900 | Hohensaaten Ost AP / Verbindungskanal Hohensaaten Ost |
 | BB_6031000 | Stützkow / Oder |
-| BB_6031100 | Schwedt, Schleuse AP / Schwedter Querfahrt |
-| BB_6031300 | Schwedt, Oderbrücke / Oder |
+| BB_6031100 | Schwedt Schleuse AP / Schwedter Querfahrt |
+| BB_6031300 | Schwedt-Oderbrücke / Oder |
 | BB_6031400 | Ratzdorf / Oder |
 | BB_6032000 | Reitwein, Überleitung OP / Oderaltarm bei Reitwein |
-| BB_6033100 | Hohensaaten, Westschleuse BP / Alte Oder |
-| BB_6034000 | Hohensaaten, Westschleuse AP / Alte Oder |
-| BB_6034100 | Schwedt, Schleuse BP / Alte Oder |
+| BB_6033100 | Hohensaaten West BP / Alte Oder |
+| BB_6034000 | Hohensaaten West AP / Alte Oder |
+| BB_6034100 | Schwedt Schleuse BP / Alte Oder |
 | BB_6034200 | Friedrichsthal / Alte Oder |
 | BB_6035100 | Gartz / Westoder |
 | BB_6035200 | Mescherin / Westoder |
@@ -982,7 +982,6 @@
 | BY_14615009 | Langenbruck / Frankenohe |
 | BY_14631005 | Vilseck / Schmalnohebach |
 | BY_14644801 | Obersdorf / Rosenbach |
-| BY_14656006 | Amberg / Ammerbach |
 | BY_14670505 | Raigering / Krumbach |
 | BY_14671000 | Gärmersdorf / Krumbach |
 | BY_14681003 | Kastl / Lauterach |
@@ -991,7 +990,6 @@
 | BY_15202300 | Chamerau / Regen |
 | BY_15204000 | Cham / Regen |
 | BY_15205501 | Kienhof / Regen |
-| BY_15207008 | Nittenau aufgelassen / Regen |
 | BY_15207055 | Nittenau / Regen |
 | BY_15207507 | Marienthal / Regen |
 | BY_15210206 | Zwiesel / Schwarzer Regen |
@@ -2109,6 +2107,7 @@
 | NI_9352100 | Leyhörn / Nordsee |
 | NI_9374105 | Bensersiel / Nordsee |
 | NI_9429105 | Vareler Schleuse / Nordsee |
+| NW_00000001 | Porta / Weser |
 | NW_104 | Bad-Honnef / Rhein |
 | NW_12 | Muelheim / Ruhr |
 | NW_1234512345 | Soestbach / Soestbach |
@@ -2512,7 +2511,7 @@
 | RP_26700200 | Detzem UP / Mosel |
 | RP_26700400 | Wintrich / Mosel |
 | RP_26700600 | Zeltingen / Mosel |
-| RP_26720505 | Fastrau / Etgesbach |
+| RP_26720505 | Fastrau / Feller Bach |
 | RP_26740273 | Oberkail / Lohsalm |
 | RP_26740284 | Meisburg-Deudesfeld / Salm |
 | RP_26740309 | Eisenschmitt / Salm |
@@ -2798,6 +2797,7 @@
 | SN_10000226 | Hainsberg 7 / Wilde Weißeritz |
 | SN_10000241 | Kössern / Vereinigte Mulde |
 | SN_10000242 | Großbardau 1 / Parthe |
+| SN_10000243 | Wildenhain / Schnauder |
 | SN_10000244 | Zitzschen / Weiße Elster |
 | SN_10000246 | Kleinwolmsdorf / Schwarze Röder |
 | SN_10000260 | Freiberg / Münzbach |
@@ -2947,7 +2947,6 @@
 | SN_577901 | Streitwald 1 / Wyhra |
 | SN_578091 | Albrechtshain 1 / Parthe |
 | SN_578110 | Leipzig-Thekla / Parthe |
-| SN_582000 | Ebersbach / Spree |
 | SN_582010 | Schirgiswalde / Spree |
 | SN_582032 | Bautzen UP 1 / Spree |
 | SN_582060 | Lieske / Spree |
