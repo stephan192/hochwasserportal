@@ -16,24 +16,22 @@ CONF_PEGEL_IDENTIFIER: Final = "pegel_identifier"
 CONF_ADD_UNAVAILABLE: Final = "add_unavailable"
 
 ATTR_DATA_PROVIDERS: Final[dict[str, str]] = {
-    "BB": "https://pegelportal.brandenburg.de",
-    "BE": "https://wasserportal.berlin.de",
-    "BW": "https://www.hvz.baden-wuerttemberg.de",
-    "BY": "https://www.hnd.bayern.de",
-    "HB": "https://geoportale.dp.dsecurecloud.de/pegelbremen",
-    "HE": "https://www.hochwasser-hessen.de",
-    "HH": "https://www.wabiha.de/karte.html",
-    "MV": "https://pegelportal-mv.de",
-    "NI": "https://www.pegelonline.nlwkn.niedersachsen.de",
-    "NW": "https://www.hochwasserportal.nrw.de",
-    "RP": "https://hochwasser.rlp.de",
-    "SH": "https://hsi-sh.de",
-    "SL": "https://www.saarland.de/mukmav/DE/portale/wasser/informationen"
-    + "/hochwassermeldedienst/wasserstaende_warnlage/wasserstaende_warnlage_node.html",
-    "SN": "https://www.umwelt.sachsen.de/umwelt/infosysteme/hwims/portal"
-    + "/web/wasserstand-uebersicht",
-    "ST": "https://hochwasservorhersage.sachsen-anhalt.de",
-    "TH": "https://hnz.thueringen.de/hw-portal",
+    "BB": "LfU Brandenburg",
+    "BE": "SenMVKU Berlin",
+    "BW": "LUBW Baden-Württemberg",
+    "BY": "LfU Bayern",
+    "HB": "SUKW Bremen",
+    "HE": "HLNUG",
+    "HH": "LSBG Hamburg",
+    "MV": "LUNG Mecklenburg-Vorpommern",
+    "NI": "NLWKN",
+    "NW": "LANUV Nordrhein-Westfalen",
+    "RP": "Luf Rheinland-Pfalz",
+    "SH": "Luf Schleswig-Holstein",
+    "SL": "LUA Saarland",
+    "SN": "LfULG Sachsen",
+    "ST": "Land Sachsen-Anhalt",
+    "TH": "TLUBN",
 }
 ATTR_LAST_UPDATE: Final = "last_update"
 ATTR_URL: Final = "url"

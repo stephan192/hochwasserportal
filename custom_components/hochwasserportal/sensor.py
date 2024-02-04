@@ -110,7 +110,11 @@ class HochwasserPortalSensor(
         self.entity_description = description
         self._attr_unique_id = f"{entry.unique_id}_{description.key}"
         self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, entry.entry_id)}, name=f"{entry.title}"
+            identifiers={(DOMAIN, entry.entry_id)},
+            name=f"{entry.title}",
+            configuration_url=self.api.url,
+            manufacturer=f"{ATTR_DATA_PROVIDERS[self.api.ident[:2]]}",
+            model=f"{self.api.ident}",
         )
         self._attr_attribution = (
             f"Data provided by {ATTR_DATA_PROVIDERS[self.api.ident[:2]]}"
