@@ -26,7 +26,7 @@ jobs:
         run: python update_pegel_list.py
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           commit-message: Update pegel.md
           title: Update pegel.md
