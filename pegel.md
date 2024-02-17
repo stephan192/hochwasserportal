@@ -1764,12 +1764,16 @@
 | HH_99079 | Wilhelm-Grimm-Straße / Wandse |
 | HH_99083 | Krugkoppelbrücke / Alster |
 | HH_99091 | Mantiusstraße / Bille |
+| HH_99109 | Nordschleswiger Straße / Osterbek |
 | HH_99121 | Fünfhausener Landweg / Fünfhausener Landwegwettern |
 | HH_99136 | Olloweg / Mühlenau |
 | HH_99137 | Billstedter Hauptstraße / Schleemer Bach |
 | HH_99154 | Niendorfer Weg / Tarpenbek |
 | HH_99182 | Pollhof / Alte Brookwetterung |
+| HH_99210 | Bramfelder Straße / Seebek |
 | HH_99256 | Rahmoor / Tarpenbek |
+| HH_99304 | Krohnstieg / Tarpenbek(RHB Krohnstieg) |
+| HH_99306 | An der Steinbek / Glinder Au |
 | HH_99328 | Torfhuder Stieg / Ammersbek |
 | HH_99329 | Berner Heerweg / Berner Au |
 | HH_99341 | Wandsbeker Allee / Wandse |
@@ -1778,9 +1782,11 @@
 | HH_99345 | Kellerbleek / Tarpenbek |
 | HH_99346 | Möörkenweg / Bille |
 | HH_99347 | Schmuggelstieg / Tarpenbek |
+| HH_99351 | Berner Allee / Berner Au |
 | HH_99352 | Am Hohen Hause / Wandse |
 | HH_99353 | Bäckerbrücke / Alster |
 | HH_99387 | Neuenfelder Hinterdeich / Moorwettern |
+| HH_99390 | An der Falkenbek / Falkengraben |
 | HH_99410 | Am Osdorfer Born / Düpenau |
 | HH_99428 | Grellkamp / Bornbach |
 | HH_99486 | Lohe / Diekbek |
@@ -1796,6 +1802,8 @@
 | MV_03182.1 | Pudagla / Achterwasser |
 | MV_04341.1 | Börzow / Stepenitz |
 | MV_04347.1 | Klocksdorf / Röggeliner See |
+| MV_04350.0 | Törber / Radegast |
+| MV_04353.0 | Gadebusch / Radegast |
 | MV_04360.0 | Eulenkrug / Tarnewitzer Bach |
 | MV_04370.0 | Rothentor / Wallensteingraben |
 | MV_04373.0 | Hohen Viecheln / Wallensteingraben |
@@ -1836,6 +1844,7 @@
 | MV_04456.0 | Dolgen / Dolgener See |
 | MV_04460.1 | Klueß / Lößnitz |
 | MV_04465.0 | Sternberger Burg / Mildenitz |
+| MV_04466.0 | Sternberg / Sternberger See |
 | MV_04473.0 | Dobbertin / Dobbertiner See |
 | MV_04478.0 | Goldberg / Mildenitz |
 | MV_04479.0 | Goldberg / Goldberger See |
@@ -2112,6 +2121,7 @@
 | NW_12 | Muelheim / Ruhr |
 | NW_1234512345 | Soestbach / Soestbach |
 | NW_2420600700100 | Hellenthal / Platißbach |
+| NW_2460100100100 | Welz / Merzbach |
 | NW_2581119000100 | Feudingen / Lahn |
 | NW_25900700 | WSV_Koblenz / Rhein |
 | NW_27100400 | WSV_Andernach / Rhein |
@@ -2136,10 +2146,10 @@
 | NW_2727890000100 | Niederpleis / Pleisbach |
 | NW_2728189000100 | Derschlag / Dörspe |
 | NW_2728219000100 | Oberagger / Steinagger |
-| NW_2728313000100 | Rebbelroth / Agger |
-| NW_2728510000200 | Ruenderoth (Verband) / Agger |
-| NW_2728759000100 | Overath / Agger |
-| NW_2728845300100 | Perke / Wiehl |
+| NW_2728313000100 | Rebbelroth (Agger Verband) / Agger |
+| NW_2728510000200 | Ruenderoth (Agger Verband) / Agger |
+| NW_2728759000100 | Overath (Agger Verband) / Agger |
+| NW_2728845300100 | Perke (Agger Verband) / Wiehl |
 | NW_2728849000100 | Hommerich / Kürtener Sülz |
 | NW_2728893000100 | Hoffnungsthal / Sülz |
 | NW_2728930000200 | Lohmar / Agger |
@@ -2172,9 +2182,11 @@
 | NW_2761510000100 | Meschede / Ruhr |
 | NW_2761695000100 | Wenholthausen / Wenne |
 | NW_2761759000100 | Oeventrop / Ruhr |
+| NW_2761829000100 | Endorf / Waldbach |
 | NW_2761895000100 | Mueschede / Röhr |
 | NW_2761990000200 | Neheim3 / Ruhr |
 | NW_2762510000100 | Belecke_1 / Möhne |
+| NW_2762510000300 | Belecke3 / Bormelsbach |
 | NW_2763190000100 | Bachum / Ruhr |
 | NW_2764190000100 | Balve-Garbeck / Hönne |
 | NW_2764511000100 | Balve_Helle / Hönne |
@@ -2189,6 +2201,7 @@
 | NW_2766199000100 | Kickenbach / Lenne |
 | NW_2766250000100 | Herrntrop / Hundem |
 | NW_2766530000100 | Roenkhausen / Lenne |
+| NW_2766645000100 | Oestertalsperre_Zu / Oester |
 | NW_2766926000200 | Rosmart / Fuelbecke |
 | NW_2766929300099 | Altena_Rahmedestrasse / Rahmede |
 | NW_2766930000100 | Altena / Lenne |
@@ -2206,6 +2219,7 @@
 | NW_2769649000100 | Nierenhof / Felderbach |
 | NW_2769720000200 | Essen-Hespertal / Hesperbach |
 | NW_2769720000300 | Essen-Poertingsiepen / Hesperbach |
+| NW_2769800000200 | Essen-Kettwig / Rinderbach |
 | NW_2770010 | WSV_Duisburg / Rhein |
 | NW_2770040 | WSV_Wesel / Rhein |
 | NW_2781100000100 | Lippspringe1 / Lippe |
@@ -2243,9 +2257,11 @@
 | NW_2788730000100 | Olfen-Fuecht.Muehle / Stever |
 | NW_2788819000100 | Merfeld / Heubach |
 | NW_2789100000100 | Haltern / Lippe |
+| NW_2789760000100 | Schermbeck2 / Schermbecker Mühlenbach |
 | NW_2789770000100 | Schermbeck_1 / Lippe |
 | NW_2790010 | WSV_Rees / Rhein |
 | NW_2790020 | WSV_Emmerich / Rhein |
+| NW_2799222000100 | Kranenburg / Groesbecker-Bach |
 | NW_2818100000200 | Suesterseel / Rodebach |
 | NW_2821530000200 | Monschau / Rur |
 | NW_2821790000100 | Dedenborn / Rur |
@@ -2258,15 +2274,17 @@
 | NW_2823900000100 | Selhausen / Rur |
 | NW_2823900000200 | Altenburg_1 / Rur |
 | NW_2824300000100 | KornelimuensterW / Inde |
+| NW_2824410000100 | Roetgen_W / Vichtbach |
 | NW_2824450000100 | Mulartshuette / Vichtbach |
 | NW_2824590000400 | Eschweiler / Inde |
+| NW_2824890000300 | Luchem / Wehebach |
 | NW_2824900000200 | Kirchberg1 / Inde |
-| NW_2824900000300 | Lamersdorf / Inde |
 | NW_2825190000200 | Juelich-Stadion / Rur |
 | NW_2825320000100 | Kirchberg2 / Altdorf-Kirchberg-Koslarer Mühlenteich |
 | NW_2825330000100 | Linnich / Rur |
 | NW_2827200000100 | Ratheim / Mühlenbach Ratheim |
 | NW_2827800000100 | Orsbeck / Schaagbach |
+| NW_2828100000100 | Kalkofen / Lahn |
 | NW_2828200000200 | Haaren / Haarbach |
 | NW_2828300000200 | Herzogenrath_1 / Wurm |
 | NW_2828400000200 | Herzogenrath_2 / Broicher Bach |
@@ -2291,6 +2309,7 @@
 | NW_3113000000100 | Steinhorst / Ems |
 | NW_3119000000200 | Rheda / Ems |
 | NW_3125000000100 | Avenwedde / Dalkebach |
+| NW_3128490000100 | Verl / Ölbach |
 | NW_3132900000100 | Marienfeld_W / Lutter |
 | NW_3166000000100 | Versmold_W / Hessel |
 | NW_3169000000100 | Milte / Hessel |
@@ -2303,16 +2322,19 @@
 | NW_3289100000100 | Wolbeck / Angel |
 | NW_3323000000200 | Roxeler / Münstersche Aa |
 | NW_3331000000100 | Greven / Ems |
+| NW_3345000000100 | Westladbergen / Glane |
 | NW_3389000000100 | Rheine_W / Hemelter Bach |
 | NW_3390020 | WSV_Rheine_Unterschleuse / Ems |
 | NW_3445900000100 | Hopsten / Hopstener Aa |
 | NW_3448310000600 | Lehen_2 / Ibbenbürener Aa |
 | NW_3448390000200 | Hoerstel / Ibbenbürener Aa |
+| NW_39492001 | Kaarst / Nordkanal |
 | NW_39899002 | Wesel / Lippe |
 | NW_4281319000100 | Muesse / Eder |
 | NW_4281334000100 | Aue / Preisdorf |
 | NW_4281490000100 | Raumland / Odeborn |
 | NW_4281591000100 | Beddelhausen / Eder |
+| NW_4284170000100 | Medelon_W / Orke |
 | NW_43 | D.-Flehe / Rhein |
 | NW_43100056 | Datteln-Hötting_Schleuse_NRW / Wesel Datteln Kanal |
 | NW_43100109 | WSV_Hann-Muenden / Weser |
@@ -2349,6 +2371,7 @@
 | NW_4714900000100 | Rodenbeck / Bastau |
 | NW_47300100 | WSV_Petershagen / Weser |
 | NW_4745000000100 | Bierde / Gehle |
+| NW_4761270000100 | Niedermehnen / Großer Dieckfluß |
 | NW_4761500000100 | Fiestel / Große Aue |
 | NW_504 | Bimmen / Rhein |
 | NW_9281330000100 | Daemmerwald / Issel |
@@ -2804,11 +2827,15 @@
 | SN_10000300 | Rittersgrün 1 / Pöhlwasser |
 | SN_10000320 | Oberneuschönberg / Flöha |
 | SN_10000380 | Schlößchen / Wilisch |
+| SN_10000400 | Hammerleubsdorf / Große Lößnitz |
+| SN_10000502 | Uhlsdorf / Herrnsdorf-Bräunsdorfer Bach |
 | SN_10000540 | Bienenmühle / Freiberger Mulde |
 | SN_10000580 | Buschmühle 1 / Kirnitzsch |
 | SN_10000620 | Röhrsdorf / Pleißenbach |
+| SN_10000621 | Flöha 2 / Zschopau |
 | SN_10000641 | Schlettau / Zschopau |
 | SN_10000680 | Straßberg 2 / Rosenbach |
+| SN_10000700 | Klotzsche / Prießnitz |
 | SN_10000780 | Friedrichstadt / Vereinigte Weißeritz |
 | SN_10000800 | Kleinzschepa / Lossa |
 | SN_10000820 | Herzogswalde 2 / Triebisch |
@@ -2818,6 +2845,8 @@
 | SN_10001060 | Glasten / Parthe |
 | SN_10001080 | Niederbobritzsch / Bobritzsch |
 | SN_10001120 | Sebnitz 3 / Sebnitz |
+| SN_10001580 | Kleinvoigtsberg 1 / Freiberger Mulde |
+| SN_10001720 | Raschau 1 / Weiße Elster |
 | SN_1100001 | Rosenthal 1 / Lausitzer Neiße |
 | SN_1100002 | Jänkendorf 1 / Schwarzer Schöps |
 | SN_1100003 | Hartau 1 / Lausitzer Neiße |
@@ -2831,7 +2860,6 @@
 | SN_530020 | Klingenthal 1 / Zwota (Svatava) |
 | SN_550110 | Kirnitzschtal / Kirnitzsch |
 | SN_550190 | Porschdorf 1 / Lachsbach |
-| SN_550302 | Sebnitz 2 / Sebnitz |
 | SN_550390 | Neustadt 1 / Polenz |
 | SN_550490 | Bielatal 1 / Biela |
 | SN_550560 | Cunnersdorf 1 / Cunnersdorfer Bach |
@@ -2852,6 +2880,7 @@
 | SN_551411 | Schmiedeberg 1 / Rote Weißeritz |
 | SN_551420 | Dippoldiswalde 1 / Rote Weißeritz |
 | SN_551465 | Hainsberg 5 / Rote Weißeritz |
+| SN_551510 | Bärenfels / Pöbelbach |
 | SN_551601 | Wilsdruff 1 / Wilde Sau |
 | SN_551811 | Munzig 1 / Triebisch |
 | SN_551820 | Garsebach / Triebisch |
