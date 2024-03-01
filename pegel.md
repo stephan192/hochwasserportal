@@ -19,7 +19,7 @@
 | BB_0498301 | Hardenbeck, Wehr UP / Hausseebruchgraben |
 | BB_0499700 | Suckow / Stierngraben |
 | BB_150170090 | Brzeg / Oder |
-| BB_150170130 | UJście Nysy Kłodzkiej / Oder |
+| BB_150170130 | Ujście Nysy Kłodzkiej / Oder |
 | BB_150170140 | Skorogoszcz / Nysa Klodzka |
 | BB_150180060 | Racibórz-Miedonia / Oder |
 | BB_151140010 | Gubin / Lausitzer Neiße |
@@ -1294,7 +1294,7 @@
 | BY_19141055 | Waldkirchen / Erlau |
 | BY_19145208 | Erlachleiten / Erlau |
 | BY_19168000 | Rannasäge / Ranna |
-| BY_20001500 | Lindau / Bodensee |
+| BY_20001001 | Lindau / Bodensee |
 | BY_21513155 | Scheidegg HRB Beckenpegel / HRB Scheidegg |
 | BY_21514600 | Unterhochsteg / Leiblach |
 | BY_21516505 | Aeschach / Oberreitnauer Ach |
