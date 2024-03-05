@@ -9,9 +9,9 @@ import voluptuous as vol
 from homeassistant.config_entries import ConfigFlow
 from homeassistant.data_entry_flow import FlowResult
 import homeassistant.helpers.config_validation as cv
+from lhpapi import HochwasserPortalAPI, LHPError
 
 from .const import CONF_ADD_UNAVAILABLE, CONF_PEGEL_IDENTIFIER, DOMAIN, LOGGER
-from .lhp_api import HochwasserPortalAPI, LHPError
 
 
 class HochwasserPortalConfigFlow(ConfigFlow, domain=DOMAIN):

@@ -15,6 +15,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from lhpapi import HochwasserPortalAPI
 
 from .const import (
     ATTR_DATA_PROVIDERS,
@@ -29,7 +30,6 @@ from .const import (
     STAGE_SENSOR,
 )
 from .coordinator import HochwasserPortalCoordinator
-from .lhp_api import HochwasserPortalAPI
 
 
 @dataclass(frozen=True, kw_only=True)
