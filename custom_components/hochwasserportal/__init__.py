@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from lhpapi import HochwasserPortalAPI, LHPError
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from lhpapi import HochwasserPortalAPI, LHPError
 
 from .const import (
     CONF_ADD_UNAVAILABLE,

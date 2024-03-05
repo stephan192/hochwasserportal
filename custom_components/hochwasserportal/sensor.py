@@ -4,6 +4,8 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 
+from lhpapi import HochwasserPortalAPI
+
 from homeassistant.components.sensor import (
     SensorEntity,
     SensorEntityDescription,
@@ -15,7 +17,6 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from lhpapi import HochwasserPortalAPI
 
 from .const import (
     ATTR_DATA_PROVIDERS,

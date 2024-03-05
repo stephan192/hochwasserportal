@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from typing import Any
 
+from lhpapi import HochwasserPortalAPI, LHPError
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigFlow
 from homeassistant.data_entry_flow import FlowResult
 import homeassistant.helpers.config_validation as cv
-from lhpapi import HochwasserPortalAPI, LHPError
 
 from .const import CONF_ADD_UNAVAILABLE, CONF_PEGEL_IDENTIFIER, DOMAIN, LOGGER
 

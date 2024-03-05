@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from lhpapi import HochwasserPortalAPI, LHPError
+
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from lhpapi import HochwasserPortalAPI, LHPError
 
 from .const import DEFAULT_SCAN_INTERVAL, DOMAIN, LOGGER
 
