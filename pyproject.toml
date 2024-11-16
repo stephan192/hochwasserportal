@@ -44,4 +44,7 @@ combine_as_imports = true
 recursive = true
 
 [tool.pylint."messages control"]
-disable = ["unexpected-keyword-arg"]
+disable = [
+    "unexpected-keyword-arg",
+    "abstract-method",
+]
