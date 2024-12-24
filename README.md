@@ -35,7 +35,7 @@ This Home Assistant integration started as integration for the [Länderübergrei
 
 ## Notes
 * Not all stream gauges report all three values. If one or more values are not added check official site if stream gauge is down or if not which values are reported. Since v0.0.23 entities for unavailable values are by default not created to reduce the number of unnecessary entities in Home Assistant. To add the unavailable entities in anyway a checkbox during setup is available.
-* Some stream gauges are listed twice or even more often in [pegel.md](https://github.com/stephan192/lhpapi/blob/master/docs/pegel.md), because they are listed on more than one state portal. Select the one of your choice.
+* Some stream gauges are listed twice or even more often in [pegel.md](https://github.com/stephan192/lhpapi/blob/master/docs/pegel.md) and the combobox, because they are listed on more than one state portal. Select the one of your choice.
 * `Level` reports the actual water level (in German *Pegelstand* or colloquially *Wasserstand*). A value in centimetres, starting from 0 cm = *Pegelnullpunktshöhe*.
 * `Stage` reports the actual warning stage (in German depending on ferderal state e.g. *Meldestufe* in Bavaria, *Alarmstufe* in Brandenburg). A number between 0 (=no flood) and 4 (= very large flood).
 * `Flow` reports the actual flow rate (in German *Abfluss* or *Durchfluss*). A value in m³/s.
@@ -54,7 +54,7 @@ This Home Assistant integration started as integration for the [Länderübergrei
 ## Configuration
 * The integration can only be configured by using config flow.
 * Add the integration by pressing the **"+ADD INTEGRATION"** on the **Settings - Integrations** page and select **"Länderübergreifendes Hochwasser Portal"** from the drop-down menu.
-* Enter a valid pegel-ID. **A full list of valid pegels can be found [here](https://github.com/stephan192/lhpapi/blob/master/docs/pegel.md).**
+* Enter a valid pegel-ID (select via combobox). **A full list of valid pegels can be found [here](https://github.com/stephan192/lhpapi/blob/master/docs/pegel.md).**
 * For multiple locations, just repeat with each pegel-ID.
 
 ## Result

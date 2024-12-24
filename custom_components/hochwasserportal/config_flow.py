@@ -4,12 +4,18 @@ from __future__ import annotations
 
 from typing import Any
 
-from lhpapi import HochwasserPortalAPI, LHPError
+from lhpapi import HochwasserPortalAPI, LHPError, get_all_stations
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigFlow
 from homeassistant.data_entry_flow import FlowResult
 import homeassistant.helpers.config_validation as cv
+from homeassistant.helpers.selector import (
+    SelectOptionDict,
+    SelectSelector,
+    SelectSelectorConfig,
+    SelectSelectorMode,
+)
 
 from .const import CONF_ADD_UNAVAILABLE, CONF_PEGEL_IDENTIFIER, DOMAIN, LOGGER
 
@@ -50,12 +56,29 @@ class HochwasserPortalConfigFlow(ConfigFlow, domain=DOMAIN):
 
                 return self.async_create_entry(title=f"{api.name}", data=user_input)
 
+        stations_dict = await self.hass.async_add_executor_job(get_all_stations)
+        LOGGER.debug(
+            "%i stations found on Github",
+            len(stations_dict),
+        )
+        stations = [SelectOptionDict(value="---", label="")]
+        stations.extend(
+            SelectOptionDict(value=k, label=f"{v} ({k})")
+            for k, v in stations_dict.items()
+        )
         return self.async_show_form(
             step_id="user",
             errors=errors,
             data_schema=vol.Schema(
                 {
-                    vol.Required(CONF_PEGEL_IDENTIFIER): cv.string,
+                    vol.Required(CONF_PEGEL_IDENTIFIER): SelectSelector(
+                        SelectSelectorConfig(
+                            options=stations,
+                            mode=SelectSelectorMode.DROPDOWN,
+                            sort=True,
+                            custom_value=True,
+                        )
+                    ),
                     vol.Required(CONF_ADD_UNAVAILABLE, default=False): cv.boolean,
                 }
             ),
