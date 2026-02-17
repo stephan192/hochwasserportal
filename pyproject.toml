@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hochwasserportal"
-version = "1.0.7"
+version = "1.0.8"
 authors = [
     { name="stephan192", email="stephan192@outlook.com" },
 ]
@@ -20,7 +20,7 @@ classifiers = [
 ]
 dependencies = [
     "homeassistant>=2024.2.5",
-    "lhpapi>=1.0.9",
+    "lhpapi>=1.0.10",
     "voluptuous>=0.13.1",
 ]
 
